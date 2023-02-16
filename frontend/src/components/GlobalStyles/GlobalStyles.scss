@@ -6,10 +6,10 @@
     --black: #000;
     --text-color: #161823;
     --white: #fff;
+    --blue: #3366cc;
 
     // Default layout
     --default-layout-header-height: 60px;
-    --default-layout-width: 100%;
     --default-layout-horizontal-spacer: 24px;
 }
 
@@ -29,22 +29,29 @@ body {
 }
 
 // Scrollbar CSS
-html *::-webkit-scrollbar {
-    border-radius: 0;
-    width: 8px;
+body::-webkit-scrollbar {
+    width: 16px;
 }
 
-html *::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.15);
+body:not([no-y-overflow])::-webkit-scrollbar-thumb {
+    height: 56px;
+    border-radius: 8px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+    background-color: #606060;
+}
+
+body::-webkit-scrollbar-thumb {
+    height: 56px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+    background-color: hsl(0, 0%, 67%);
 }
 
 
-
-html *::-webkit-scrollbar-track {
-    border-radius: 0;
-    background-color: rgba(0, 0, 0, 0);
-}
 
 
 button,
@@ -54,8 +61,34 @@ input,
     border: none;
 }
 
-
-a {
+a[href] {
     color: var(--text-color);
     text-decoration: none;
+}
+
+
+
+//  CUSTOM CSS ANT DESIGN
+
+
+// Change color tooltip
+.ant-tooltip {
+    opacity: 80% !important;
+}
+
+.ant-menu-item-selected {
+    color: var(--primary) !important;
+    background-color: #f7f7f7 !important;
+}
+
+// .ant-layout {
+//     position: relative !important;
+// }
+
+// .ant-layout-sider {}
+
+// Button Trigger ">"
+.ant-layout-sider-trigger {
+    background-color: var(--white) !important;
+    color: var(--primary) !important;
 }

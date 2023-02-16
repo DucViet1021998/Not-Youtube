@@ -1,62 +1,48 @@
-import Header from './Header';
+import { Layout, theme } from 'antd';
 
+import Header from './Header';
+import SideBar from './SideBar';
 
 // import classNames from 'classnames/bind';
 // import styles from './DefaultLayout.module.scss';
-// import Sidebar from './SideBar';
-
 // const cx = classNames.bind(styles);
 
-// function DefaultLayout({ children }) {
-//     return (
-
-//         <div className={cx('wrapper')}>
-
-//             <div className={cx('container')}>
-//                 <Sidebar />
-//                 <div className={cx('content')}>{children}</div>
-//             </div>
-//         </div>
-//     );
-// }
-// export default DefaultLayout;
 
 
-import { Layout, theme } from 'antd';
-import SideBar from './SideBar';
 const { Content } = Layout;
 
-
-const DefaultLayout = () => {
+const DefaultLayout = ({ children }) => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+
+
+
     return (
-        <Layout
-            style={{
-                minHeight: '100vh',
-            }}
-        >
-            {/* <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                <div
+
+        <Layout>
+
+            <SideBar style={{
+                overflow: 'auto',
+                height: '100vh',
+                position: 'fixed',
+                left: 0,
+                top: 0,
+                bottom: 0,
+            }} />
+
+            <Layout className="site-layout"
+                style={{
+                    position: 'relative'
+                }}>
+                <Header
                     style={{
-                        height: 32,
-                        margin: 16,
-                        background: 'rgba(255, 255, 255, 0.2)',
+                        position: 'fixed',
+                        top: 0,
+                        zIndex: 1,
+                        width: '100%',
                     }}
                 />
-                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
-            </Sider> */}
-            <SideBar />
-            <Layout className="site-layout">
-                {/* <Header
-                    style={{
-                        padding: 0,
-                        background: colorBgContainer,
-                    }}
-                /> */}
-                <Header />
-
                 <Content
                     style={{
                         margin: '0 16px',
@@ -66,16 +52,18 @@ const DefaultLayout = () => {
                     <div
                         style={{
                             padding: 24,
-                            minHeight: 360,
+                            minHeight: 1000,
                             background: colorBgContainer,
                         }}
                     >
-                        Bill is a cat.
+                        {children}
                     </div>
                 </Content>
 
             </Layout>
-        </Layout>
+
+        </Layout >
+
     );
 };
 

@@ -5,6 +5,7 @@ import { DefaultLayout } from '~/layouts/DefaultLayout';
 
 
 
+
 function App() {
   return (
     <Router>
@@ -26,6 +27,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+
   );
 }
 
