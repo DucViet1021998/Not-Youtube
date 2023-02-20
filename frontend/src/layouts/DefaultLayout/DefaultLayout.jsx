@@ -20,16 +20,9 @@ const DefaultLayout = ({ children }) => {
 
     return (
 
-        <Layout>
+        <Layout  >
 
-            <SideBar style={{
-                overflow: 'auto',
-                height: '100vh',
-                position: 'fixed',
-                left: 0,
-                top: 0,
-                bottom: 0,
-            }} />
+            <SideBar />
 
             <Layout className="site-layout"
                 style={{
@@ -52,7 +45,7 @@ const DefaultLayout = ({ children }) => {
                     <div
                         style={{
                             padding: 24,
-                            minHeight: 1000,
+                            minHeight: 2000,
                             background: colorBgContainer,
                         }}
                     >

@@ -1,13 +1,13 @@
-// import { Layout, Menu } from 'antd';
-// import { HomeFilled, UserOutlined } from '@ant-design/icons';
-// import classNames from 'classnames/bind';
-// import styles from './Sidebar.module.scss';
-// const cx = classNames.bind(styles);
-
-import { UserOutlined, HomeFilled, FormOutlined } from '@ant-design/icons';
+import { HomeFilled } from '@ant-design/icons';
 import { Menu, Layout } from 'antd';
 import { Link } from 'react-router-dom';
 const { Sider } = Layout;
+
+
+// import classNames from 'classnames/bind';
+// import styles from './SidebarDashboard.module.scss';
+// const cx = classNames.bind(styles);
+
 function getItem(label, key, icon, children) {
     return {
         key,
@@ -19,11 +19,11 @@ function getItem(label, key, icon, children) {
 const items = [
     getItem(<Link to={'/'}>Home</Link>, '1', <HomeFilled />),
 
-    getItem(<Link to={'/login'}>Log in</Link>, '2', <UserOutlined />,
-    ),
+    // getItem(<Link to={'/login'}>Log in</Link>, '2', <UserOutlined />,
+    // ),
 
-    getItem(<Link to={'/register'}>Sign up</Link>, '3', <FormOutlined />,
-    ),
+    // getItem(<Link to={'/register'}>Sign up</Link>, '3', <FormOutlined />,
+    // ),
 ];
 function Sidebar() {
 

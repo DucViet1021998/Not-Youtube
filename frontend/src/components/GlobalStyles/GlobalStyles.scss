@@ -3,10 +3,11 @@
 
 :root {
     --primary: #fe2c55;
-    --black: #000;
+    --black: #252525;
     --text-color: #161823;
     --white: #fff;
-    --blue: #3366cc;
+    --dark-blue: #0164e6;
+    --light-blue: #a9d7ff;
 
     // Default layout
     --default-layout-header-height: 60px;
@@ -26,30 +27,27 @@ body {
     line-height: 1.5;
     text-rendering: optimizespeed;
     overflow-y: overlay;
+    user-select: none;
 }
 
 // Scrollbar CSS
-body::-webkit-scrollbar {
-    width: 16px;
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
 }
 
-body:not([no-y-overflow])::-webkit-scrollbar-thumb {
-    height: 56px;
-    border-radius: 8px;
-    border: 4px solid transparent;
-    background-clip: content-box;
-    background-color: #606060;
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.15);
 }
 
-body::-webkit-scrollbar-thumb {
-    height: 56px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    border: 4px solid transparent;
-    background-clip: content-box;
-    background-color: hsl(0, 0%, 67%);
+
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
+
 
 
 
@@ -62,7 +60,6 @@ input,
 }
 
 a[href] {
-    color: var(--text-color);
     text-decoration: none;
 }
 
@@ -74,6 +71,7 @@ a[href] {
 // Change color tooltip
 .ant-tooltip {
     opacity: 80% !important;
+    // display: none;
 }
 
 .ant-menu-item-selected {
