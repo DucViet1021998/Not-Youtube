@@ -1,19 +1,19 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { MoreOutlined, FormOutlined } from '@ant-design/icons';
+import { Button, Input, theme, Menu, Tooltip } from 'antd';
 
-import { Button, Input, theme, Tooltip, Menu } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { faCircleHalfStroke, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { UserOutlined } from '@ant-design/icons';
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
-
 import { Store } from '~/store/store';
 import images from '~/assets/images';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
-
 const cx = classNames.bind(styles);
+
 
 function getItem(label, key, icon, children, type) {
     return {
@@ -34,14 +34,12 @@ const items = [
 ];
 
 
-
-
-
 function Header() {
     const store = useContext(Store)
     const onClick = (e) => {
         store.setCurrentTheme(e.key);
     };
+
     const {
         token: { colorText, colorHeader, colorLogin, borderLogin },
     } = theme.useToken();
@@ -51,6 +49,7 @@ function Header() {
     return (
         <header
             style={{
+                // zIndex: 99,
                 backgroundColor: colorHeader,
             }}
 

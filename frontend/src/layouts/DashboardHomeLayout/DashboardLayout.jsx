@@ -29,7 +29,6 @@ function DashboardLayout({ children }) {
                 return users
             }
 
-
             // KHI ACCESS TOKEN HẾT HẠN THÌ CALL API REFRESH TOKEN
             catch (error) {
 
@@ -44,7 +43,6 @@ function DashboardLayout({ children }) {
             }
         }
         getUsers()
-
     }, []);
 
 
@@ -56,10 +54,8 @@ function DashboardLayout({ children }) {
 
             <SideBarDashboard />
 
-            <Layout className="site-layout"
-                style={{
-                    position: 'relative'
-                }}>
+            <Layout className="site-layout" >
+
 
                 <HeaderDashboard />
 

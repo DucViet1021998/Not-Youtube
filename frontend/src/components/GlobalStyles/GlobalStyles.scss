@@ -19,6 +19,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    // scroll-behavior: none;
+    // overflow-y: hidden;
 }
 
 body {
@@ -61,32 +63,42 @@ input,
 
 a[href] {
     text-decoration: none;
+    // color: transparent;
 }
 
 
 
 //  CUSTOM CSS ANT DESIGN
 
-
-// Change color tooltip
-.ant-tooltip {
-    opacity: 80% !important;
-    // display: none;
+.ant-layout-sider-dark {
+    background-color: transparent !important;
 }
 
-.ant-menu-item-selected {
-    color: var(--primary) !important;
-    background-color: #f7f7f7 !important;
-}
-
-// .ant-layout {
-//     position: relative !important;
-// }
-
-// .ant-layout-sider {}
-
-// Button Trigger ">"
 .ant-layout-sider-trigger {
-    background-color: var(--white) !important;
-    color: var(--primary) !important;
+    background: none !important;
+}
+
+.ant-switch-checked {
+    background-color: #272626 !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+    background-color: var(--dark-blue) !important;
+    border-color: var(--dark-blue) !important;
+}
+
+.ant-menu-item {
+    padding-left: 23px !important;
+}
+
+:where(.css-dev-only-do-not-override-d4hxk0).ant-tooltip .ant-tooltip-inner {
+    box-shadow: none !important;
+}
+
+:where(.css-dev-only-do-not-override-5iyz8y).ant-btn.ant-btn-round.ant-btn-lg:hover {
+    background-color: #b0daffc2 !important;
+}
+
+:where(.css-dev-only-do-not-override-10iaro9).ant-btn.ant-btn-round.ant-btn-lg:hover {
+    background-color: #8ac8ff67 !important;
 }

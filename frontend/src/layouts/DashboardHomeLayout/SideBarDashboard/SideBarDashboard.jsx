@@ -1,4 +1,4 @@
-import { HomeFilled } from '@ant-design/icons';
+import { HomeOutlined } from '@ant-design/icons';
 import { Menu, Layout } from 'antd';
 import { Link } from 'react-router-dom';
 const { Sider } = Layout;
@@ -17,7 +17,7 @@ function getItem(label, key, icon, children) {
     };
 }
 const items = [
-    getItem(<Link to={'/'}>Home</Link>, '1', <HomeFilled />),
+    getItem(<Link to={'/dashboard'}>Home</Link>, '1', <HomeOutlined />),
 
     // getItem(<Link to={'/login'}>Log in</Link>, '2', <UserOutlined />,
     // ),

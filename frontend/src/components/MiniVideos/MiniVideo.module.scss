@@ -1,0 +1,54 @@
+// Right Side
+.container {
+    // border: 1px solid red;
+    // overflow-y: auto;
+    // border: 1px solid red;
+    // min-height: 100vh;
+    width: 100%;
+}
+
+.card {
+    cursor: pointer;
+    position: relative;
+    min-width: 300px;
+    width: 100%;
+    height: 94px;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.img {
+    width: 168px !important;
+    height: 94px !important;
+    border-radius: 10px;
+    // border: 1px solid green;
+
+}
+
+.title {
+    font-size: 0.8rem;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    line-height: 1.5em;
+    height: 3em;
+    width: 100%;
+    margin-left: 5px;
+}
+
+.channel {
+    font-size: 0.8em;
+    position: absolute;
+    bottom: 1.3rem;
+    left: 173px !important;
+    opacity: 70%;
+    height: 2.9em;
+    overflow: hidden !important;
+}
+
+.view {
+    position: absolute;
+    bottom: 1rem;
+    left: 173px !important;
+}
+
+// END OF Right Side

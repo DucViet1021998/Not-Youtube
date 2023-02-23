@@ -43,7 +43,7 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link to={'/'} className={cx('logo-link')}>
+                <Link to={'/dashboard'} className={cx('logo-link')}>
                     <img className={cx('logo')} src={images.logo} alt='Logo' />
                     <span className={cx('label-logo')}  >Not Youtube</span>
                 </Link>

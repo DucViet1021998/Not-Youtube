@@ -18,6 +18,8 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.1",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "youtube-metadata-from-url": "^1.0.3",
+    "ytdl-core": "^4.11.2"
   }
 }

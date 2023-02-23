@@ -2,18 +2,17 @@
 import { Layout, theme } from 'antd';
 
 import Header from './Header';
-import SideBar from './SideBar';
+// import SideBar from './SideBar';
 // import classNames from 'classnames/bind';
 // import styles from './DefaultLayout.module.scss';
 // const cx = classNames.bind(styles);
 
 
-
 const { Content } = Layout;
 
-const DefaultLayout = ({ children }) => {
+const WatchLayout = ({ children }) => {
 
-    // const [top, setTop] = useState(10);
+
     const {
         token: { colorBgContainer, colorText },
     } = theme.useToken();
@@ -22,18 +21,13 @@ const DefaultLayout = ({ children }) => {
 
     return (
 
-        <Layout hasSider style={{ height: '100vh' }} >
-
-            <SideBar
-                style={{
-                    overflow: 'auto',
-                    height: '100vh',
-                }}
-            />
+        <Layout style={{ minHeight: '100vh' }}  >
+            \
 
             <Layout className="site-layout">
                 <div
                     style={{
+                        zIndex: 99,
                         padding: 0,
                         top: 0,
                         position: 'sticky',
@@ -52,7 +46,7 @@ const DefaultLayout = ({ children }) => {
                     <div
                         style={{
                             color: colorText,
-                            minHeight: "200vh",
+                            minHeight: "100vh",
                             padding: 24,
                             background: colorBgContainer,
                         }}
@@ -70,4 +64,4 @@ const DefaultLayout = ({ children }) => {
 };
 
 
-export default DefaultLayout;
+export default WatchLayout;

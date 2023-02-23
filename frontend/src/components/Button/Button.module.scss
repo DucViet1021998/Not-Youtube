@@ -1,0 +1,88 @@
+.wrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--white);
+    border: 1px solid transparent;
+    user-select: none;
+
+    // +.wrapper {
+    //     margin-left: 8px;
+    // }
+
+    &.disalbe {
+        pointer-events: none;
+        opacity: .5;
+    }
+}
+
+.icon+.title,
+.title+.icon {
+    margin-left: 6px;
+}
+
+.icon {
+    width: 20px;
+    display: inline-block;
+    text-align: center;
+}
+
+
+// Button Types
+.rounded {
+    border-radius: 9999px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+    border: 1.5px solid rgba(22, 24, 35, 0.12);
+
+    &:hover {
+        border-color: rgba(22, 24, 35, 0.2);
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+}
+
+.primary {
+    color: var(--white);
+    background-color: var(--primary);
+    border-color: var(--primary);
+
+    &:hover {
+        border-color: currentColor;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #FE2C55;
+    }
+}
+
+
+.outline {
+    color: var(--primary);
+    border-color: currentColor;
+
+    &:hover {
+        background-color: rgba(254, 44, 85, 0.06);
+        border-color: currentColor;
+    }
+}
+
+.text {
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+
+// Button Sizes
+
+.small {
+    padding: 4px 16px;
+    min-width: 88px;
+}
+
+.large {
+    min-width: 100%;
+    padding: 14px 16px;
+}

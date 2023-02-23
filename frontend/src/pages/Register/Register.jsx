@@ -1,9 +1,9 @@
-import { Button, Form, Input, Select, message } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import React from 'react';
 import axios from 'axios'
 
 import { useNavigate } from 'react-router-dom';
-const { Option } = Select;
+// const { Option } = Select;
 
 
 // import classNames from 'classnames/bind';
@@ -57,10 +57,18 @@ const Register = () => {
                 return navigate('/login')
             }
         } catch (error) {
-            messageApi.open({
-                type: 'error',
-                content: 'This is an error message',
-            });
+            if (error.response.status === 402) {
+                messageApi.open({
+                    type: 'error',
+                    content: 'Email đã đăng kí',
+                });
+            }
+            else if (error.response.status === 500) {
+                messageApi.open({
+                    type: 'error',
+                    content: 'Username đã tồn tại',
+                });
+            }
         }
     };
 
@@ -69,7 +77,6 @@ const Register = () => {
     return (
         <div>
             <div>
-                <h1>Register</h1>
                 <Form
                     {...formItemLayout}
                     form={form}
@@ -81,6 +88,7 @@ const Register = () => {
                     }}
                     scrollToFirstError
                 >
+                    <h1>Register</h1>
 
                     {/* Input Email */}
                     <Form.Item
@@ -124,6 +132,7 @@ const Register = () => {
                     <Form.Item
                         name="password"
                         label="Password"
+
                         rules={[
                             {
                                 required: true,
@@ -137,7 +146,7 @@ const Register = () => {
                         ]}
                         hasFeedback
                     >
-                        <Input.Password />
+                        <Input.Password placeholder='haha' />
                     </Form.Item>
                     {/* END OF Input PassWord */}
 
@@ -166,30 +175,11 @@ const Register = () => {
                     </Form.Item>
                     {/* END OF Input PassWord */}
 
-                    {/* Select Gender */}
-                    <Form.Item
-                        name="gender"
-                        label="Gender"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please select gender!',
-                            },
-                        ]}
-                    >
-                        <Select placeholder="select your gender">
-                            <Option value="male">Male</Option>
-                            <Option value="female">Female</Option>
-                            <Option value="other">BeDe</Option>
-                        </Select>
-                    </Form.Item>
-
-                    {/* END OF Select Gender */}
 
                     {/* Button Submit */}
                     {contextHolder}
                     <Form.Item {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="default" htmlType="submit">
                             Register
                         </Button>
                     </Form.Item>
@@ -197,7 +187,7 @@ const Register = () => {
 
                 </Form>
             </div>
-        </div>
+        </div >
     );
 };
 export default Register;

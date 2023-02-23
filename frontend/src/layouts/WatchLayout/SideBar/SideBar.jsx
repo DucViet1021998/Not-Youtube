@@ -39,11 +39,10 @@ function Sidebar() {
 
     return (
         <Sider
-            breakpoint='md'
             collapsible
             theme={theme}
-
         >
+
             <Menu
                 defaultSelectedKeys={['1']}
                 items={items}

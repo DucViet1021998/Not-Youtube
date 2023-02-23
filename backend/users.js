@@ -17,9 +17,8 @@ app.use(express.json())
 
 router.post('/login', async (req, res) => {
     try {
-
-
         const username = req.body.username
+
         // // Find User exist in Database
         const user = await userModel.findOne({ username: username })
 
@@ -73,13 +72,13 @@ router.post('/register', async (req, res) => {
         // Find User exist in Database
         const username = req.body.username
         const user = await userModel.findOne({ username: username })
-        if (!!user) res.sendStatus(500)
+        if (!!user) return res.sendStatus(500)
 
 
         // Find Email exist in Database
-        // const emailClient = req.body.email
-        // const email = await userModel.findOne({ email: emailClient })
-        // if (!!email) res.sendStatus(500)
+        const emailClient = req.body.email
+        const email = await userModel.findOne({ email: emailClient })
+        if (!!email) return res.sendStatus(402)
 
 
         else {
@@ -92,7 +91,7 @@ router.post('/register', async (req, res) => {
                 gender: req.body.gender,
                 password: hashedPass
             })
-            res.sendStatus(200)
+            return res.sendStatus(200)
         }
 
     } catch (error) {
@@ -117,7 +116,7 @@ const checkToken = async (req, res, next) => {
             res.sendStatus(401)
         }
 
-        //Return user req.user
+        //Return User
         req.user = user;
         next();
 
@@ -141,15 +140,15 @@ router.post("/refresh-token", async (req, res) => {
     const refreshToken = req.body.refreshToken
 
     const user = await userModel.findOne({ refreshToken: refreshToken });
-    if (!refreshToken) res.sendStatus(401)
+    if (!refreshToken) return res.sendStatus(401)
 
-    if (!user) res.sendStatus(401)
+    if (!user) return res.sendStatus(401)
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
         console.log(err, data);
         if (err) res.sendStatus(403)
         const accessToken = jwt.sign({ username: data.username, id: data.id }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '30s'
+            expiresIn: '60s'
         })
 
         res.status(200).send({ accessToken: accessToken })
