@@ -1,17 +1,35 @@
 const express = require('express')
 const app = express()
+const multer = require('multer');
 const router = express.Router()
-const userModel = require('./Models/UserModel')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 const bcrypt = require('bcrypt')
+const ImgurStorage = require('multer-storage-imgur');
 
+const userModel = require('./Models/UserModel')
 
 dotenv.config()
 
 const cors = require('cors')
 app.use(cors())
 app.use(express.json())
+
+const upload = multer({
+    storage: ImgurStorage({ clientId: "51f37a263f2fa7c" })
+})
+
+router.post('/upload', (req, res) => {
+
+    try {
+        console.log(req)
+        res.send('ok')
+
+    } catch (error) {
+        console.log(error);
+        res.send("Error!")
+    }
+})
 
 
 
@@ -66,33 +84,42 @@ router.post('/login', async (req, res) => {
 
 
 
-
-router.post('/register', async (req, res) => {
+router.post('/register', upload.single('avatar'), async (req, res) => {
     try {
+        console.log(req.file);
+
+        // const upload = multer({
+        //     storage: ImgurStorage({ clientId: req.file })
+        // })
+
+
         // Find User exist in Database
-        const username = req.body.username
-        const user = await userModel.findOne({ username: username })
-        if (!!user) return res.sendStatus(500)
+        // const username = req.body.username
+        // const user = await userModel.findOne({ username: username })
+        // if (!!user) return res.sendStatus(500)
 
 
-        // Find Email exist in Database
-        const emailClient = req.body.email
-        const email = await userModel.findOne({ email: emailClient })
-        if (!!email) return res.sendStatus(402)
+        // // Find Email exist in Database
+        // const emailClient = req.body.email
+        // const email = await userModel.findOne({ email: emailClient })
+        // if (!!email) return res.sendStatus(402)
 
 
-        else {
+        // else {
 
-            // Make Password Hashing and Save to Database
-            const hashedPass = await bcrypt.hash(req.body.password, 10)
-            await userModel.create({
-                username: req.body.username,
-                email: req.body.email,
-                gender: req.body.gender,
-                password: hashedPass
-            })
-            return res.sendStatus(200)
-        }
+        //     // Make Password Hashing and Save to Database
+        //     const hashedPass = await bcrypt.hash(req.body.password, 10)
+        //     await userModel.create({
+        //         username: req.body.username,
+        //         email: req.body.email,
+        //         gender: req.body.gender,
+        //         password: hashedPass
+        //     })
+        //     return res.sendStatus(200)
+        // }
+
+
+        res.send('ok')
 
     } catch (error) {
         console.log(error);

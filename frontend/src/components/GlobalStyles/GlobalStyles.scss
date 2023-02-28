@@ -52,6 +52,11 @@ html *::-webkit-scrollbar-track {
 
 
 
+::-webkit-input-placeholder {
+
+    background: 0px transparent !important;
+}
+
 
 
 button,
@@ -69,6 +74,9 @@ a[href] {
 
 
 //  CUSTOM CSS ANT DESIGN
+
+
+
 
 .ant-layout-sider-dark {
     background-color: transparent !important;
@@ -101,4 +109,8 @@ a[href] {
 
 :where(.css-dev-only-do-not-override-10iaro9).ant-btn.ant-btn-round.ant-btn-lg:hover {
     background-color: #8ac8ff67 !important;
+}
+
+:where(.css-dev-only-do-not-override-x67mzg).ant-input-affix-wrapper>input.ant-input {
+    background-color: transparent !important;
 }

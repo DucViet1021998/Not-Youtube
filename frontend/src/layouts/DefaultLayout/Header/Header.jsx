@@ -40,7 +40,11 @@ const items = [
 function Header() {
     const store = useContext(Store)
     const onClick = (e) => {
-        store.setCurrentTheme(e.key);
+        if (e.key === "light") {
+            store.setCurrentTheme("light");
+        } else if (e.key === 'dark') {
+            store.setCurrentTheme("dark");
+        } else return
     };
     const {
         token: { colorText, colorHeader, colorLogin, borderLogin },
@@ -96,7 +100,7 @@ function Header() {
                             border: 'none',
                             boxShadow: 'none',
                             marginRight: '20px'
-                        }} type='default' shape="circle" ><MoreOutlined /></Button>
+                        }} type='default' size='large' shape="circle" ><MoreOutlined /></Button>
                     </Tooltip>
 
 

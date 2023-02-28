@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
-
+import dayjs from "dayjs";
 import axios from "axios";
 import { Col, Row, theme, Avatar, Tooltip } from 'antd';
 import { v4 as id } from 'uuid';
@@ -87,7 +87,7 @@ function Watch() {
                         }}
                         className={cx("container-descriptions")}
                     >
-                        <h3 className={cx("tittle-descriptions")}>{video.view_count} views Premiered on {video.publish_date}</h3>
+                        <h3 className={cx("tittle-descriptions")}>{video.view_count} views Premiered on {dayjs(video.publish_date).format('D MMMM, YYYY')}</h3>
                         <p className={cx("description")}>{video.description}</p>
                     </div>
                 </Row>

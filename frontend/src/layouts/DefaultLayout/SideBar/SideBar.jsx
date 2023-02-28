@@ -3,7 +3,7 @@
 // import styles from './Sidebar.module.scss';
 // const cx = classNames.bind(styles);
 
-import { UserOutlined, HomeOutlined, FormOutlined } from '@ant-design/icons';
+import { UserOutlined, HomeOutlined, FormOutlined, FireOutlined } from '@ant-design/icons';
 import { Menu, Layout } from 'antd';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
@@ -25,12 +25,10 @@ function getItem(label, key, icon, children) {
 
 const items = [
     getItem(<Link to={'/'}>Home</Link>, '1', <HomeOutlined />),
+    getItem(<Link to={'/login'}>Log in</Link>, '2', <UserOutlined />),
+    getItem(<Link to={'/register'}>Sign up</Link>, '3', <FormOutlined />),
+    getItem(<Link to={'/trending'}>Trending</Link>, '4', <FireOutlined />),
 
-    getItem(<Link to={'/login'}>Log in</Link>, '2', <UserOutlined />,
-    ),
-
-    getItem(<Link to={'/register'}>Sign up</Link>, '3', <FormOutlined />,
-    ),
 ];
 function Sidebar() {
     const store = useContext(Store);

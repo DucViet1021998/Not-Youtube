@@ -1,0 +1,17 @@
+.container {
+    // border: 1px solid red;
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.form {
+    // border: 2px solid #4285F4;
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(#000000, .1);
+    padding: 20px;
+}

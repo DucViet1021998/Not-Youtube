@@ -8,6 +8,7 @@ const songSchema = new Schema({
     channel_avatar: mongoose.Schema.Types.String,
     channel_url: mongoose.Schema.Types.String,
     title: mongoose.Schema.Types.String,
+    title_normalize: mongoose.Schema.Types.String,
     thumbnail_url: mongoose.Schema.Types.String,
     verified: mongoose.Schema.Types.Boolean,
     subscriber_count: mongoose.Schema.Types.Number,

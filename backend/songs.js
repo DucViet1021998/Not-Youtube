@@ -4,12 +4,17 @@ const router = express.Router()
 const songModel = require('./Models/songModel')
 const ytdl = require('ytdl-core');
 const cors = require('cors')
-
-const userModel = require('./Models/UserModel')
-
-
+const ytrend = require("@freetube/yt-trending-scraper")
 app.use(cors())
 app.use(express.json())
+
+function removeAccents(str) {
+    return str.normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+        .toLowerCase();
+}
+
 
 function getNumberText(num) {
     if (num.length >= 0 && num.length < 4) {
@@ -29,7 +34,25 @@ function getNumberText(num) {
         return textNum
     }
 }
-
+function getNumber(num) {
+    if (num.length >= 0 && num.length <= 3) {
+        console.log(num);
+    }
+    else if (num.length >= 4 && num.length < 7) {
+        const newNum = num.slice(0, -3) + ',' + num.slice(-3);
+        return newNum;
+    }
+    else if (num.length >= 7 && num.length < 10) {
+        const newNum = num.slice(0, -3) + ',' + num.slice(-3);
+        const newNum2 = newNum.slice(0, -7) + ',' + newNum.slice(-7);
+        return newNum2;
+    } else if (num.length >= 10 && num.length < 13) {
+        const newNum = num.slice(0, -3) + ',' + num.slice(-3);
+        const newNum2 = newNum.slice(0, -7) + ',' + newNum.slice(-7);
+        const newNum3 = newNum2.slice(0, -11) + ',' + newNum2.slice(-11);
+        return newNum3;
+    }
+}
 
 
 router.post('/add-song', async (req, res) => {
@@ -58,6 +81,7 @@ router.post('/add-song', async (req, res) => {
                     channel_avatar: info.videoDetails.author.thumbnails[2].url,
                     channel_url: info.videoDetails.author.user_url,
                     title: info.videoDetails.title,
+                    title_normalize: removeAccents(info.videoDetails.title),
                     thumbnail_url: info.videoDetails.thumbnails[3].url,
                     verified: info.videoDetails.author.verified,
                     subscriber_count: info.videoDetails.author.subscriber_count,
@@ -65,7 +89,7 @@ router.post('/add-song', async (req, res) => {
                     video_url: video_url,
                     publish_date: info.videoDetails.publishDate,
                     description: info.videoDetails.description,
-                    view_count: info.videoDetails.viewCount,
+                    view_count: getNumber(info.videoDetails.viewCount),
                     view_count_text: getNumberText(info.videoDetails.viewCount),
                 })
                 return res.sendStatus(200)
@@ -94,15 +118,36 @@ router.get("/get-songs", async (req, res) => {
 });
 
 
+router.get("/trending/:type", async (req, res) => {
+    try {
+
+        const parameters = {
+            geoLocation: 'VN',
+            parseCreatorOnRise: false,
+            page: req.params.type
+        }
+
+        ytrend.scrapeTrendingPage(parameters).then((data) => {
+            console.log(data[2].title);
+        }).catch((error) => {
+            console.error(error);
+        });
+
+
+
+
+    } catch (error) {
+        console.log(error);
+        res.send('Error!')
+    }
+});
+
+
 
 
 
 router.get("/test", async (req, res) => {
     try {
-
-        const user = await userModel.findOne({ username: 'viet' }).populate(['songs'])
-
-        res.send(user)
 
     } catch (error) {
         console.log(error);

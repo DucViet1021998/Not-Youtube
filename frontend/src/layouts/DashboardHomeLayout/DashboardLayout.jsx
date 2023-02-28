@@ -1,5 +1,3 @@
-
-
 import { Layout, theme } from 'antd';
 import axios from 'axios';
 
@@ -38,6 +36,7 @@ function DashboardLayout({ children }) {
                         refreshToken: refreshToken
                     })
                 localStorage.setItem("accessToken", response.data.accessToken);
+
                 // Return Function
                 return getUsers()
             }

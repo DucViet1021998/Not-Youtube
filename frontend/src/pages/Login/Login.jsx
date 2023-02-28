@@ -1,19 +1,24 @@
 import React, { useContext } from 'react';
-import { Button, Checkbox, Form, Input, message } from 'antd';
+import { Button, Checkbox, Form, Input, message, theme } from 'antd';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { Store } from "../../store/store";
 
-
-// import classNames from 'classnames/bind';
-// import styles from './login.module.scss';
-// const cx = classNames.bind(styles);
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import classNames from 'classnames/bind';
+import styles from './login.module.scss';
+const cx = classNames.bind(styles);
 
 
 const Login = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const store = useContext(Store)
     const navigate = useNavigate()
+
+    const {
+        token: { colorBgLoginForm, boxShadowForm },
+    } = theme.useToken();
+
 
 
     const onFinish = async (values) => {
@@ -44,16 +49,25 @@ const Login = () => {
 
 
     return (
-        <div >
-            <div>
+        <div className={cx('container')} >
+            <h3 style={{
+                color: '#0164e6',
+                boxShadow: "0 0 30px rgba(#000000, .1)",
+
+            }}>Account login</h3>
+            <div
+                style={{
+                    backgroundColor: colorBgLoginForm,
+                    boxShadow: boxShadowForm,
+                }}
+                className={cx('form')}
+            >
 
                 <Form
                     name="basic"
-                    labelCol={{
-                        span: 24,
-                    }}
+                    // labelCol={{ span: 8, offset: 0 }}
                     // wrapperCol={{
-                    //     span: 16,
+                    //     span: 8,
                     // }}
                     style={{
                         maxWidth: "100%",
@@ -68,6 +82,8 @@ const Login = () => {
                 >
                     <Form.Item
                         label="Username"
+                        labelCol={{ span: 24, offset: 0 }}
+
                         name="username"
                         rules={[
                             {
@@ -76,11 +92,16 @@ const Login = () => {
                             },
                         ]}
                     >
-                        <Input />
+                        <Input
+                            style={{
+                                backgroundColor: colorBgLoginForm,
+                            }}
+                            prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                     </Form.Item>
 
                     <Form.Item
                         label="Password"
+                        labelCol={{ span: 24, offset: 0 }}
                         name="password"
                         rules={[
                             {
@@ -89,16 +110,23 @@ const Login = () => {
                             },
                         ]}
                     >
-                        <Input.Password />
+                        <Input.Password
+                            style={{
+                                backgroundColor: colorBgLoginForm,
+                            }}
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Password"
+                        />
                     </Form.Item>
 
                     <Form.Item
                         name="remember"
                         valuePropName="checked"
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}
+                    // wrapperCol={{
+                    //     offset: 8,
+                    //     span: 16,
+                    // }}
                     >
                         <Checkbox>Remember me</Checkbox>
                     </Form.Item>
@@ -107,10 +135,16 @@ const Login = () => {
                     <Form.Item
                         wrapperCol={{
                             offset: 8,
-                            span: 16,
+                            // span: 16,
                         }}
                     >
-                        <Button type="default" htmlType="submit">
+                        <Button
+                            style={{
+                                backgroundColor: "#4285F4",
+                                color: "white",
+                            }}
+                            type="default"
+                            htmlType="submit">
                             Sign in
                         </Button>
                     </Form.Item>

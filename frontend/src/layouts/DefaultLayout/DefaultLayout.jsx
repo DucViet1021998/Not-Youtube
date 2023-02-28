@@ -52,7 +52,7 @@ const DefaultLayout = ({ children }) => {
                     <div
                         style={{
                             color: colorText,
-                            minHeight: "200vh",
+                            minHeight: "100vh",
                             padding: 24,
                             background: colorBgContainer,
                         }}

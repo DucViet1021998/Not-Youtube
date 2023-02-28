@@ -8,10 +8,14 @@
 
 .channel {
     position: absolute;
-    font-size: 1rem;
+    font-size: 0.9rem;
     // margin-left: 3rem;
     left: 4.5rem;
-    bottom: 5px;
+    bottom: 4px;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    height: 1.7em;
+    // border: 1px solid red;
 }
 
 .view {
