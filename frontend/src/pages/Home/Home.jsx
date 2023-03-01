@@ -1,5 +1,4 @@
-import { Layout, theme } from "antd";
-import { Col, Row } from 'antd';
+import { Layout, theme, Col, Row } from "antd";
 import VideoCard from "~/components/VideoCards/VideoCard";
 import { useEffect, useState } from 'react';
 import axios from 'axios';

@@ -76,7 +76,11 @@ a[href] {
 //  CUSTOM CSS ANT DESIGN
 
 
+:where(.css-dev-only-do-not-override-3fwlr8).ant-menu-inline-collapsed>.ant-menu-submenu>.ant-menu-submenu-title {
 
+    padding-inline: calc(50% - 17px) !important;
+
+}
 
 .ant-layout-sider-dark {
     background-color: transparent !important;

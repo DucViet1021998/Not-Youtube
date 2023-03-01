@@ -12,11 +12,11 @@ const songSchema = new Schema({
     thumbnail_url: mongoose.Schema.Types.String,
     verified: mongoose.Schema.Types.Boolean,
     subscriber_count: mongoose.Schema.Types.Number,
+    subscriber_count_text: mongoose.Schema.Types.String,
     view_count: mongoose.Schema.Types.String,
+    view_count_text: mongoose.Schema.Types.String,
     publish_date: mongoose.Schema.Types.String,
     description: mongoose.Schema.Types.String,
-    view_count_text: mongoose.Schema.Types.String,
-    subscriber_count_text: mongoose.Schema.Types.String,
 })
 
 

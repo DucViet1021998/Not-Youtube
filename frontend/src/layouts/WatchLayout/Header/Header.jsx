@@ -1,13 +1,11 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { MoreOutlined, FormOutlined } from '@ant-design/icons';
 import { Button, Input, theme, Menu, Tooltip } from 'antd';
-
+import { MoreOutlined, FormOutlined, UserOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { faCircleHalfStroke, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { UserOutlined } from '@ant-design/icons';
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
+
 import { Store } from '~/store/store';
 import images from '~/assets/images';
 import classNames from 'classnames/bind';

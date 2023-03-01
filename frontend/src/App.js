@@ -9,7 +9,7 @@ import PrivateLayout from "./layouts/PrivateLayout";
 import PublicLayout from "./layouts/PublicLayout";
 import { publicRoutes, privateRoutes } from '~/routes';
 import { DefaultLayout } from '~/layouts/DefaultLayout';
-
+import { DashboardDefaultLayout } from "./layouts/DashboardDefaultLayout";
 
 
 const App = () => {
@@ -32,7 +32,7 @@ const App = () => {
           {/* Private Layout */}
           <Route element={<PrivateLayout />}>
             {privateRoutes.map((route, index) => {
-              let Layout = DefaultLayout
+              let Layout = DashboardDefaultLayout
               if (route.layout) {
                 Layout = route.layout
               } else if (route.layout === null) {

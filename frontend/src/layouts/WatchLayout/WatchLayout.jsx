@@ -22,7 +22,6 @@ const WatchLayout = ({ children }) => {
     return (
 
         <Layout style={{ minHeight: '100vh' }}  >
-            \
 
             <Layout className="site-layout">
                 <div

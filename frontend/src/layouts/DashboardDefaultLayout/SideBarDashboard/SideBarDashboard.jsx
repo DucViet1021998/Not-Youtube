@@ -1,22 +1,23 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { Menu, Layout } from 'antd';
 import {
-    UserOutlined,
     HomeOutlined,
-    FormOutlined,
     FireOutlined,
     FireFilled,
     CustomerServiceFilled,
     RocketFilled,
-    VideoCameraFilled
+    VideoCameraFilled,
+    FolderAddOutlined,
 } from '@ant-design/icons';
-import { Menu, Layout } from 'antd';
 import { Store } from '~/store/store';
-
-
-
 const { Sider } = Layout;
+
+
+// import classNames from 'classnames/bind';
+// import styles from './SidebarDashboard.module.scss';
+// const cx = classNames.bind(styles);
+
 function getItem(label, key, icon, children) {
     return {
         key,
@@ -25,21 +26,17 @@ function getItem(label, key, icon, children) {
         label,
     };
 }
-
-
 const items = [
-    getItem("Home", '/', <HomeOutlined />),
-    getItem("Login", '/login', <UserOutlined />),
-    getItem("Sign up", '/register', <FormOutlined />),
+    getItem("Home", '/dashboard', <HomeOutlined />),
     getItem("Trending", '4', <FireOutlined />, [
-        getItem('NOW', '/trending/default', <FireFilled />),
-        getItem('MUSIC', '/trending/music', <CustomerServiceFilled />),
-        getItem('GAMING', '/trending/gaming', <RocketFilled />),
-        getItem('FILMS', '/trending/movies', <VideoCameraFilled />),
+        getItem('NOW', '/trending/dashboard/default', <FireFilled />),
+        getItem('MUSIC', '/trending/dashboard/music', <CustomerServiceFilled />),
+        getItem('GAMING', '/trending/dashboard/gaming', <RocketFilled />),
+        getItem('FILMS', '/trending/dashboard/movies', <VideoCameraFilled />),
     ]),
+    getItem('Create Albums', '/album', <FolderAddOutlined />),
 ];
 function Sidebar() {
-
     const navigate = useNavigate()
     const handleClick = (e) => {
         navigate(e.key)
@@ -49,19 +46,24 @@ function Sidebar() {
     const theme = store.currentTheme
 
 
+
     return (
-        <Sider
+        <Sider style={
+            {
+                overflow: 'auto',
+                height: '100vh'
+            }}
+            theme={theme}
             breakpoint='md'
             collapsible
-            theme={theme}
-
         >
+
+
             <Menu
                 onClick={handleClick}
+                mode='inline'
                 defaultSelectedKeys={['1']}
                 items={items}
-                // theme={theme}
-                mode='inline'
             />
 
         </Sider >

@@ -9,6 +9,7 @@ const userSchema = new Schema({
     gender: mongoose.Schema.Types.String,
     accessToken: mongoose.Schema.Types.String,
     refreshToken: mongoose.Schema.Types.String,
+    avatar: mongoose.Schema.Types.String,
     songs: { type: mongoose.ObjectId, ref: 'songs' }
 })
 

@@ -84,42 +84,39 @@ router.post('/login', async (req, res) => {
 
 
 
-router.post('/register', upload.single('avatar'), async (req, res) => {
+router.post('/register', upload.any('avatar'), async (req, res) => {
     try {
-        console.log(req.file);
-
-        // const upload = multer({
-        //     storage: ImgurStorage({ clientId: req.file })
-        // })
-
+        const avatarUrl = req.files[0].link
+        console.log(avatarUrl);
 
         // Find User exist in Database
-        // const username = req.body.username
-        // const user = await userModel.findOne({ username: username })
-        // if (!!user) return res.sendStatus(500)
+        const username = req.body.username
+        const user = await userModel.findOne({ username: username })
+        if (!!user) return res.sendStatus(500)
 
 
-        // // Find Email exist in Database
-        // const emailClient = req.body.email
-        // const email = await userModel.findOne({ email: emailClient })
-        // if (!!email) return res.sendStatus(402)
+        // Find Email exist in Database
+        const emailClient = req.body.email
+        const email = await userModel.findOne({ email: emailClient })
+        if (!!email) return res.sendStatus(402)
 
 
-        // else {
+        else {
 
-        //     // Make Password Hashing and Save to Database
-        //     const hashedPass = await bcrypt.hash(req.body.password, 10)
-        //     await userModel.create({
-        //         username: req.body.username,
-        //         email: req.body.email,
-        //         gender: req.body.gender,
-        //         password: hashedPass
-        //     })
-        //     return res.sendStatus(200)
-        // }
+            // Make Password Hashing and Save to Database
+            const hashedPass = await bcrypt.hash(req.body.password, 10)
+            await userModel.create({
+                username: req.body.username,
+                email: req.body.email,
+                gender: req.body.gender,
+                password: hashedPass,
+                avatar: avatarUrl,
+            })
+            return res.sendStatus(200)
+        }
 
 
-        res.send('ok')
+
 
     } catch (error) {
         console.log(error);

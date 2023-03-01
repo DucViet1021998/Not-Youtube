@@ -2,16 +2,16 @@ import { Layout, theme } from 'antd';
 import axios from 'axios';
 
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import HeaderDashboard from './HeaderDashboard';
 import SideBarDashboard from './SideBarDashboard';
 
-
 const { Content } = Layout;
-function DashboardLayout({ children }) {
+function DashboardDefaultLayout({ children }) {
+    const [user, setUser] = useState([])
 
     const {
-        token: { colorBgContainer },
+        token: { colorBgContainer, colorText },
     } = theme.useToken();
 
     useEffect(() => {
@@ -24,7 +24,7 @@ function DashboardLayout({ children }) {
                 const users = await axios.get('http://localhost:3023/', {
                     headers: { Authorization: `Bearer ${accessToken}` }
                 })
-                return users
+                return setUser(users.data)
             }
 
             // KHI ACCESS TOKEN HẾT HẠN THÌ CALL API REFRESH TOKEN
@@ -47,27 +47,44 @@ function DashboardLayout({ children }) {
 
 
 
-
     return (
-        <Layout  >
+        <Layout hasSider style={{ height: '100vh' }}   >
 
-            <SideBarDashboard />
+            <SideBarDashboard
+                style={{
+                    overflow: 'auto',
+                    height: '100vh',
+                }}
+            />
 
             <Layout className="site-layout" >
 
+                <div
+                    style={{
+                        paddingRight: "10px",
+                        top: 0,
+                        position: 'sticky'
+                    }}
+                >
 
-                <HeaderDashboard />
+                    {user.map((u, i) => (
+                        <HeaderDashboard key={i} data={u} />
+                    ))}
+
+                </div>
 
                 <Content
                     style={{
                         margin: '0 16px',
+                        overflow: 'auto',
                     }}
                 >
 
                     <div
                         style={{
+                            color: colorText,
+                            minHeight: "100vh",
                             padding: 24,
-                            minHeight: 2000,
                             background: colorBgContainer,
                         }}
                     >
@@ -81,4 +98,4 @@ function DashboardLayout({ children }) {
     )
 }
 
-export default DashboardLayout;
+export default DashboardDefaultLayout;

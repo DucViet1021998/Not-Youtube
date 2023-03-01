@@ -76,6 +76,8 @@ function Watch() {
                                 <FontAwesomeIcon icon={faCheckCircle} />
                             </Tooltip>
                         </span>}
+
+
                         <span className={cx("subscriber")}><Tooltip color={'#909090'} title={video.subscriber_count} placement="top">{video.subscriber_count_text} subscribers</Tooltip></span>
                     </div>
                 </a>

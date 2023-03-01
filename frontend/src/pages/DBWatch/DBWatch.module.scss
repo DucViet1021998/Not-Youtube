@@ -1,0 +1,59 @@
+.container-left {
+    width: 100%;
+    // max-height: 100vh;
+    min-height: 100vh;
+}
+
+.video {
+    min-height: 550px !important;
+    max-height: 1170px !important;
+}
+
+
+.title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.channel {
+    display: flex;
+    width: 50%;
+    position: relative;
+    height: 4rem;
+}
+
+.avatar {
+    min-width: 3rem;
+    min-height: 3rem;
+
+}
+
+.name-channel {
+    margin-left: 15px;
+    margin-right: 8px;
+}
+
+.subscriber {
+    position: absolute;
+    left: 3.9rem;
+    top: 1.3rem;
+    opacity: 80%;
+}
+
+.container-descriptions {
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+
+.tittle-descriptions {
+    font-weight: 600;
+}
+
+.description {
+    white-space: pre-line;
+    font-size: 0.9rem;
+}

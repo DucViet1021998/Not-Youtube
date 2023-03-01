@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input, message, theme, Upload, Modal } from 'antd';
-import { LockOutlined, UserOutlined, MailOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
-import ImgCrop from 'antd-img-crop';
+import { Button, Form, Input, message, theme, Upload } from 'antd';
+import { LockOutlined, UserOutlined, MailOutlined, UploadOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import styles from './Register.module.scss';
 const cx = classNames.bind(styles);
 
 
-
-
-
 const Register = () => {
-
-
     const [messageApi, contextHolder] = message.useMessage();
     const [form] = Form.useForm();
     const navigate = useNavigate()
@@ -26,15 +19,18 @@ const Register = () => {
 
     const onFinish = async (values) => {
         try {
-            console.log(values);
-            // const response = await axios.post("http://localhost:3023/register", values);
-            // if (response.status === 200) {
-            //     return navigate('/login')
-            // }
+            const formData = new FormData();
+            for (const name in values) {
+                formData.append(name, values[name]);
+            }
+            const res = await axios.post('http://localhost:3023/register', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
 
-            const response = await axios.post("http://localhost:3023/upload", values);
-
-            console.log(response);
+            navigate('/login')
+            console.log(res);
         } catch (error) {
             if (error.response.status === 402) {
                 messageApi.open({
@@ -50,9 +46,6 @@ const Register = () => {
             }
         }
     };
-
-
-
 
 
     return (
@@ -78,9 +71,8 @@ const Register = () => {
                 >
 
                     {/* Input Email */}
-                    {/* <Form.Item
+                    <Form.Item
                         labelCol={{ span: 24, offset: 0 }}
-
                         name="email"
                         label="E-mail"
                         rules={[
@@ -100,11 +92,11 @@ const Register = () => {
                                 backgroundColor: colorBgLoginForm,
                             }}
                             prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
-                    </Form.Item> */}
+                    </Form.Item>
                     {/* END OF Input Email */}
 
                     {/* Input Username */}
-                    {/* <Form.Item
+                    <Form.Item
                         labelCol={{ span: 24, offset: 0 }}
 
                         name="username"
@@ -123,13 +115,13 @@ const Register = () => {
                                 backgroundColor: colorBgLoginForm,
                             }}
                             prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                    </Form.Item> */}
+                    </Form.Item>
 
                     {/* END OF Input Username */}
 
 
                     {/* Input PassWord */}
-                    {/* <Form.Item
+                    <Form.Item
                         labelCol={{ span: 24, offset: 0 }}
                         name="password"
                         label="Password"
@@ -140,7 +132,7 @@ const Register = () => {
                             },
                             // {
                             //     min: 6,
-                            //     message: 'danh du 6 ky tu',
+                            //     message: 'Please input minimum of 8 characters',
                             // },
 
                         ]}
@@ -154,12 +146,12 @@ const Register = () => {
                             type="password"
                             placeholder="Password"
                         />
-                    </Form.Item> */}
+                    </Form.Item>
                     {/* END OF Input PassWord */}
 
 
                     {/* Input Confirm PassWord */}
-                    {/* <Form.Item
+                    <Form.Item
                         labelCol={{ span: 24, offset: 0 }}
                         name="confirm"
                         label="Confirm Password"
@@ -181,8 +173,6 @@ const Register = () => {
                         ]}
                     >
                         <Input.Password
-                            labelCol={{ span: 24, offset: 0 }}
-
                             style={{
                                 backgroundColor: colorBgLoginForm,
                             }}
@@ -191,7 +181,7 @@ const Register = () => {
                             placeholder="Password"
                         />
 
-                    </Form.Item> */}
+                    </Form.Item>
                     {/* END OF Input Confirm PassWord */}
 
 
@@ -199,56 +189,33 @@ const Register = () => {
                     <Form.Item
                         label="Avatar"
                         name={'avatar'}
-                        valuePropName='fileList'
+                        // valuePropName="fileList"
+                        // getValueFromEvent={normFile}
                         getValueFromEvent={(event) => {
-                            return event?.fileList;
+                            return event?.file;
                         }}
                         rules={[
                             {
                                 required: true,
                                 message: 'Please choose your avatar!',
                             },
-                            {
-                                validator(_, fileList) {
-                                    return new Promise((resolve, reject) => {
-                                        if (fileList && fileList[0].size > 9000000) {
-                                            reject('File size exceed');
-                                            // message.error('')
-                                        } else {
-                                            resolve('Success')
-                                        }
-                                    })
-                                }
-                            }
                         ]}
                     >
-                        <Upload
-                            beforeUpload={(file) => {
-                                return new Promise((resolve, reject) => {
-                                    if (file.size > 9000000) {
-                                        reject('File size exceed');
-                                        // message.error('')
-                                    } else {
-                                        resolve('Success')
-                                    }
-                                })
 
+                        <Upload
+                            listType="picture"
+                            multiple={false}
+                            beforeUpload={(file) => {
+                                if (file.size > 9000000) {
+                                    message.error('You can only upload JPG file!');
+                                }
+                                return false;
                             }}
                         >
                             <Button icon={<UploadOutlined />}>Click to upload</Button>
                         </Upload>
 
                     </Form.Item>
-
-                    {/* <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
-                            <img
-                                alt="example"
-                                style={{
-                                    width: '100%',
-                                }}
-                                src={previewImage}
-                            />
-                        </Modal> */}
 
                     {/* END OF Upload Avatar */}
 

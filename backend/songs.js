@@ -5,6 +5,7 @@ const songModel = require('./Models/songModel')
 const ytdl = require('ytdl-core');
 const cors = require('cors')
 const ytrend = require("@freetube/yt-trending-scraper")
+
 app.use(cors())
 app.use(express.json())
 
@@ -21,16 +22,16 @@ function getNumberText(num) {
         return num
     } else if (num.length >= 4 && num.length < 7) {
         const newNum = num.slice(0, -3);
-        const textNum = `${newNum}K`
+        const textNum = `${newNum} N`
         return textNum
     }
     else if (num.length >= 7 && num.length < 10) {
         const newNum = num.slice(0, -6);
-        const textNum = `${newNum}M`
+        const textNum = `${newNum} Tr`
         return textNum
     } else if (num.length >= 10 && num.length < 13) {
         const newNum = `${num.slice(0, -9)},${num.slice(1, -8)}`;
-        const textNum = `${newNum}B`
+        const textNum = `${newNum} Tỷ`
         return textNum
     }
 }
@@ -57,9 +58,10 @@ function getNumber(num) {
 
 router.post('/add-song', async (req, res) => {
     try {
+
         // Check List-Video URL 
         const video_url = req.body.video_url
-        if (video_url.length == 47) return res.status(500).send(' không add list bài hát ')
+        if (video_url.length == 47) return res.status(500).send('không add list bài hát')
 
         // Get data by Youtube URL 
         await ytdl.getInfo(video_url).then(async (info) => {
@@ -71,10 +73,9 @@ router.post('/add-song', async (req, res) => {
 
             const findUrl = await songModel.findOne({ video_url: video_url })
 
+            console.log(info.videoDetails.author.verified_artist);
             // Check URL exists in Database
             if (!findUrl) {
-
-
                 // Add Song and Save to Database
                 await songModel.create({
                     channel: info.videoDetails.author.name,
@@ -92,9 +93,11 @@ router.post('/add-song', async (req, res) => {
                     view_count: getNumber(info.videoDetails.viewCount),
                     view_count_text: getNumberText(info.videoDetails.viewCount),
                 })
-                return res.sendStatus(200)
+                const songId = await songModel.findOne({ video_url: video_url })
+
+                return res.status(200).send(songId)
             } else {
-                return res.status(200).send("Đã có trong database trước đó")
+                return res.status(400).send(findUrl)
             }
         });
 
@@ -128,7 +131,23 @@ router.get("/trending/:type", async (req, res) => {
         }
 
         ytrend.scrapeTrendingPage(parameters).then((data) => {
-            console.log(data[2].title);
+            const newData = data.map(song => ({
+                title: song.title,
+                channel: song.author,
+                channel_url: `https://www.youtube.com/${song.authorUrl}`,
+                description: song.description,
+                verified: song.isVerified,
+                view_count: getNumber(song.viewCount.toString()),
+                view_count_text: getNumberText(song.viewCount.toString()),
+                published_text: song.publishedText,
+                thumbnail_url: song.videoThumbnails[1].url,
+                verified_artist: song.isVerifiedArtist,
+                video_url: `https://youtu.be/${song.videoId}`
+            }))
+            res.status(200).send(newData);
+
+            // res.send(data)
+
         }).catch((error) => {
             console.error(error);
         });
@@ -142,6 +161,45 @@ router.get("/trending/:type", async (req, res) => {
     }
 });
 
+router.get("/trending/dashboard/:type", async (req, res) => {
+    try {
+
+        const parameters = {
+            geoLocation: 'VN',
+            parseCreatorOnRise: false,
+            page: req.params.type
+        }
+
+        ytrend.scrapeTrendingPage(parameters).then((data) => {
+            const newData = data.map(song => ({
+                title: song.title,
+                channel: song.author,
+                channel_url: `https://www.youtube.com/${song.authorUrl}`,
+                description: song.description,
+                verified: song.isVerified,
+                view_count: getNumber(song.viewCount.toString()),
+                view_count_text: getNumberText(song.viewCount.toString()),
+                published_text: song.publishedText,
+                thumbnail_url: song.videoThumbnails[1].url,
+                verified_artist: song.isVerifiedArtist,
+                video_url: `https://youtu.be/${song.videoId}`
+            }))
+            res.status(200).send(newData);
+
+            // res.send(data)
+
+        }).catch((error) => {
+            console.error(error);
+        });
+
+
+
+
+    } catch (error) {
+        console.log(error);
+        res.send('Error!')
+    }
+});
 
 
 
@@ -167,6 +225,19 @@ router.get("/watch/:songid", async (req, res) => {
         res.send('Error!')
     }
 });
+
+
+router.get("/watch/dashboard/:songid", async (req, res) => {
+    try {
+        const songs = await songModel.findById(req.params.songid);
+        res.status(200).send(songs);
+
+    } catch (error) {
+        console.log(error);
+        res.send('Error!')
+    }
+});
+
 
 
 

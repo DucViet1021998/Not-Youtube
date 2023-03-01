@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom";
 import { v4 as id } from 'uuid';
 
 import { Avatar, Col, Row } from "antd";
-import TrendingVideo from "./TrendingVideo";
+import TrendingVideo from "./DBTrendingVideo";
 import classNames from 'classnames/bind';
-import styles from './Trending.module.scss';
+import styles from './DBTrending.module.scss';
 
 const cx = classNames.bind(styles);
 
 
-function Trending() {
+function DBTrending() {
     const [video, setVideo] = useState([])
     const routeParams = useParams();
 
@@ -51,4 +51,4 @@ function Trending() {
     )
 }
 
-export default Trending;
+export default DBTrending;
