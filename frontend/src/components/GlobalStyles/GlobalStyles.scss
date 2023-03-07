@@ -75,6 +75,11 @@ a[href] {
 
 //  CUSTOM CSS ANT DESIGN
 
+// :where(.css-dev-only-do-not-override-va7rz1).ant-input-affix-wrapper {
+//     width: 100% !important;
+// }
+
+
 
 :where(.css-dev-only-do-not-override-3fwlr8).ant-menu-inline-collapsed>.ant-menu-submenu>.ant-menu-submenu-title {
 
@@ -99,9 +104,9 @@ a[href] {
     border-color: var(--dark-blue) !important;
 }
 
-.ant-menu-item {
-    padding-left: 23px !important;
-}
+// .ant-menu-item {
+// padding-left: 23px !important;
+// }
 
 :where(.css-dev-only-do-not-override-d4hxk0).ant-tooltip .ant-tooltip-inner {
     box-shadow: none !important;
@@ -115,6 +120,6 @@ a[href] {
     background-color: #8ac8ff67 !important;
 }
 
-:where(.css-dev-only-do-not-override-x67mzg).ant-input-affix-wrapper>input.ant-input {
-    background-color: transparent !important;
-}
+// :where(.css-dev-only-do-not-override-x67mzg).ant-input-affix-wrapper>input.ant-input {
+//     background-color: transparent !important;
+// }

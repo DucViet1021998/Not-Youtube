@@ -3,10 +3,10 @@ const morgan = require('morgan')
 const cors = require('cors')
 const users = require('./users')
 const songs = require('./songs')
-
+const search = require("./songs/SearchSong")
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/Youtube');
+mongoose.connect('mongodb://localhost:27017/Youtube');
 
 const app = express()
 
@@ -16,7 +16,6 @@ app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use('/', users)
 app.use('/', songs)
-
-
+app.use('/', search)
 
 app.listen(3023)

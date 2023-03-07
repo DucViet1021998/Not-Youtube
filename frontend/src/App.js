@@ -1,8 +1,7 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 
 import { Routes, Route } from "react-router-dom";
 import { ConfigProvider } from 'antd';
-
 import { darkTheme, lightTheme } from "./Modes";
 import { Store } from "./store/store";
 import PrivateLayout from "./layouts/PrivateLayout";
@@ -13,14 +12,8 @@ import { DashboardDefaultLayout } from "./layouts/DashboardDefaultLayout";
 
 
 const App = () => {
-  const [login, setLogin] = useState(false)
-  const [currentTheme, setCurrentTheme] = useState('light')
-
-
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken')
-    if (token) setLogin(true)
-  }, [])
+  const [login, setLogin] = useState(localStorage.getItem('accessToken'))
+  const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('mode'))
 
   return (
     <ConfigProvider

@@ -11,7 +11,9 @@ const lightTheme = {
     colorLogin: "#065fdc",
     borderLogin: "rgba(255, 255, 255, 0.2)",
     colorBgLoginForm: 'white',
-    boxShadowForm: "0 0 30px rgba(#000000, .1)"
+    boxShadowForm: "0 0 30px rgba(#000000, .1)",
+    colorBgDBEmpty: 'rgb(236, 235, 235)',
+    colorBgDBBtnEmpty: '#fe2c55',
 
 }
 
@@ -28,8 +30,9 @@ const darkTheme = {
     colorLogin: "#3ea6ff",
     borderLogin: "rgba(255, 255, 255, 0.2)",
     colorBgLoginForm: '#272626',
-    boxShadowForm: "0 0 30px #191970",
-
+    boxShadowForm: "0 0 30px rgba(#000000, .1)",
+    colorBgDBEmpty: 'rgb(56, 55, 55)',
+    colorBgDBBtnEmpty: '#fe2c55',
 }
 
 export { lightTheme, darkTheme };

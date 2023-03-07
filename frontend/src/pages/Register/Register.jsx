@@ -1,9 +1,11 @@
-import axios from 'axios'
+
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, message, theme, Upload } from 'antd';
 import { LockOutlined, UserOutlined, MailOutlined, UploadOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import styles from './Register.module.scss';
+import request from "~/utils/request";
+
 const cx = classNames.bind(styles);
 
 
@@ -23,7 +25,7 @@ const Register = () => {
             for (const name in values) {
                 formData.append(name, values[name]);
             }
-            const res = await axios.post('http://localhost:3023/register', formData, {
+            const res = await request.post('register', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

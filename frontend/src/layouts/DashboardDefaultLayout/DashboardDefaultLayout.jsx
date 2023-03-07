@@ -1,11 +1,10 @@
 import { Layout, theme } from 'antd';
-import axios from 'axios';
 
-
+import { Store } from '~/store/store';
 import { useEffect, useState } from 'react';
 import HeaderDashboard from './HeaderDashboard';
 import SideBarDashboard from './SideBarDashboard';
-
+import request from "~/utils/request";
 const { Content } = Layout;
 function DashboardDefaultLayout({ children }) {
     const [user, setUser] = useState([])
@@ -21,9 +20,10 @@ function DashboardDefaultLayout({ children }) {
             const accessToken = localStorage.getItem('accessToken')
             const refreshToken = localStorage.getItem('refreshToken')
             try {
-                const users = await axios.get('http://localhost:3023/', {
+                const users = await request.get('', {
                     headers: { Authorization: `Bearer ${accessToken}` }
                 })
+
                 return setUser(users.data)
             }
 
@@ -31,7 +31,7 @@ function DashboardDefaultLayout({ children }) {
             catch (error) {
 
                 // Refresh Token 
-                const response = await axios.post('http://localhost:3023/refresh-token',
+                const response = await request.post('refresh-token',
                     {
                         refreshToken: refreshToken
                     })
@@ -88,7 +88,11 @@ function DashboardDefaultLayout({ children }) {
                             background: colorBgContainer,
                         }}
                     >
-                        {children}
+                        {user.map((u, i) => (
+                            <Store.Provider key={i} value={{ user }}>
+                                {children}
+                            </Store.Provider>
+                        ))}
                     </div>
                 </Content>
 

@@ -1,19 +1,14 @@
-
 import { Layout, theme } from 'antd';
-
 import Header from './Header';
 import SideBar from './SideBar';
-// import classNames from 'classnames/bind';
-// import styles from './DefaultLayout.module.scss';
-// const cx = classNames.bind(styles);
-
 
 
 const { Content } = Layout;
 
 const DefaultLayout = ({ children }) => {
 
-    // const [top, setTop] = useState(10);
+
+
     const {
         token: { colorBgContainer, colorText },
     } = theme.useToken();
@@ -42,6 +37,7 @@ const DefaultLayout = ({ children }) => {
                     <Header />
                 </div>
 
+
                 <Content
                     style={{
                         margin: '0 16px',
@@ -60,6 +56,7 @@ const DefaultLayout = ({ children }) => {
                         {children}
                     </div>
                 </Content>
+
 
 
             </Layout>

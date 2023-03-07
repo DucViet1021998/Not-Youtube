@@ -29,10 +29,10 @@ function getItem(label, key, icon, children) {
 const items = [
     getItem("Home", '/dashboard', <HomeOutlined />),
     getItem("Trending", '4', <FireOutlined />, [
-        getItem('NOW', '/trending/dashboard/default', <FireFilled />),
-        getItem('MUSIC', '/trending/dashboard/music', <CustomerServiceFilled />),
-        getItem('GAMING', '/trending/dashboard/gaming', <RocketFilled />),
-        getItem('FILMS', '/trending/dashboard/movies', <VideoCameraFilled />),
+        getItem('NOW', '/dashboard/trending/default', <FireFilled />),
+        getItem('MUSIC', '/dashboard/trending/music', <CustomerServiceFilled />),
+        getItem('GAMING', '/dashboard/trending/gaming', <RocketFilled />),
+        getItem('FILMS', '/dashboard/trending/movies', <VideoCameraFilled />),
     ]),
     getItem('Create Albums', '/album', <FolderAddOutlined />),
 ];

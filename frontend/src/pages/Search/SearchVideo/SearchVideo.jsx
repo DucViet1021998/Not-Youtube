@@ -4,15 +4,14 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Tooltip } from 'antd';
-// import { useEffect } from "react";
 import request from "~/utils/request";
 
 import classNames from 'classnames/bind';
-import styles from './TrendingVideo.module.scss';
+import styles from './SearchVideo.module.scss';
 const cx = classNames.bind(styles);
 
 
-function TrendingVideo({ data }) {
+function SearchVideo({ data }) {
     const navigate = useNavigate()
 
     const handleClick = async () => {
@@ -82,4 +81,4 @@ function TrendingVideo({ data }) {
     );
 }
 
-export default TrendingVideo;
+export default SearchVideo;

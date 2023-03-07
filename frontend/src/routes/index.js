@@ -7,11 +7,15 @@ import Watch from '~/pages/Watch';
 import Trending from '~/pages/Trending';
 import Album from '~/pages/Album';
 import DBWatch from '~/pages/DBWatch';
+import DBTrending from '~/pages/DBTrending';
+import Search from '~/pages/Search';
 
-import See from '~/pages/See/See';
+
+
+// import See from '~/pages/See/See';
 //Layout
 import WatchLayout from '~/layouts/WatchLayout/WatchLayout';
-// import DBWatchLayout from '~/layouts/DBWatchLayout/DBWatchLayout';
+import DBWatchLayout from '~/layouts/DBWatchLayout/DBWatchLayout';
 
 
 // Public routes
@@ -21,14 +25,14 @@ const publicRoutes = [
     { path: '/register', component: Register },
     { path: '/trending/:type', component: Trending },
     { path: '/watch/:songid', component: Watch, layout: WatchLayout },
+    { path: '/search/:searchtext', component: Search },
 ];
 
 const privateRoutes = [
     { path: '/dashboard', component: Dashboard },
     { path: '/album', component: Album },
-    { path: '/dashboard/:trending', component: Trending },
-    { path: '/dashboard/:watch', component: DBWatch },
-    { path: '/dashboard/:see', component: See },
+    { path: '/dashboard/trending/:type', component: DBTrending },
+    { path: '/dashboard/watch/:songid', component: DBWatch, layout: DBWatchLayout },
 ];
 
 export { publicRoutes, privateRoutes };

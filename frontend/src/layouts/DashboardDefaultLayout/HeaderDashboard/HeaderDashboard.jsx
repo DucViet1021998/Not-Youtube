@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar, Button, Input, Menu, theme, Tooltip, Badge } from 'antd';
 
@@ -9,6 +9,7 @@ import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
 
 import { LoginOutlined, BellOutlined, VideoCameraAddOutlined, AudioOutlined } from '@ant-design/icons';
 
+import request from '~/utils/request'
 import { Store } from '~/store/store';
 import images from '~/assets/images';
 
@@ -38,8 +39,10 @@ function HeaderDashboard({ data }) {
     const onClick = (e) => {
         if (e.key === "light") {
             store.setCurrentTheme("light");
+            localStorage.setItem("mode", "light");
         } else if (e.key === 'dark') {
             store.setCurrentTheme("dark");
+            localStorage.setItem("mode", "dark");
         } else if (e.key === 'logout') {
             handleClickLogout()
         } else return
@@ -51,13 +54,13 @@ function HeaderDashboard({ data }) {
     const handleClickLogout = async () => {
         try {
             const refreshToken = localStorage.getItem('refreshToken')
-            const response = await axios.post('http://localhost:3023/logout',
+            const response = await request.post('logout',
                 { refreshToken: refreshToken },
             )
             if (response.status === 200) {
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");
-                store.login = false
+                store.login = null
                 navigate('/')
             }
             else {

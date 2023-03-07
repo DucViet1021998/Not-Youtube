@@ -17,6 +17,7 @@ const songSchema = new Schema({
     view_count_text: mongoose.Schema.Types.String,
     publish_date: mongoose.Schema.Types.String,
     description: mongoose.Schema.Types.String,
+    keywords: [mongoose.Schema.Types.String],
 })
 
 

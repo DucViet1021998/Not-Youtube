@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 24px 0px 16px;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+        background: #eee;
+    }
+}
+
+
+.text-result {
+    // margin-left: -8px;
+    // margin-right: -8px;
+    width: 100% !important;
+    font-weight: 600;
+    height: 1.6em;
+    // line-height: 32px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    // font-size: 1.6rem;
+    color: #222;
+    padding: 0px 24px 0px 16px;
+    // line-height: 32px;
+    // margin-top: 5px;
+}

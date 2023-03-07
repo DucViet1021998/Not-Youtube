@@ -1,26 +1,29 @@
+
 import { Layout, theme, Col, Row } from "antd";
 import VideoCard from "~/components/VideoCards/VideoCard";
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { v4 as id } from 'uuid';
 
+import request from '~/utils/request'
 const { Content } = Layout;
 
 function Home() {
     const [video, setVideo] = useState([])
 
     useEffect(() => {
-
         async function getSongs() {
             try {
-                const response = await axios.get('http://localhost:3023/get-songs')
+                const response = await request.get('/get-songs')
                 setVideo(response.data)
             } catch (error) {
                 console.log("error Data!");
             }
         }
         getSongs()
+        document.title = 'Not Youtube';
     }, [])
+
+
 
     const {
         token: { colorBgContainer, colorText },

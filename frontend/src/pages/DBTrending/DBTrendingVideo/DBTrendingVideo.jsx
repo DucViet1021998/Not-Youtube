@@ -1,30 +1,27 @@
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Tooltip } from 'antd';
 // import { useEffect } from "react";
 
+import request from '~/utils/request'
 import classNames from 'classnames/bind';
-import styles from './TrendingVideo.module.scss';
+import styles from './DBTrendingVideo.module.scss';
 const cx = classNames.bind(styles);
 
 
-function TrendingVideo({ data }) {
+function DBTrendingVideo({ data }) {
     const navigate = useNavigate()
 
     const handleClick = async () => {
         try {
-            const response = await axios.post('http://localhost:3023/add-song', {
+            const response = await request.post('add-song', {
                 video_url: data.video_url
             })
-            console.log(response.data._id);
-            navigate(`/watch/dashboard/${response.data._id}`)
+            navigate(`/dashboard/watch/${response.data._id}`)
         } catch (error) {
-            navigate(`/watch/dashboard/${error.response.data._id}`)
-            console.log(error.response.data._id);
-
+            navigate(`/dashboard/watch/${error.response.data._id}`)
         }
     }
 
@@ -49,21 +46,21 @@ function TrendingVideo({ data }) {
 
                 <div>
                     {/* Channel Name */}
-                    <Tooltip color={'#909090'} placement="top" title={data.channel}>
+                    <Tooltip color={'#616161'} placement="top" title={data.channel}>
                         <a className={cx("channel-name")} href={data.channel_url} rel="noreferrer" target='_blank'>{data.channel}  </a>
                     </Tooltip>
                     {/* END OF Channel Name */}
 
                     {/* Verified Check */}
                     {data.verified && <span className={cx("check")}>
-                        <Tooltip color={'#909090'} placement="right" title='Verified'>
+                        <Tooltip color={'#616161'} placement="right" title='Verified'>
                             <FontAwesomeIcon icon={faCheckCircle} />
                         </Tooltip></span>}
                     {/* END OF Verified Check */}
 
                     {/* View Count */}
                     <span className={cx("view")}>
-                        <Tooltip color={'#909090'} placement="top" title={data.view_count}>
+                        <Tooltip color={'#616161'} placement="top" title={data.view_count}>
                             {data.view_count_text} views</Tooltip></span>
                     {/*END OF View Count */}
 
@@ -81,4 +78,4 @@ function TrendingVideo({ data }) {
     );
 }
 
-export default TrendingVideo;
+export default DBTrendingVideo;

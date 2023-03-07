@@ -6,12 +6,13 @@ const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 const bcrypt = require('bcrypt')
 const ImgurStorage = require('multer-storage-imgur');
+const cors = require('cors');
 
 const userModel = require('./Models/UserModel')
 
+
 dotenv.config()
 
-const cors = require('cors')
 app.use(cors())
 app.use(express.json())
 
@@ -52,7 +53,7 @@ router.post('/login', async (req, res) => {
                 const accessToken = jwt.sign({ id: user.id, username: user.username },
                     process.env.ACCESS_TOKEN_SECRET,
                     {
-                        expiresIn: "5s" // Hết hạn sau 5s Login
+                        expiresIn: "1s" // Hết hạn sau 5s Login
                     })
 
                 // //  Make refreshToken and save to DB
@@ -68,6 +69,7 @@ router.post('/login', async (req, res) => {
                 // Response Tokens to FrontEnd
                 return res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken });
             }
+
             if (equalCompare === false) {
                 return res.status(500).send('Your Password not compare!')
             }
@@ -87,7 +89,7 @@ router.post('/login', async (req, res) => {
 router.post('/register', upload.any('avatar'), async (req, res) => {
     try {
         const avatarUrl = req.files[0].link
-        console.log(avatarUrl);
+
 
         // Find User exist in Database
         const username = req.body.username
@@ -111,6 +113,7 @@ router.post('/register', upload.any('avatar'), async (req, res) => {
                 gender: req.body.gender,
                 password: hashedPass,
                 avatar: avatarUrl,
+                songs: [],
             })
             return res.sendStatus(200)
         }
@@ -153,8 +156,9 @@ const checkToken = async (req, res, next) => {
 
 // Get User khi vào router cần login
 router.get("/", checkToken, async (req, res) => {
-    const users = await userModel.find({}).lean();
-    res.status(200).send(users);
+
+    const users = await userModel.findOne({ username: req.user.username }).lean();
+    res.status(200).send([users]);
 });
 
 
@@ -169,10 +173,12 @@ router.post("/refresh-token", async (req, res) => {
     if (!user) return res.sendStatus(401)
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
-        console.log(err, data);
+
         if (err) res.sendStatus(403)
+        // console.log(err, data);
+
         const accessToken = jwt.sign({ username: data.username, id: data.id }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '60s'
+            expiresIn: '2s'
         })
 
         res.status(200).send({ accessToken: accessToken })
@@ -203,6 +209,26 @@ router.post("/logout", async (req, res) => {
         res.status(500).send('error')
     }
 });
+
+
+
+router.get("/user-songs", async (req, res) => {
+    try {
+        // Client UserId 
+        const userId = req.headers.userid
+
+        // check UserId in DB
+        const users = await userModel.findById(userId).lean().populate("songs");
+
+
+        res.status(200).send(users.songs);
+    } catch (error) {
+        console.log(error);
+        res.send('Error!')
+    }
+
+})
+
 
 
 module.exports = router

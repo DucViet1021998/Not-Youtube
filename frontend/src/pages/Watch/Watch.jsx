@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
-import axios from "axios";
+
 import { Col, Row, theme, Avatar, Tooltip } from 'antd';
 import { v4 as id } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
+import request from "~/utils/request";
 
 import MiniVideo from "~/components/MiniVideos";
 
@@ -25,13 +26,14 @@ function Watch() {
         token: { colorBgDescriptions },
     } = theme.useToken();
 
+
     useEffect(() => {
 
         async function getSongs() {
             try {
-                const response = await axios.get(`http://localhost:3023/watch/${routeParams.songid}`)
+                const response = await request.get(`watch/${routeParams.songid}`)
                 setVideo(response.data)
-                // console.log(response.data);
+
             } catch (error) {
                 console.log("error Data!");
             }
@@ -43,14 +45,18 @@ function Watch() {
 
         async function getSongs() {
             try {
-                const response = await axios.get('http://localhost:3023/get-songs')
+                const response = await request.get('get-songs')
                 setMiniVideo(response.data)
             } catch (error) {
                 console.log("error Data!");
             }
         }
         getSongs()
-    }, [routeParams.songi])
+    }, [routeParams.songid])
+
+    useEffect(() => {
+        document.title = video.title;
+    }, [video.title, routeParams.songid]);
 
 
     return (<>
@@ -70,15 +76,15 @@ function Watch() {
                 <a href={video.channel_url}>
                     <div className={cx("channel")}>
                         <Avatar className={cx("avatar")} src={video.channel_avatar} />
-                        <h4 className={cx("name-channel")}><Tooltip color={'#909090'} title={video.channel} placement="top">{video.channel}</Tooltip></h4>
+                        <h4 className={cx("name-channel")}><Tooltip color={'#616161'} title={video.channel} placement="top">{video.channel}</Tooltip></h4>
                         {video.verified && <span className={cx("check")}>
-                            <Tooltip color={'#909090'} placement="top" title='Verified'>
+                            <Tooltip color={'#616161'} placement="top" title='Verified'>
                                 <FontAwesomeIcon icon={faCheckCircle} />
                             </Tooltip>
                         </span>}
 
 
-                        <span className={cx("subscriber")}><Tooltip color={'#909090'} title={video.subscriber_count} placement="top">{video.subscriber_count_text} subscribers</Tooltip></span>
+                        <span className={cx("subscriber")}><Tooltip color={'#616161'} title={video.subscriber_count} placement="top">{video.subscriber_count_text} subscribers</Tooltip></span>
                     </div>
                 </a>
                 {/* END OF Title Video and Channel Youtube */}
@@ -98,7 +104,6 @@ function Watch() {
 
             <Col
                 style={{
-                    // overflow: 'auto',
                     minHeight: '100vh',
                 }}
                 lg={6} sm={0} xs={0}>

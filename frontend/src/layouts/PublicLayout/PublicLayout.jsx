@@ -4,15 +4,15 @@ import React, { useContext, useEffect } from 'react';
 
 
 export default function PublicLayout() {
-    // const store = useContext(Store)
-    // const navigate = useNavigate()
+    const store = useContext(Store)
+    const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     if (store.login) {
-    //         return navigate('/dashboard')
-    //     }
+    useEffect(() => {
+        if (store.login) {
+            return navigate('/dashboard')
+        }
 
-    // }, [store.login, navigate])
+    }, [store.login, navigate])
 
     return <Outlet />
 }

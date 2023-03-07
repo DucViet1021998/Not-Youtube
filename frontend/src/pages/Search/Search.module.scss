@@ -1,0 +1,15 @@
+// Empty Data Layout
+
+.container-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: rgb(56, 55, 55);
+}
+
+.title-empty {
+    // color: rgb(187, 185, 185);
+    margin: 20px;
+}
