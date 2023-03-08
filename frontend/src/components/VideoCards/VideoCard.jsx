@@ -24,15 +24,49 @@ function VideoCard({ data }) {
         <Card
             onClick={handleClick}
             className={cx('card')}
-            cover={
-                <LazyLoadImage style={{ borderRadius: '10px' }} src={data.thumbnail_url} alt={data.title} />}
+            cover={<LazyLoadImage style={{ borderRadius: '10px' }} src={data.thumbnail_url} alt={data.title} />}
         >
+
             <Meta
                 avatar={<Avatar src={data.channel_avatar} />}
                 title={data.title}
             />
-            <a href={data.channel_url}><span className={cx("channel")}> <Tooltip color={'#616161'} placement="top" title={data.channel}>{data.channel}</Tooltip>{data.verified && <span className={cx("check")}> <Tooltip color={'#616161'} placement="top" title='Verified'> <FontAwesomeIcon icon={faCheckCircle} /></Tooltip></span>}</span></a>
-            <span className={cx("view")} ><Tooltip color={'#616161'} placement="top" title={data.view_count}>{data.view_count_text} views</Tooltip></span>
+
+            <a href={data.channel_url}>
+                <span className={cx("channel")}>
+                    {/* channel name */}
+                    <Tooltip color={'#616161'} placement="top"
+                        title={data.channel}>{data.channel}
+                    </Tooltip>
+                    {/*END OF channel name */}
+
+                    {/* Verified check */}
+                    {data.verified &&
+                        <span className={cx("check")}>
+                            <Tooltip color={'#616161'} placement="top" title='Verified'>
+                                <FontAwesomeIcon icon={faCheckCircle} />
+                            </Tooltip>
+                        </span>}
+                    {/* END OF Verified check */}
+
+                </span>
+            </a>
+
+            <span className={cx("views-days")} >
+                {/* view count */}
+                <span className={cx("views")}>
+                    <Tooltip color={'#616161'} placement="top"
+                        title={data.view_count}>{data.view_count_text} views
+                    </Tooltip>
+                </span>
+                {/* END OF view count */}
+
+                {/* Published Day */}
+                <span className={cx("publish-day")}>
+                    {data.publish_date_compare}
+                </span>
+                {/* END OF Published Day */}
+            </span>
         </Card>
     );
 }

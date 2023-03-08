@@ -8,21 +8,40 @@
 
 .channel {
     position: absolute;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     // margin-left: 3rem;
     left: 4.5rem;
     bottom: 4px;
     text-overflow: ellipsis !important;
     overflow: hidden !important;
     height: 1.7em;
-    // border: 1px solid red;
 }
 
-.view {
+.check {
+    padding-left: 10px;
+    color: #616161;
+
+}
+
+
+.views-days {
+    display: flex;
     font-size: 0.7rem;
     position: absolute;
-    // border: 1px solid red;
-    bottom: -8px;
+    bottom: -10px;
     left: 4.5rem;
 
+
+}
+
+.publish-day {
+    padding-left: 10px;
+    position: relative;
+
+    &::after {
+        content: '•';
+        color: inherit;
+        position: absolute;
+        left: 3px
+    }
 }

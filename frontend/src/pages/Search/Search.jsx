@@ -62,6 +62,7 @@ function Search() {
                 :
                 (video.length === 0 && <div
                     style={{
+                        minWidth: '270px',
                         minHeight: "80vh",
                         backgroundColor: colorBgDBEmpty,
                         color: colorText,
@@ -80,7 +81,7 @@ function Search() {
                             border: '1px solid #ffff'
                         }}
                         danger
-                        size="large" icon={<DownloadOutlined />} onClick={() => navigate('/')} >
+                        size="large" icon={<DownloadOutlined />} onClick={() => navigate('/add-song')} >
                         Add your song to the data!
                     </Button>
                 </div>)

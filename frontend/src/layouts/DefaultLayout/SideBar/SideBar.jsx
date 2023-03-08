@@ -32,7 +32,7 @@ const items = [
     getItem("Login", '/login', <UserOutlined />),
     getItem("Sign up", '/register', <FormOutlined />),
     getItem("Trending", '4', <FireOutlined />, [
-        getItem('NOW', '/trending/default', <FireFilled />),
+        getItem('NOW', '/trending/now', <FireFilled />),
         getItem('MUSIC', '/trending/music', <CustomerServiceFilled />),
         getItem('GAMING', '/trending/gaming', <RocketFilled />),
         getItem('FILMS', '/trending/movies', <VideoCameraFilled />),

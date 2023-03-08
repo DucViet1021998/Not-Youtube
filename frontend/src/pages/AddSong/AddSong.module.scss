@@ -1,0 +1,90 @@
+.container-left {
+    width: 100%;
+    max-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form {
+    // border: 2px solid #4285F4;
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(#000000, .1);
+    padding: 20px;
+}
+
+.video {
+    min-height: 550px !important;
+    max-height: 1170px !important;
+}
+
+
+.title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.channel {
+    display: flex;
+    width: 50%;
+    position: relative;
+    height: 4rem;
+}
+
+.avatar {
+    min-width: 3rem;
+    min-height: 3rem;
+
+}
+
+.name-channel {
+    margin-left: 15px;
+    margin-right: 8px;
+}
+
+.subscriber {
+    position: absolute;
+    left: 3.9rem;
+    top: 1.3rem;
+    opacity: 80%;
+}
+
+.container-descriptions {
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+
+.tittle-descriptions {
+    font-weight: 600;
+}
+
+.description {
+    white-space: pre-line;
+    font-size: 0.9rem;
+}
+
+
+// Right side
+
+.container-right {
+    box-shadow: 0 0 30px rgba(#000000, .1);
+    padding-left: 10px;
+    width: 100%;
+    min-height: 100vh;
+    border-radius: 10px;
+    // background-color: rgb(236, 235, 235);
+}
+
+.title-right {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #616161;
+}

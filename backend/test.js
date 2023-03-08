@@ -1,26 +1,17 @@
 // const axios = require('axios')
-const dayjs = require('dayjs')
 const ytdl = require('ytdl-core');
-var relativeTime = require('dayjs/plugin/relativeTime')
-dayjs.extend(relativeTime)
+const dayjs = require('dayjs');
+var relativeTime = require('dayjs/plugin/relativeTime');
+dayjs.extend(relativeTime);
 
-ytdl.getInfo('https://youtu.be/mnBAZ-VkuEg').then(info => {
-    // console.log('rating:', info.player_response.videoDetails.averageRating);
-    // console.log('uploaded by:', info.videoDetails.author.name);
+ytdl.getInfo('https://youtu.be/JZ8iSNtMPE0').then((info) => {
+    console.log(typeof (info.videoDetails.viewCount));
+    // });
+    // const getSongs = async () => {
+    //     const data = await axios.default.get('https://youtu.be/fyMgBQioTLo')
 
-    // console.log(info.videoDetails.find(thumb => thumb.incluse('width: 1920')));
-
-
-    // const des = info.videoDetails.description
-    // des.replaceAll('/n', '<br/>')
-    // console.log(info.videoDetails);
-    console.log(dayjs(info.videoDetails.publishDate).fromNow());
+    //     console.log(data.data);
 });
-// const getSongs = async () => {
-//     const data = await axios.default.get('https://youtu.be/fyMgBQioTLo')
-
-//     console.log(data.data);
-// }
 // const fs = require('fs');
 // const ytdl = require('ytdl-core');
 // TypeScript: import ytdl from 'ytdl-core'; with --esModuleInterop
@@ -36,15 +27,23 @@ ytdl.getInfo('https://youtu.be/mnBAZ-VkuEg').then(info => {
 
 // getSongs()
 
+// const route = async ctx => {
+//     const spanish = await translate(ctx.body, { to: "vi" });
+//     return send(spanish);
+// };
+// route('hello')
+
+// (async () => {
+//     const text = await translate("Hello world", "es")
+// })()
+
 // function changeLineBreak(p) {
 //     return console.log(p.replaceAll('/n', '<br/>'))
 
 // }
 
-// text = "Sài Gòn Đau Lòng Quá | Hứa Kim Tuyền x Hoàng Duyên | (Official MV 4k)\n#SaiGonDauLongQua #HuaKimTuyen #HoangDuyen #SGDLQ #YinYangMedia\n\nTikTok Version: https://vt.tiktok.com/ZSJ2va8qt/\n\nLanding page: https://YYM.lnk.to/SGDLQ\nDirect to service:\nSpotify: https://YYM.lnk.to/SGDLQ/spotify\nApple Music: https://YYM.lnk.to/SGDLQ/applemusic\niTunes: https://YYM.lnk.to/SGDLQ/itunes\nNCT: https://YYM.lnk.to/SGDLQ<br/>ct\nKeeng: https://YYM.lnk.to/SGDLQ/keeng\n\nPRODUCED BY DREAMS PRODUCTIONS, THE RED NOTE ENTERTAINMENT\n\nMusic Composer: Hứa Kim Tuyền\nMusic Producer: Hứa Kim Tuyền\nMusic Arranger: Hoàng Bảo\nRecorder: The Mask Production\nMix & Master: Minh Dat Nguyen\nStarring: Ma Ran Đô\n\nDirector: Gin Trần\nArt Director : Nachi Khang\nProducer: Kan Nguyễn\nAssistant Director: Nhỏ Xíu\n2nd Assistant Director: Sơn Trương\nSet Design: Basic Decor\nArtist Assistant: Huy Phờ, Vũ Đức Huy\nProduction Assistant : Huy Phờ\n\nDirector of Media Planning: Nguyễn Việt Nữ\nSocial Executive: Huy Phờ\nPR Assistan"
 
 // changeLineBreak(text)
-
 
 // function getNumberText(num) {
 //     if (num.length >= 0 && num.length < 4) {
@@ -85,7 +84,6 @@ ytdl.getInfo('https://youtu.be/mnBAZ-VkuEg').then(info => {
 //         return textNum
 //     }
 // }
-
 
 // console.log(getNumberText("7200000000"));
 // function getNumberText(num) {
@@ -137,25 +135,33 @@ ytdl.getInfo('https://youtu.be/mnBAZ-VkuEg').then(info => {
 // const parameters = {
 //     geoLocation: 'VN',
 //     parseCreatorOnRise: false,
-//     page: 'default'
+//     page: 'music'
 
 // }
 
-// ytrend.scrapeTrendingPage(parameters).then((data) => {
-//     const newData = data.map(song => ({
-//         title: song.title,
-//         channel: song.author,
-//         channel_url: `https://www.youtube.com/${song.authorUrl}`,
-//         description: song.description,
-//         verified: song.isVerified,
-//         view_count: getNumber(song.viewCount.toString()),
-//         published_text: song.publishedText,
-//         thumbnail_url: song.videoThumbnails[1].url,
-//         verified_artist: song.isVerifiedArtist,
-//         video_url: `https://youtu.be/${song.videoId}`
-//     }))
+// // ytrend.scrapeTrendingPage(parameters).then((data) => {
+// console.log(data[0].published.length);
+// console.log(dayjs(data[0].published).$d);
+// const day = dayjs(data[0].published).$d
+// console.log(data[0].published);
+// console.log(Date());
+// console.log(data[0]);
+// console.log(dayjs(1678172005967).fromNow());
 
-//     console.log(newData);
+// const newData = data.map(song => ({
+//     title: song.title,
+//     channel: song.author,
+//     channel_url: `https://www.youtube.com/${song.authorUrl}`,
+//     description: song.description,
+//     verified: song.isVerified,
+//     // view_count: getNumber(song.viewCount.toString()),
+//     published_text: song.publishedText,
+//     thumbnail_url: song.videoThumbnails[1].url,
+//     verified_artist: song.isVerifiedArtist,
+//     video_url: `https://youtu.be/${song.videoId}`
+// }))
+
+// console.log(newData);
 
 // }).catch((error) => {
 //     console.error(error);

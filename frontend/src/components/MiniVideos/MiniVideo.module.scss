@@ -48,11 +48,21 @@
     color: #616161;
 }
 
-
-.view {
-    // position: absolute;
-    bottom: 0.6rem;
-    left: 173px !important;
+.views-days {
+    display: flex;
+    font-size: 0.7rem;
+    bottom: -10px;
+    left: 4.5rem;
 }
 
-// END OF Right Side
+.publish-day {
+    padding-left: 10px;
+    position: relative;
+
+    &::after {
+        content: '•';
+        color: inherit;
+        position: absolute;
+        left: 3px
+    }
+}

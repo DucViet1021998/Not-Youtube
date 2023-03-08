@@ -104,9 +104,9 @@ a[href] {
     border-color: var(--dark-blue) !important;
 }
 
-// .ant-menu-item {
-// padding-left: 23px !important;
-// }
+.ant-menu-item {
+    padding-left: 23px !important;
+}
 
 :where(.css-dev-only-do-not-override-d4hxk0).ant-tooltip .ant-tooltip-inner {
     box-shadow: none !important;

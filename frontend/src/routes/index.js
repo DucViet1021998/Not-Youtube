@@ -9,7 +9,7 @@ import Album from '~/pages/Album';
 import DBWatch from '~/pages/DBWatch';
 import DBTrending from '~/pages/DBTrending';
 import Search from '~/pages/Search';
-
+import AddSong from '~/pages/AddSong'
 
 
 // import See from '~/pages/See/See';
@@ -26,6 +26,7 @@ const publicRoutes = [
     { path: '/trending/:type', component: Trending },
     { path: '/watch/:songid', component: Watch, layout: WatchLayout },
     { path: '/search/:searchtext', component: Search },
+    { path: '/add-song', component: AddSong },
 ];
 
 const privateRoutes = [

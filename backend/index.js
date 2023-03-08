@@ -1,21 +1,19 @@
-const express = require('express')
-const morgan = require('morgan')
-const cors = require('cors')
-const users = require('./users')
-const songs = require('./songs')
-const search = require("./songs/SearchSong")
+const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
+const users = require('./users');
+const songs = require('./songs');
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/Youtube');
 
-const app = express()
+const app = express();
 
-app.use(express.json())
-app.use(morgan('combined'))
-app.use(cors())
-app.use(express.urlencoded({ extended: false }))
-app.use('/', users)
-app.use('/', songs)
-app.use('/', search)
+app.use(express.json());
+app.use(morgan('combined'));
+app.use(cors());
+app.use(express.urlencoded({ extended: false }));
+app.use('/', users);
+app.use('/', songs);
 
-app.listen(3023)
+app.listen(3023);

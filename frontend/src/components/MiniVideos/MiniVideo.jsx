@@ -51,12 +51,22 @@ function MiniVideo({ data }) {
                     {/* END OF Verified Check */}
 
                 </div>
-                {/* View Count */}
-                <span className={cx("view")}>
-                    <Tooltip color={'#616161'} placement="top" title={data.view_count}>
-                        {data.view_count_text} views</Tooltip>
+
+                <span className={cx("views-days")} >
+                    {/* view count */}
+                    <span className={cx("views")}>
+                        <Tooltip color={'#616161'} placement="top"
+                            title={data.view_count}>{data.view_count_text} views
+                        </Tooltip>
+                    </span>
+                    {/* END OF view count */}
+
+                    {/* Published Day */}
+                    <span className={cx("publish-day")}>
+                        {data.publish_date_compare}
+                    </span>
+                    {/* END OF Published Day */}
                 </span>
-                {/*END OF View Count */}
 
             </div>
         </div>

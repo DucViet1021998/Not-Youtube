@@ -4,8 +4,8 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Tooltip } from 'antd';
-import request from "~/utils/request";
 
+import request from "~/utils/request";
 import classNames from 'classnames/bind';
 import styles from './SearchVideo.module.scss';
 const cx = classNames.bind(styles);
@@ -68,7 +68,7 @@ function SearchVideo({ data }) {
                     {/*END OF View Count */}
 
                     {/* Published Day */}
-                    <span className={cx("publish-day")}>{data.published_text}</span>
+                    <span className={cx("publish-day")}>{data.publish_date_compare}</span>
                     {/* END OF Published Day */}
 
                     <p className={cx("description")}>{data.description}</p>

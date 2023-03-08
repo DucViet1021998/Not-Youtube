@@ -13,7 +13,7 @@ import { DashboardDefaultLayout } from "./layouts/DashboardDefaultLayout";
 
 const App = () => {
   const [login, setLogin] = useState(localStorage.getItem('accessToken'))
-  const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('mode'))
+  const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('mode') || "light")
 
   return (
     <ConfigProvider

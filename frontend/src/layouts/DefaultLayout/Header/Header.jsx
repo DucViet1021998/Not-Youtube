@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { MoreOutlined, FormOutlined, UserOutlined, CloseCircleFilled } from '@ant-design/icons';
+import { MoreOutlined, FormOutlined, UserOutlined, CloseCircleFilled, VideoCameraAddOutlined } from '@ant-design/icons';
 
 import { Button, Input, theme, Tooltip, Menu, Row, Col, Form } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,6 +33,7 @@ const items = [
     ]),
 
     getItem(<Link to={'/register'}>Sign up</Link>, 'sub2', <FormOutlined />),
+    getItem(<Link to={'/add-song'}>Create</Link>, 'create', <VideoCameraAddOutlined />),
 ];
 
 
