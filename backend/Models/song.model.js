@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const songSchema = new Schema({
+const SongSchema = new Schema({
     video_url: mongoose.Schema.Types.String,
     channel: mongoose.Schema.Types.String,
     channel_avatar: mongoose.Schema.Types.String,
     channel_url: mongoose.Schema.Types.String,
     title: mongoose.Schema.Types.String,
-    title_normalize: mongoose.Schema.Types.String,
     thumbnail_url: mongoose.Schema.Types.String,
     verified: mongoose.Schema.Types.Boolean,
     subscriber_count: mongoose.Schema.Types.String,
@@ -20,6 +19,6 @@ const songSchema = new Schema({
     keywords: [mongoose.Schema.Types.String],
 });
 
-const songModel = mongoose.model('songs', songSchema);
+const SongModel = mongoose.model('songs', SongSchema);
 
-module.exports = songModel;
+module.exports = SongModel;

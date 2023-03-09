@@ -13,7 +13,7 @@ function Home() {
     useEffect(() => {
         async function getSongs() {
             try {
-                const response = await request.get('/get-songs')
+                const response = await request.get('get-songs')
                 setVideo(response.data)
             } catch (error) {
                 console.log("error Data!");

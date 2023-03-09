@@ -20,7 +20,7 @@ function DashboardDefaultLayout({ children }) {
             const accessToken = localStorage.getItem('accessToken')
             const refreshToken = localStorage.getItem('refreshToken')
             try {
-                const users = await request.get('', {
+                const users = await request.get('current-user', {
                     headers: { Authorization: `Bearer ${accessToken}` }
                 })
 
