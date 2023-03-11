@@ -9,8 +9,8 @@ import classNames from 'classnames/bind';
 
 import images from "~/assets/images";
 import request from '~/utils/request'
-import SearchVideo from './SearchVideo'
-import styles from './Search.module.scss';
+import DBSearchVideo from './DBSearchVideo'
+import styles from './DBSearch.module.scss';
 const cx = classNames.bind(styles);
 
 const antIcon = (
@@ -24,7 +24,7 @@ const antIcon = (
 );
 
 
-function Search() {
+function DBSearch() {
     const [loading, setLoading] = useState(false);
     const routeParams = useParams();
     const [video, setVideo] = useState([])
@@ -81,7 +81,7 @@ function Search() {
                             border: '1px solid #ffff'
                         }}
                         danger
-                        size="large" icon={<DownloadOutlined />} onClick={() => navigate('/add-song')} >
+                        size="large" icon={<DownloadOutlined />} onClick={() => navigate('/dashboard/add-song')} >
                         Add your song to the data!
                     </Button>
                 </div>)
@@ -97,7 +97,7 @@ function Search() {
                                     sm={12}
                                     xs={24}
                                 >
-                                    <SearchVideo key={id()} data={vid} />
+                                    <DBSearchVideo key={id()} data={vid} />
                                 </Col>
                             </Row>
                         ))
@@ -108,4 +108,4 @@ function Search() {
     )
 }
 
-export default Search;
+export default DBSearch;

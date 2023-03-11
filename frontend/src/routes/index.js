@@ -10,7 +10,8 @@ import DBWatch from '~/pages/DBWatch';
 import DBTrending from '~/pages/DBTrending';
 import Search from '~/pages/Search';
 import AddSong from '~/pages/AddSong'
-
+import DBSearch from '~/pages/DBSearch'
+import DBAddSong from '~/pages/DBAddSong'
 
 // import See from '~/pages/See/See';
 //Layout
@@ -24,8 +25,8 @@ const publicRoutes = [
     { path: '/login', component: Login },
     { path: '/register', component: Register },
     { path: '/trending/:type', component: Trending },
-    { path: '/watch/:songid', component: Watch, layout: WatchLayout },
-    { path: '/search/:searchtext', component: Search },
+    { path: '/watch/:songId', component: Watch, layout: WatchLayout },
+    { path: '/search/:searchText', component: Search },
     { path: '/add-song', component: AddSong },
 ];
 
@@ -33,7 +34,10 @@ const privateRoutes = [
     { path: '/dashboard', component: Dashboard },
     { path: '/album', component: Album },
     { path: '/dashboard/trending/:type', component: DBTrending },
-    { path: '/dashboard/watch/:songid', component: DBWatch, layout: DBWatchLayout },
+    { path: '/dashboard/watch/:songId', component: DBWatch, layout: DBWatchLayout },
+    { path: '/dashboard/search/:searchText', component: DBSearch },
+    { path: '/dashboard/add-song', component: DBAddSong },
+
 ];
 
 export { publicRoutes, privateRoutes };

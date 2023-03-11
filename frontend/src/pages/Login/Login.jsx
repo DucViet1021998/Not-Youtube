@@ -14,7 +14,6 @@ const Login = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const store = useContext(Store)
     const navigate = useNavigate()
-
     const {
         token: { colorBgLoginForm, boxShadowForm },
     } = theme.useToken();
@@ -29,7 +28,7 @@ const Login = () => {
                 localStorage.setItem("accessToken", response.data.accessToken);
                 localStorage.setItem("refreshToken", response.data.refreshToken);
                 navigate("/dashboard");
-                store.login = true;
+                store.setLogin(localStorage.getItem('refreshToken'));
             }
 
         } catch (error) {
@@ -129,14 +128,14 @@ const Login = () => {
                     {contextHolder}
                     <Form.Item
                         wrapperCol={{
-                            offset: 8,
-                            // span: 16,
+                            offset: 8
                         }}
                     >
                         <Button
                             style={{
                                 backgroundColor: "#4285F4",
                                 color: "white",
+                                width: "100px"
                             }}
                             type="default"
                             htmlType="submit"
@@ -145,6 +144,7 @@ const Login = () => {
                         </Button>
                     </Form.Item>
                 </Form>
+                <h5 className={cx('under-btn')}>Not a member <span className={cx('sign-up')} onClick={() => navigate('/register')}>Sign up now</span></h5>
             </div>
         </div>
     );

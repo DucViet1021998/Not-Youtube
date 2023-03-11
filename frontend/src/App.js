@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 
 import { Routes, Route } from "react-router-dom";
 import { ConfigProvider } from 'antd';
-import { darkTheme, lightTheme } from "./Modes";
+import { darkTheme, lightTheme } from "./components/Modes";
 import { Store } from "./store/store";
 import PrivateLayout from "./layouts/PrivateLayout";
 import PublicLayout from "./layouts/PublicLayout";
@@ -12,6 +12,7 @@ import { DashboardDefaultLayout } from "./layouts/DashboardDefaultLayout";
 
 
 const App = () => {
+  const [badge, setBadge] = useState(Number(localStorage.getItem('notify')) || 0)
   const [login, setLogin] = useState(localStorage.getItem('accessToken'))
   const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('mode') || "light")
 
@@ -20,7 +21,7 @@ const App = () => {
       theme={{
         token: currentTheme === 'light' ? lightTheme : darkTheme,
       }}>
-      <Store.Provider value={{ login, setLogin, currentTheme, setCurrentTheme }}>
+      <Store.Provider value={{ login, setLogin, badge, setBadge, currentTheme, setCurrentTheme }}>
         <Routes>
           {/* Private Layout */}
           <Route element={<PrivateLayout />}>
@@ -56,11 +57,8 @@ const App = () => {
                 path={route.path}
                 element={<Layout><Page /></Layout>} />
             })}
-
           </Route>
           {/* End Of Public Layout */}
-
-
         </Routes>
       </Store.Provider >
     </ConfigProvider>

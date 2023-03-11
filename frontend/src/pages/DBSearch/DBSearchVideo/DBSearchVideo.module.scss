@@ -1,0 +1,65 @@
+.card {
+    cursor: pointer;
+    display: flex;
+    margin-bottom: 15px;
+
+}
+
+.img {
+    width: 360px;
+    height: 202px;
+    border-radius: 10px;
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: 600;
+    // width: 100%;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    line-height: 1.3em;
+    height: 2.4em;
+    margin-bottom: 8px;
+}
+
+.channel {
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8em;
+}
+
+.check {
+    padding-left: 10px;
+    color: #616161;
+
+}
+
+.view {
+    padding-left: 10px;
+    position: relative;
+    // border: 1px solid red;
+
+    &::after {
+        content: '•';
+        position: absolute;
+        right: -9px;
+        color: inherit;
+    }
+}
+
+.publish-day {
+    padding-left: 14px;
+}
+
+.description {
+    padding-top: 10px;
+    font-size: 0.8rem;
+    width: 100%;
+    // white-space: nowrap;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    line-height: 1.3em;
+    height: 2.3em;
+
+}

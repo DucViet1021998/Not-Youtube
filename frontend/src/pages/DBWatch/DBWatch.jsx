@@ -34,14 +34,14 @@ function DBWatch() {
 
         async function getSongs() {
             try {
-                const response = await request.get(`dashboard/watch/${routeParams.songid}`)
+                const response = await request.get(`dashboard/watch/${routeParams.songId}`)
                 setVideo(response.data)
             } catch (error) {
                 console.log("error Data!");
             }
         }
         getSongs()
-    }, [routeParams.songid])
+    }, [routeParams.songId])
 
     useEffect(() => {
 
@@ -56,7 +56,9 @@ function DBWatch() {
             }
         }
         getSongs()
-    }, [userId])
+        document.title = video.title;
+    }, [video.title, userId, routeParams.songId])
+
 
 
     return (

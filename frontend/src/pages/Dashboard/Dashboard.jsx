@@ -51,6 +51,7 @@ function Dashboard() {
             }
         }
         getSongs()
+        document.title = 'Not Youtube';
     }, [userId])
 
     const {
@@ -94,7 +95,7 @@ function Dashboard() {
                     }}
                 >
 
-                    <h1>Your Album</h1>
+                    <h1 style={{ marginBottom: '16px' }}>Your Album</h1>
 
                     <Row gutter={[16, 16]}>
                         {video.map((vid) => (

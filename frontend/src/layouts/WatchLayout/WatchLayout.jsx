@@ -1,23 +1,11 @@
-
 import { Layout, theme } from 'antd';
-
 import Header from './Header';
-// import SideBar from './SideBar';
-// import classNames from 'classnames/bind';
-// import styles from './DefaultLayout.module.scss';
-// const cx = classNames.bind(styles);
-
-
 const { Content } = Layout;
 
 const WatchLayout = ({ children }) => {
-
-
     const {
         token: { colorBgContainer, colorText },
     } = theme.useToken();
-
-
 
     return (
 

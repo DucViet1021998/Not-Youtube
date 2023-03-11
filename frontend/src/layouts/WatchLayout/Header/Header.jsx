@@ -1,19 +1,21 @@
 import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { MoreOutlined, FormOutlined, UserOutlined, CloseCircleFilled } from '@ant-design/icons';
 
 import { Button, Input, theme, Tooltip, Menu, Row, Col, Form } from 'antd';
+import { MoreOutlined, FormOutlined, UserOutlined, CloseCircleFilled } from '@ant-design/icons';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleHalfStroke, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
+
 import { v4 as id } from 'uuid';
+import classNames from 'classnames/bind';
 
 import { Store } from '~/store/store';
-import images from '~/assets/images';
-import classNames from 'classnames/bind';
-import styles from './Header.module.scss';
-import SearchResult from '~/components/SearchResult'
 import request from "~/utils/request";
+import images from '~/assets/images';
+import SearchResult from '~/components/SearchResult'
+import styles from './Header.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -37,12 +39,12 @@ const items = [
 
 
 function Header() {
-    const routeParams = useParams();
-    const navigate = useNavigate()
     const [valueInput, setValueInput] = useState('')
-    const store = useContext(Store)
     const [searchResult, setSearchResult] = useState([])
 
+    const routeParams = useParams();
+    const navigate = useNavigate()
+    const store = useContext(Store)
 
     useEffect(() => {
         const getSong = async () => {
@@ -51,6 +53,7 @@ function Header() {
                     const response = await request.post('search', {
                         search: valueInput
                     })
+
                     setSearchResult(response.data)
                 } else if (valueInput === '') {
                     setSearchResult([])
@@ -76,15 +79,18 @@ function Header() {
         console.log('Failed:', errorInfo);
     };
 
+    useEffect(() => {
+        localStorage.setItem('mode', store.currentTheme);
+    }, [store.currentTheme])
+
     const onClick = (e) => {
-        if (e.key === "light") {
-            store.setCurrentTheme("light");
-            localStorage.setItem("mode", "light");
+        if (e.key === 'light') {
+            store.setCurrentTheme('light');
         } else if (e.key === 'dark') {
-            store.setCurrentTheme("dark");
-            localStorage.setItem("mode", "dark");
+            store.setCurrentTheme('dark');
         } else return
     };
+
 
     const handelKeyUp = (e) => {
         setValueInput(e.target.value);
@@ -103,7 +109,7 @@ function Header() {
     }
 
     const {
-        token: { colorText, colorHeader, colorLogin, borderLogin },
+        token: { colorHeader, colorLogin, borderLogin, colorBgBase },
     } = theme.useToken();
 
 
@@ -151,7 +157,7 @@ function Header() {
                                     overlayInnerStyle={{
                                         backgroundColor: '#fff',
                                         maxWidth: 'calc(100vw - 83em)',
-                                        width: 'calc(100vw - 83em)',
+                                        width: '400px',
                                         minWidth: '200px',
                                         color: 'black',
                                         padding: '16px 0 8px',
@@ -178,9 +184,6 @@ function Header() {
                                         value={valueInput}
                                         onChange={handleOnchangeInput}
                                         allowClear={{ clearIcon: <CloseCircleFilled onClick={handleClearInput} /> }}
-                                        style={{
-                                            color: colorText,
-                                        }}
                                         bordered={false}
                                         placeholder="Search videos"
                                         spellCheck={false}
@@ -205,18 +208,24 @@ function Header() {
                     <div className={cx('actions')}>
 
                         <Tooltip
+                            overlayStyle={{
+                                marginTop: "-5px",
+                            }}
+                            overlayInnerStyle={{
+                                backgroundColor: colorBgBase,
+                                padding: '16px 0 8px',
+                                borderRadius: "12px",
+                            }}
                             placement="bottomRight"
-                            style={{ boxShadow: "none" }}
-                            arrow="false"
-                            color={"transparent"}
-                            // overlay={"none"}
+                            arrow={false}
                             trigger='click'
-                            zIndex='999'
-                            title={<Menu
-                                onClick={onClick}
-                                style={{ width: 200 }}
-                                mode="inline"
-                                items={items} />}>
+                            title={
+                                <Menu
+                                    onClick={onClick}
+                                    style={{ width: 200 }}
+                                    mode="inline"
+                                    items={items} />}
+                        >
                             <Button style={{
                                 backgroundColor: 'transparent',
                                 border: 'none',

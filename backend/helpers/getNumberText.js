@@ -1,5 +1,7 @@
 
 function getNumberText(num) {
+    if (!num) return
+
     numText = num.toString()
     if (numText.length >= 0 && numText.length < 4) {
         return numText;

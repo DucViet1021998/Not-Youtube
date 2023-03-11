@@ -1,20 +1,30 @@
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Tooltip } from 'antd';
-import { Store } from '~/store/store';
-import classNames from 'classnames/bind';
-import styles from './MiniVideo.module.scss';
 
+import request from "~/utils/request";
+import classNames from 'classnames/bind';
+import styles from './DBSearchVideo.module.scss';
 const cx = classNames.bind(styles);
 
 
-function MiniVideo({ data }) {
-    const store = useContext(Store)
+function DBSearchVideo({ data }) {
     const navigate = useNavigate()
-    const handleClick = () => !store.user ? navigate(`/watch/${data._id}`) : navigate(`/dashboard/watch/${data._id}`)
+
+    const handleClick = async () => {
+        try {
+            const response = await request.post('add-song', {
+                video_url: data.video_url
+            })
+            navigate(`/dashboard/watch/${response.data._id}`)
+        } catch (error) {
+            navigate(`/dashboard/watch/${error.response.data._id}`)
+        }
+    }
+
     return (
         <div onClick={handleClick} className={cx('card')} >
 
@@ -26,19 +36,20 @@ function MiniVideo({ data }) {
             />
             {/* END OF IMG */}
 
-            <div className={cx("channel-container")}>
+
+            <span className={cx("channel")}>
 
                 {/* Title Video */}
                 <h2 className={cx('title')}>{data.title}</h2>
                 {/* END IF Title Video */}
 
-                <div className={cx("author-channel")}>
+
+                <div>
                     {/* Channel Name */}
                     <Tooltip color={'#616161'} placement="top" title={data.channel}>
-                        <a href={data.channel_url} rel="noreferrer" target='_blank'>{data.channel}</a>
+                        <a href={data.channel_url} rel="noreferrer" target='_blank'>{data.channel}  </a>
                     </Tooltip>
                     {/* END OF Channel Name */}
-
 
                     {/* Verified Check */}
                     {data.verified &&
@@ -49,29 +60,25 @@ function MiniVideo({ data }) {
                         </span>}
                     {/* END OF Verified Check */}
 
-                </div>
-
-                <span className={cx("views-days")} >
-                    {/* view count */}
-                    <span className={cx("views")}>
-                        <Tooltip color={'#616161'} placement="top"
-                            title={data.view_count}>{data.view_count_text} views
-                        </Tooltip>
+                    {/* View Count */}
+                    <span className={cx("view")}>
+                        <Tooltip color={'#616161'} placement="top" title={data.view_count}>
+                            {data.view_count_text} views</Tooltip>
                     </span>
-                    {/* END OF view count */}
+                    {/*END OF View Count */}
 
                     {/* Published Day */}
-                    <span className={cx("publish-day")}>
-                        {data.publish_date_compare}
-                    </span>
+                    <span className={cx("publish-day")}>{data.publish_date_compare}</span>
                     {/* END OF Published Day */}
-                </span>
 
-            </div>
+                    <p className={cx("description")}>{data.description}</p>
+                </div>
+
+            </span>
         </div>
 
 
     );
 }
 
-export default MiniVideo;
+export default DBSearchVideo;

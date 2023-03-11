@@ -20,7 +20,6 @@
     padding: 0;
     box-sizing: border-box;
     // scroll-behavior: none;
-    // overflow-y: hidden;
 }
 
 body {
@@ -30,6 +29,9 @@ body {
     text-rendering: optimizespeed;
     overflow-y: overlay;
     user-select: none;
+    // overflow-y: hidden;
+    overflow-x: hidden;
+
 }
 
 // Scrollbar CSS
@@ -40,7 +42,7 @@ html *::-webkit-scrollbar {
 
 html *::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: #616161;
 }
 
 
@@ -53,7 +55,6 @@ html *::-webkit-scrollbar-track {
 
 
 ::-webkit-input-placeholder {
-
     background: 0px transparent !important;
 }
 

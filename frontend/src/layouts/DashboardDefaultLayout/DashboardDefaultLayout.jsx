@@ -1,14 +1,14 @@
 import { Layout, theme } from 'antd';
 
 import { Store } from '~/store/store';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import HeaderDashboard from './HeaderDashboard';
 import SideBarDashboard from './SideBarDashboard';
 import request from "~/utils/request";
 const { Content } = Layout;
 function DashboardDefaultLayout({ children }) {
+    const store = useContext(Store)
     const [user, setUser] = useState([])
-
     const {
         token: { colorBgContainer, colorText },
     } = theme.useToken();
@@ -50,6 +50,7 @@ function DashboardDefaultLayout({ children }) {
     return (
         <Layout hasSider style={{ height: '100vh' }}   >
 
+
             <SideBarDashboard
                 style={{
                     overflow: 'auto',
@@ -66,7 +67,6 @@ function DashboardDefaultLayout({ children }) {
                         position: 'sticky'
                     }}
                 >
-
                     {user.map((u, i) => (
                         <HeaderDashboard key={i} data={u} />
                     ))}
@@ -89,7 +89,7 @@ function DashboardDefaultLayout({ children }) {
                         }}
                     >
                         {user.map((u, i) => (
-                            <Store.Provider key={i} value={{ user }}>
+                            <Store.Provider key={i} value={{ user, store }}>
                                 {children}
                             </Store.Provider>
                         ))}
@@ -97,6 +97,7 @@ function DashboardDefaultLayout({ children }) {
                 </Content>
 
             </Layout>
+
 
         </Layout >
     )

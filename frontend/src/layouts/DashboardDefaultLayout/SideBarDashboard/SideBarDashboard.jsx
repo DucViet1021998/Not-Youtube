@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { Menu, Layout } from 'antd';
 import {
     HomeOutlined,
@@ -10,13 +11,9 @@ import {
     VideoCameraFilled,
     FolderAddOutlined,
 } from '@ant-design/icons';
+
 import { Store } from '~/store/store';
 const { Sider } = Layout;
-
-
-// import classNames from 'classnames/bind';
-// import styles from './SidebarDashboard.module.scss';
-// const cx = classNames.bind(styles);
 
 function getItem(label, key, icon, children) {
     return {
@@ -36,6 +33,8 @@ const items = [
     ]),
     getItem('Create Albums', '/album', <FolderAddOutlined />),
 ];
+
+
 function Sidebar() {
     const navigate = useNavigate()
     const handleClick = (e) => {
@@ -44,8 +43,6 @@ function Sidebar() {
 
     const store = useContext(Store);
     const theme = store.currentTheme
-
-
 
     return (
         <Sider style={

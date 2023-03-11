@@ -1,5 +1,5 @@
 const ytrend = require('@freetube/yt-trending-scraper');
-const getNumber = require('../helpers/getNumber')
+
 const getNumberText = require('../helpers/getNumberText')
 const ytdl = require('ytdl-core');
 const dayjs = require('dayjs');
@@ -9,10 +9,10 @@ const CronJob = require('cron').CronJob;
 
 const SongModel = require('../Models/song.model')
 dayjs.extend(relativeTime);
+const numberFormat = new Intl.NumberFormat("en-US");
 
 
 module.exports = {
-
 
     // [GET METHOD]  
     // get all songs in database
@@ -48,7 +48,7 @@ module.exports = {
                         channel_url: `https://www.youtube.com/${song.authorUrl}`,
                         description: song.description,
                         verified: song.isVerified,
-                        view_count: getNumber(song.viewCount),
+                        view_count: numberFormat.format(song.viewCount),
                         view_count_text: getNumberText(song.viewCount),
                         published_text: song.publishedText,
                         thumbnail_url: song.videoThumbnails[1].url,
@@ -66,10 +66,11 @@ module.exports = {
         }
     },
 
-
+    // [GET METHOD]  
+    // Get single song by ID in database send to Watch Page
     async watchPage(req, res) {
         try {
-            const songs = await SongModel.findById(req.params.songid);
+            const songs = await SongModel.findById(req.params.songId);
             res.status(200).send(songs);
         } catch (error) {
             console.log(error);
@@ -77,10 +78,11 @@ module.exports = {
         }
     },
 
-
+    // [GET METHOD]  
+    // Get single song by ID in database send to Dashboard Watch Page
     async watchDashboardPage(req, res) {
         try {
-            const songs = await SongModel.findById(req.params.songid);
+            const songs = await SongModel.findById(req.params.songId);
             res.status(200).send(songs);
         } catch (error) {
             console.log(error);
@@ -88,20 +90,24 @@ module.exports = {
         }
     },
 
-
+    // [PATCH METHOD]  
+    // Update information all Video in database
     async update(req, res) {
         try {
             const data = await SongModel.find();
             data.map((e) => {
                 ytdl.getInfo(e.video_url)
                     .then((info) => {
-                        (e.view_count = getNumber(info.videoDetails.viewCount)),
-                            (e.subscriber_count = getNumber(info.videoDetails.author.subscriber_count)),
+                        (e.view_count = numberFormat.format(info.videoDetails.viewCount)),
+                            (e.subscriber_count = numberFormat.format(info.videoDetails.author.subscriber_count)),
                             (e.publish_date_compare = dayjs(info.videoDetails.publishDate).fromNow()),
 
                             // -----------------------------------------------------------------------------------
                             (e.view_count_text = getNumberText(info.videoDetails.viewCount)),
+                            // console.log(typeof (info.videoDetails.viewCount));
                             (e.subscriber_count_text = getNumberText(info.videoDetails.author.subscriber_count))
+                        // console.log(typeof (info.videoDetails.author.subscriber_count));
+
                         // -----------------------------------------------------------------------------------
                     })
                     .then(() => e.save());
@@ -115,9 +121,9 @@ module.exports = {
 
 }
 
-
+// Cron Job 
 var job = new CronJob(
-    '0 */15 * * * *',
+    '0 */10 * * * *',
     async function () {
         try {
             await axios.patch('http://localhost:3023/update');

@@ -3,7 +3,9 @@ const dayjs = require('dayjs');
 
 const SongModel = require('../Models/song.model')
 const UserModel = require('../Models/user.model')
-const getNumber = require('../helpers/getNumber')
+
+const numberFormat = new Intl.NumberFormat("en-US");
+
 const getNumberText = require('../helpers/getNumberText')
 
 module.exports = {
@@ -17,7 +19,7 @@ module.exports = {
             await ytdl.getInfo(video_url).then(async (info) => {
                 // Check Empty Data URL
                 if (!info) return res.sendStatus(403);
-                // console.log(info.videoDetails.author.subscriber_count.toString());
+
 
                 const findUrl = await SongModel.findOne({ video_url: video_url });
 
@@ -26,17 +28,19 @@ module.exports = {
                     // Add Song and Save to Database
                     await SongModel.create({
                         channel: info.videoDetails.author.name,
-                        channel_avatar: info.videoDetails.author.thumbnails[2].url,
+                        channel_avatar: info.videoDetails.author.thumbnails[2].url
+                            ? info.videoDetails.author.thumbnails[2].url
+                            : (info.videoDetails.author.thumbnails[1].url || info.videoDetails.author.thumbnails[0].url),
                         channel_url: info.videoDetails.author.user_url,
                         title: info.videoDetails.title,
                         thumbnail_url: info.videoDetails.thumbnails[3].url,
                         verified: info.videoDetails.author.verified,
-                        subscriber_count: getNumber(info.videoDetails.author.subscriber_count),
+                        subscriber_count: numberFormat.format(info.videoDetails.author.subscriber_count),
                         subscriber_count_text: getNumberText(info.videoDetails.author.subscriber_count),
                         video_url: video_url,
                         publish_date: info.videoDetails.publishDate,
                         description: info.videoDetails.description,
-                        view_count: getNumber(info.videoDetails.viewCount),
+                        view_count: numberFormat.format(info.videoDetails.viewCount),
                         view_count_text: getNumberText(info.videoDetails.viewCount),
                         keywords: info.videoDetails.keywords,
                         publish_date_compare: dayjs(info.videoDetails.publishDate).fromNow(),
@@ -88,12 +92,12 @@ module.exports = {
                         title: info.videoDetails.title,
                         thumbnail_url: info.videoDetails.thumbnails[3].url,
                         verified: info.videoDetails.author.verified,
-                        subscriber_count: info.videoDetails.author.subscriber_count,
+                        subscriber_count: numberFormat.format(info.videoDetails.author.subscriber_count),
                         subscriber_count_text: getNumberText(info.videoDetails.author.subscriber_count),
                         video_url: video_url,
                         publish_date: info.videoDetails.publishDate,
                         description: info.videoDetails.description,
-                        view_count: getNumber(info.videoDetails.viewCount),
+                        view_count: numberFormat.format(info.videoDetails.viewCount),
                         view_count_text: getNumberText(info.videoDetails.viewCount),
                         keywords: info.videoDetails.keywords,
                         publish_date_compare: dayjs(
@@ -103,18 +107,18 @@ module.exports = {
                     const songId = await SongModel.findOne({
                         video_url: video_url,
                     });
-
                     user.songs.unshift(songId._id);
                     user.save();
-                    return res.status(200).send(user);
+
+                    return res.sendStatus(200)
                 });
             } else if (user && video) {
                 if (user.songs.includes(video._id))
-                    return res.status(401);
+                    return res.sendStatus(401);
                 else {
-                    user.songs.push(video._id);
+                    user.songs.unshift(video._id);
                     user.save();
-                    res.status(201)
+                    return res.sendStatus(201)
                 }
             } else res.send('error');
         } catch (error) {

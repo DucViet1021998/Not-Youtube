@@ -1,85 +1,50 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { Col, Row, Form, Input, Button, message, theme } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import { v4 as id } from 'uuid';
 
-import { Store } from '~/store/store';
 import MiniVideo from "~/components/MiniVideos/MiniVideo";
 
 import request from "~/utils/request";
 
 import classNames from 'classnames/bind';
-import styles from './Album.module.scss';
+import styles from './DBAddSong.module.scss';
 const cx = classNames.bind(styles);
 
-
-
-
-function Album() {
+function DBAddSong() {
     const [miniVideo, setMiniVideo] = useState([])
-    const [songUser, setSongUser] = useState(0)
     const [messageApi, contextHolder] = message.useMessage();
-    const store = useContext(Store)
-    const userId = store.user[0]._id;
-    useEffect(() => {
-
-        async function getSongs() {
-            try {
-                const response = await request.get('user-songs', {
-                    headers: { userId: userId }
-                })
-                setMiniVideo(response.data)
-            } catch (error) {
-                console.log("error Data!");
-            }
-        }
-        getSongs()
-    }, [userId, songUser])
-
-
 
     const onFinish = async (values) => {
         try {
-            const response = await request.post("add-album", values, {
-                headers: { userId: userId }
-            });
-
+            const response = await request.post("add-song", values);
             if (response.status === 200) {
-                setSongUser(songUser + 1)
-                store.store.setBadge(store.store.badge + 1)
-                localStorage.setItem('notify', JSON.stringify(store.store.badge + 1))
-
+                setMiniVideo(pre => [...pre, response.data])
                 messageApi.open({
                     type: 'success',
-                    content: 'The song be added your playlist successfully!',
-                    duration: 3,
+                    content: 'The song be added the Database successfully!',
                 });
-                return
-            } else if (response.status === 201) {
-                setSongUser(songUser + 1)
-                store.store.setBadge(store.store.badge + 1)
-                localStorage.setItem('notify', JSON.stringify(store.store.badge + 1))
+            };
 
-                messageApi.open({
-                    type: 'success',
-                    content: 'The song be added your playlist successfully!',
-                    duration: 3,
-                });
-                return
-            }
 
         } catch (error) {
-            if (error.response.status === 401) {
+            if (error.response.status === 400) {
                 messageApi.open({
                     type: 'warning',
-                    content: 'Already in the Your List',
+                    content: 'Already in the Database',
                 });
             } else if (error.response.status === 500) {
                 messageApi.open({
                     type: 'error',
                     content: 'INCORRECT URL!',
                 });
+            } else if (error.response.status === 403) {
+                messageApi.open({
+                    type: 'error',
+                    content: 'Your Link Error Data',
+                });
             }
+            console.log(error);
 
         }
     };
@@ -100,7 +65,6 @@ function Album() {
 
         <>
             <Row>
-
                 {/*  Left Side */}
                 <Col className={cx("container-left")}
                     lg={16} sm={24} xs={24}
@@ -146,7 +110,9 @@ function Album() {
                             >
                                 {contextHolder}
                                 <Button
+
                                     wrapperCol={{
+                                        // offset: 8,
                                         span: 24,
                                     }}
 
@@ -158,8 +124,6 @@ function Album() {
                                     htmlType="submit">
                                     Add your video
                                 </Button>
-
-
                             </Form.Item>
 
                         </Form>
@@ -176,7 +140,7 @@ function Album() {
                             color: colorText,
                         }}
                         className={cx("container-right")}>
-                        <h2 className={cx("title-right")}>Your Playlist</h2>
+                        <h2 className={cx("title-right")}>Your Video You Add!</h2>
                         {miniVideo.map((vid) => (
                             <Row key={id()}>
                                 <MiniVideo key={id()} data={vid} />
@@ -193,4 +157,4 @@ function Album() {
     )
 }
 
-export default Album;
+export default DBAddSong;

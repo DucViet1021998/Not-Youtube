@@ -77,15 +77,18 @@ function Header() {
         console.log('Failed:', errorInfo);
     };
 
+    useEffect(() => {
+        localStorage.setItem('mode', store.currentTheme);
+    }, [store.currentTheme])
+
     const onClick = (e) => {
-        if (e.key === "light") {
-            store.setCurrentTheme("light");
-            localStorage.setItem("mode", "light");
+        if (e.key === 'light') {
+            store.setCurrentTheme('light');
         } else if (e.key === 'dark') {
-            store.setCurrentTheme("dark");
-            localStorage.setItem("mode", "dark");
+            store.setCurrentTheme('dark');
         } else return
     };
+
 
     const handelKeyUp = (e) => {
         setValueInput(e.target.value);
@@ -104,7 +107,7 @@ function Header() {
     }
 
     const {
-        token: { colorText, colorHeader, colorLogin, borderLogin },
+        token: { colorHeader, colorLogin, borderLogin, colorBgBase },
     } = theme.useToken();
 
 
@@ -144,22 +147,17 @@ function Header() {
                             <div className={cx('search')}>
                                 {/* Popper Search Result */}
                                 <Tooltip
-                                    destroyTooltipOnHide={true}
                                     overlayStyle={{
                                         marginTop: "-5px",
-
                                     }}
                                     overlayInnerStyle={{
                                         backgroundColor: '#fff',
-                                        maxWidth: 'calc(100vw - 83em)',
-                                        width: 'calc(100vw - 83em)',
-                                        minWidth: '200px',
+                                        width: '400px',
                                         color: 'black',
                                         padding: '16px 0 8px',
                                         borderRadius: "12px",
                                     }}
                                     arrow={false}
-                                    // open={true}
                                     trigger="focus"
                                     placement='bottomLeft'
                                     title={
@@ -177,9 +175,6 @@ function Header() {
                                         value={valueInput}
                                         onChange={handleOnchangeInput}
                                         allowClear={{ clearIcon: <CloseCircleFilled onClick={handleClearInput} /> }}
-                                        style={{
-                                            color: colorText,
-                                        }}
                                         bordered={false}
                                         placeholder="Search videos"
                                         spellCheck={false}
@@ -204,13 +199,17 @@ function Header() {
                     <div className={cx('actions')}>
 
                         <Tooltip
+                            overlayStyle={{
+                                marginTop: "-5px",
+                            }}
+                            overlayInnerStyle={{
+                                backgroundColor: colorBgBase,
+                                padding: '16px 0 8px',
+                                borderRadius: "12px",
+                            }}
                             placement="bottomRight"
-                            style={{ boxShadow: "none" }}
-                            arrow="false"
-                            color={"transparent"}
-                            // overlay={"none"}
+                            arrow={false}
                             trigger='click'
-                            zIndex='999'
                             title={<Menu
                                 onClick={onClick}
                                 style={{ width: 200 }}

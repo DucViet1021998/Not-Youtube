@@ -20,10 +20,13 @@ function TrendingVideo({ data }) {
             const response = await request.post('add-song', {
                 video_url: data.video_url
             })
-            console.log(response.data);
-            navigate(`/watch/${response.data._id}`)
+            if (response.status === 200) {
+                navigate(`/watch/${response.data._id}`)
+            }
         } catch (error) {
-            navigate(`/watch/${error.response.data._id}`)
+            if (error.response.status === 400) {
+                navigate(`/watch/${error.response.data._id}`)
+            } else console.log(error);
         }
     }
 

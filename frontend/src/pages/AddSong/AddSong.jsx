@@ -18,7 +18,7 @@ function AddSong() {
     const onFinish = async (values) => {
         try {
             const response = await request.post("add-song", values);
-            if (response.status === 200 || response.status === 201) {
+            if (response.status === 200) {
                 setMiniVideo(pre => [...pre, response.data])
                 messageApi.open({
                     type: 'success',

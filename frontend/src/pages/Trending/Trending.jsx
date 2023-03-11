@@ -45,15 +45,24 @@ function Trending() {
     return (
         <>
             {loading
-                ? <><Spin size="large" indicator={antIcon} /></>
+                ?
+                <div style={{
+                    height: "100vh",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <Spin size="large" indicator={antIcon} />
+                </div>
+
                 : <div>
                     <div className={cx("header")}>
                         <Avatar size={80} src="https://www.youtube.com/img/trending/avatar/trending.png" />
                         <h1 className={cx("text")}>Thịnh hành</h1>
                     </div>
-                    <div onClick={() => setLoading(true)}>
+                    <div>
                         {video.map((vid) => (
-                            <Row key={id()}>
+                            <Row onClick={() => setLoading(true)} key={id()}>
                                 <Col key={id()}
                                     lg={16}
                                     sm={12}

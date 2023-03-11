@@ -1,18 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
+
 import classNames from 'classnames/bind';
+import styles from './DBSearchResult.module.scss';
 
 
-import styles from './SearchResult.module.scss';
 const cx = classNames.bind(styles);
 
-function SearchResult({ data }) {
+function DBSearchResult({ data }) {
     const navigate = useNavigate()
     const handleClick = (e) => {
-        navigate(`/search/${e.target.outerText}`);
+        navigate(`/dashboard/search/${e.target.outerText}`);
     }
-
-
     return (
         <div
             onClick={handleClick}
@@ -22,5 +21,4 @@ function SearchResult({ data }) {
         </div>
     )
 }
-
-export default SearchResult;
+export default DBSearchResult;

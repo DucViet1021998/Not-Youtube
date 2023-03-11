@@ -1,0 +1,48 @@
+.container {
+    width: 100%;
+    padding: 5px 10px 10px 10px;
+}
+
+
+.header {
+    height: 48px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    padding-right: 10px;
+}
+
+
+.video-add {
+    height: 118px;
+    display: flex;
+    flex-direction: row;
+    padding: 16px;
+    gap: 10px;
+    position: relative;
+}
+
+.channel-avatar {
+    min-width: 48px;
+    min-height: 48px;
+}
+
+.title {
+    font-weight: 600;
+    min-width: 234px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px
+}
+
+.image {
+    min-width: 86px;
+    min-height: 65px;
+}
+
+.title-time {
+    color: #AAAAAA;
+}

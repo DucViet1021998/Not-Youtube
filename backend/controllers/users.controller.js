@@ -47,7 +47,8 @@ module.exports = {
     // user login
     async login(req, res) {
         try {
-            const username = req.body.username;
+
+            const username = req.body.username.trim()
 
             // // Find User exist in Database
             const user = await UserModel.findOne({ username: username });
@@ -62,8 +63,6 @@ module.exports = {
                     passwordLogin,
                     passwordDB,
                 );
-
-
 
                 if (equalCompare === true) {
                     // Success Login makes AccessToken
@@ -170,7 +169,23 @@ module.exports = {
 
             // check UserId in DB
             const user = await UserModel.findById(userId).lean().populate('songs');
+            user.songs.sort(() => (Math.random() > 0.5 ? 1 : -1));
+            res.status(200).send(user.songs);
 
+        } catch (error) {
+            console.log(error);
+            res.send('Error!');
+        }
+    },
+
+    async userSongsNotify(req, res) {
+        try {
+            // Client UserId
+            const userId = req.headers.userid;
+
+            // check UserId in DB
+            const user = await UserModel.findById(userId).lean().populate('songs');
+            // const songs = user.songs.splice(0, 5)
             res.status(200).send(user.songs);
 
         } catch (error) {
