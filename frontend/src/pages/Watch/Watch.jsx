@@ -41,6 +41,7 @@ function Watch() {
     }, [routeParams.songId])
     // END OF Get Song for Main video
 
+
     // Get Song for Mini videos
     useEffect(() => {
         async function getSongs() {
@@ -121,8 +122,6 @@ function Watch() {
                         <p className={cx("description")}>
 
                             <Description data={video.description} />
-
-
 
                         </p>
                     </div>

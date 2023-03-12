@@ -1,20 +1,18 @@
 import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { Button, Input, theme, Tooltip, Menu, Row, Col, Form } from 'antd';
+import { Button, Input, theme, Tooltip, Menu, Row, Col, Form, AutoComplete } from 'antd';
 import { MoreOutlined, FormOutlined, UserOutlined, CloseCircleFilled } from '@ant-design/icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleHalfStroke, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
 
-import { v4 as id } from 'uuid';
-import classNames from 'classnames/bind';
 
+import classNames from 'classnames/bind';
 import { Store } from '~/store/store';
 import request from "~/utils/request";
 import images from '~/assets/images';
-import SearchResult from '~/components/SearchResult'
 import styles from './Header.module.scss';
 
 const cx = classNames.bind(styles);
@@ -40,11 +38,26 @@ const items = [
 
 function Header() {
     const [valueInput, setValueInput] = useState('')
-    const [searchResult, setSearchResult] = useState([])
+    const [options, setOptions] = useState([]);
 
     const routeParams = useParams();
     const navigate = useNavigate()
     const store = useContext(Store)
+
+
+    const handleResult = (value) => !value ? [] : value.map((val, i) => (
+        {
+            value: val,
+            label: (
+
+                <span key={i}>
+                    {val}
+                </span>
+
+            )
+        }
+    ))
+
 
     useEffect(() => {
         const getSong = async () => {
@@ -53,10 +66,7 @@ function Header() {
                     const response = await request.post('search', {
                         search: valueInput
                     })
-
-                    setSearchResult(response.data)
-                } else if (valueInput === '') {
-                    setSearchResult([])
+                    setOptions(handleResult(response.data))
                 }
             } catch (error) {
                 console.log(error);
@@ -68,12 +78,10 @@ function Header() {
 
 
     const onFinish = async (values) => {
-        if (!routeParams.searchtext) {
-            navigate(`/search/${values.search}`);
-        } else {
-            navigate(`/search/${values.search}`)
-        }
-    };
+        if (values.search === undefined || values.search === ' ' || values.search === '') {
+            return
+        } else navigate(`/search/${values.search}`);
+    }
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -91,21 +99,30 @@ function Header() {
         } else return
     };
 
+    const handleSearch = (value) => {
+        if (!routeParams.searchtext) {
+            navigate(`/search/${value}`);
+        } else {
+            navigate(`/search/${value}`)
+        }
+    }
 
-    const handelKeyUp = (e) => {
+
+    const handleKeyUp = (e) => {
         setValueInput(e.target.value);
     }
 
     const handleClearInput = () => {
         setValueInput('')
-        setSearchResult([])
+        setOptions([])
     }
 
     const handleOnchangeInput = (e) => {
-        const searchValue = e.target.value
-        if (!searchValue.startsWith(' ')) {
-            setValueInput(searchValue)
+        const inputValue = e.target.value
+        if (!inputValue.startsWith(' ', 0)) {
+            setValueInput(inputValue);
         }
+
     }
 
     const {
@@ -146,57 +163,31 @@ function Header() {
                         <Form.Item
                             name="search"
                         >
-                            <div className={cx('search')}>
-                                {/* Popper Search Result */}
-                                <Tooltip
-                                    // destroyTooltipOnHide={true}
-                                    overlayStyle={{
-                                        marginTop: "-5px",
-
-                                    }}
-                                    overlayInnerStyle={{
-                                        backgroundColor: '#fff',
-                                        maxWidth: 'calc(100vw - 83em)',
-                                        width: '400px',
-                                        minWidth: '200px',
-                                        color: 'black',
-                                        padding: '16px 0 8px',
-                                        borderRadius: "12px",
-                                    }}
-                                    arrow={false}
-                                    // open={true}
-                                    trigger="focus"
-                                    placement='bottomLeft'
-                                    title={
-                                        <Row >
-                                            <Col span={24}>
-                                                {searchResult.map((u) => (
-                                                    <SearchResult key={id()} data={u} />
-                                                ))}
-                                            </Col>
-                                        </Row>
-                                    }
-                                >
-
-
+                            <AutoComplete
+                                style={{
+                                    width: "100%",
+                                }}
+                                options={options}
+                                onSelect={handleSearch}
+                            >
+                                <div className={cx('search')}>
                                     <Input
-                                        onKeyUp={handelKeyUp}
                                         value={valueInput}
                                         onChange={handleOnchangeInput}
+                                        onKeyUpCapture={handleKeyUp}
                                         allowClear={{ clearIcon: <CloseCircleFilled onClick={handleClearInput} /> }}
-                                        bordered={false}
-                                        placeholder="Search videos"
                                         spellCheck={false}
+                                        bordered={false}
+                                        // onSearch={onSearch}
+                                        placeholder="Search videos"
+                                        enterButton
                                     />
-                                </Tooltip>
-                                {/* END OF Popper Search Result */}
-                                <Button
-                                    O
-                                    htmlType="submit"
-                                    className={cx('search-btn')}>
-                                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                </Button>
-                            </div>
+
+                                    <Button className={cx('search-btn')} htmlType="submit" >
+                                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                    </Button>
+                                </div>
+                            </AutoComplete>
                         </Form.Item>
                     </Form>
                 </Col>

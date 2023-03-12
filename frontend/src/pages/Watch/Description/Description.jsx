@@ -17,12 +17,12 @@ function Description({ data }) {
                         ?
                         {
                             rows: 2,
-
+                            // suffix,
                         }
                         : false
                 }
             >
-                <p>{data}</p>
+                {data}
             </Paragraph>
             <Button style={{
                 border: 'none',

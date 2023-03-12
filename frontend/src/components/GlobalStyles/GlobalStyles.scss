@@ -9,7 +9,6 @@
     --dark-blue: #0164e6;
     --light-blue: #a9d7ff;
 
-    // Default layout
     --default-layout-header-height: 60px;
     --default-layout-horizontal-spacer: 24px;
 }
@@ -19,7 +18,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    // scroll-behavior: none;
 }
 
 body {
@@ -29,9 +27,7 @@ body {
     text-rendering: optimizespeed;
     overflow-y: overlay;
     user-select: none;
-    // overflow-y: hidden;
     overflow-x: hidden;
-
 }
 
 // Scrollbar CSS
@@ -76,11 +72,12 @@ a[href] {
 
 //  CUSTOM CSS ANT DESIGN
 
-// :where(.css-dev-only-do-not-override-va7rz1).ant-input-affix-wrapper {
-//     width: 100% !important;
-// }
 
-
+:where(.css-dev-only-do-not-override-mc8oq).ant-select-dropdown {
+    overflow-x: hidden !important;
+    border-radius: 12px !important;
+    padding: '16px 0 8px' !important;
+}
 
 :where(.css-dev-only-do-not-override-3fwlr8).ant-menu-inline-collapsed>.ant-menu-submenu>.ant-menu-submenu-title {
 
