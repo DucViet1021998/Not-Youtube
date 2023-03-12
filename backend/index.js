@@ -3,7 +3,11 @@ const morgan = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const route = require('./routes');
-mongoose.connect('mongodb://localhost:27017/Youtube');
+const dotenv = require('dotenv');
+
+
+dotenv.config();
+mongoose.connect(process.env.DB_CONNECTION);
 
 const app = express();
 

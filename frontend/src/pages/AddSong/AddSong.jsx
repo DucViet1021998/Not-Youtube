@@ -19,7 +19,7 @@ function AddSong() {
         try {
             const response = await request.post("add-song", values);
             if (response.status === 200) {
-                setMiniVideo(pre => [...pre, response.data])
+                setMiniVideo(pre => [response.data, ...pre])
                 messageApi.open({
                     type: 'success',
                     content: 'The song be added the Database successfully!',
@@ -43,8 +43,8 @@ function AddSong() {
                     type: 'error',
                     content: 'Your Link Error Data',
                 });
+                console.log(error);
             }
-            console.log(error);
 
         }
     };

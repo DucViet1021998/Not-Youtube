@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Typography, Button } from 'antd';
-
 const { Paragraph } = Typography;
 
 function Description({ data }) {
     const [ellipsis, setEllipsis] = useState(true);
-
     const handleEllipsis = () => {
         setEllipsis(!ellipsis)
     }
@@ -17,7 +15,6 @@ function Description({ data }) {
                         ?
                         {
                             rows: 2,
-                            // suffix,
                         }
                         : false
                 }
