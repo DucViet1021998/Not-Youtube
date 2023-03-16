@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Avatar, Button, Input, Menu, theme, Tooltip, Badge, Row, Col, Form, AutoComplete } from 'antd';
 import { LoginOutlined, BellOutlined, VideoCameraAddOutlined, CloseCircleFilled } from '@ant-design/icons';
@@ -50,7 +50,6 @@ function HeaderDashboard({ data }) {
     const [valueInput, setValueInput] = useState('')
     const [options, setOptions] = useState([]);
 
-    const routeParams = useParams();
     const navigate = useNavigate()
     const store = useContext(Store)
     let count = store.badge
@@ -100,7 +99,7 @@ function HeaderDashboard({ data }) {
     const onFinish = async (values) => {
         if (values.search === undefined || values.search === ' ' || values.search === '') {
             return
-        } else navigate(`/search/${values.search}`);
+        } else navigate(`/dashboard/search/${values.search}`);
     }
 
     const onFinishFailed = (errorInfo) => {
@@ -109,11 +108,7 @@ function HeaderDashboard({ data }) {
 
 
     const handleSearch = (value) => {
-        if (!routeParams.searchtext) {
-            navigate(`/search/${value}`);
-        } else {
-            navigate(`/search/${value}`)
-        }
+        navigate(`/dashboard/search/${value}`)
     }
 
 
@@ -206,7 +201,7 @@ function HeaderDashboard({ data }) {
                                     bordered={false}
                                     // onSearch={onSearch}
                                     placeholder="Search videos"
-                                    enterButton
+
                                 />
 
                                 <Button className={cx('search-btn')} htmlType="submit" >

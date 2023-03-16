@@ -5,19 +5,20 @@ import Register from '~/pages/Register';
 import Dashboard from '~/pages/Dashboard';
 import Watch from '~/pages/Watch';
 import Trending from '~/pages/Trending';
-import Album from '~/pages/Album';
 import DBWatch from '~/pages/DBWatch';
 import DBTrending from '~/pages/DBTrending';
 import Search from '~/pages/Search';
 import AddSong from '~/pages/AddSong'
 import DBSearch from '~/pages/DBSearch'
 import DBAddSong from '~/pages/DBAddSong'
+import Album from '~/pages/Album';
+import Admin from '~/pages/Admin'
 
 // import See from '~/pages/See/See';
 //Layout
 import WatchLayout from '~/layouts/WatchLayout/WatchLayout';
 import DBWatchLayout from '~/layouts/DBWatchLayout/DBWatchLayout';
-
+import AdminLayout from '~/layouts/AdminLayout/AdminLayout';
 
 // Public routes
 const publicRoutes = [
@@ -31,6 +32,7 @@ const publicRoutes = [
 ];
 
 const privateRoutes = [
+    { path: '/admin', component: Admin, layout: AdminLayout },
     { path: '/dashboard', component: Dashboard },
     { path: '/album', component: Album },
     { path: '/dashboard/trending/:type', component: DBTrending },

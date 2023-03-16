@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Button, Input, theme, Tooltip, Menu, Row, Col, Form, AutoComplete } from 'antd';
 import { MoreOutlined, FormOutlined, UserOutlined, CloseCircleFilled } from '@ant-design/icons';
@@ -40,7 +40,6 @@ function Header() {
     const [valueInput, setValueInput] = useState('')
     const [options, setOptions] = useState([]);
 
-    const routeParams = useParams();
     const navigate = useNavigate()
     const store = useContext(Store)
 
@@ -100,11 +99,7 @@ function Header() {
     };
 
     const handleSearch = (value) => {
-        if (!routeParams.searchtext) {
-            navigate(`/search/${value}`);
-        } else {
-            navigate(`/search/${value}`)
-        }
+        navigate(`/search/${value}`)
     }
 
 
@@ -178,9 +173,7 @@ function Header() {
                                         allowClear={{ clearIcon: <CloseCircleFilled onClick={handleClearInput} /> }}
                                         spellCheck={false}
                                         bordered={false}
-                                        // onSearch={onSearch}
                                         placeholder="Search videos"
-                                        enterButton
                                     />
 
                                     <Button className={cx('search-btn')} htmlType="submit" >

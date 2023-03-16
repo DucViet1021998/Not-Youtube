@@ -19,8 +19,6 @@ app.use(express.urlencoded({ extended: true }));
 // Routes init
 route(app);
 
-
-
 app.listen(3023);
 
-module.exports = app;
+// module.exports = app;

@@ -1,30 +1,46 @@
-import { useEffect, useState, useContext } from 'react';
+import { useState, useEffect } from 'react';
+
 import { Layout, theme } from 'antd';
+
 import HeaderDashboard from './HeaderDashboard';
-
-import { Store } from '~/store/store';
-
 import request from "~/utils/request";
-
 const { Content } = Layout;
-function DBWatchLayout({ children }) {
+
+const AdminLayout = ({ children }) => {
+
     const [user, setUser] = useState([])
 
     const {
         token: { colorBgContainer, colorText },
     } = theme.useToken();
-    const store = useContext(Store)
 
     useEffect(() => {
 
         // GỌI USER LẦN ĐẦU KHI LOGIN THÀNH CÔNG
         async function getUsers() {
+            const accessToken = localStorage.getItem('accessToken')
+            const refreshToken = localStorage.getItem('refreshToken')
             try {
-                const users = await request.get('current-user')
+                const users = await request.get('current-user', {
+                    headers: { Authorization: `Bearer ${accessToken}` }
+                })
+
                 return setUser(users.data)
             }
 
+            // KHI ACCESS TOKEN HẾT HẠN THÌ CALL API REFRESH TOKEN
             catch (error) {
+                // Refresh Token 
+                if (error.response.status === 401) {
+                    const response = await request.post('refresh-token',
+                        {
+                            refreshToken: refreshToken
+                        })
+                    localStorage.setItem("accessToken", response.data.accessToken);
+
+                    // Return Function
+                    return getUsers()
+                }
                 console.log(error);
             }
         }
@@ -34,17 +50,20 @@ function DBWatchLayout({ children }) {
 
 
 
+
+
+
+
+
     return (
         <Layout hasSider style={{ height: '100vh' }}   >
 
-            <Layout >
+            <Layout className="site-layout" >
 
                 <div
                     style={{
-                        paddingRight: "10px",
                         top: 0,
-                        position: 'sticky',
-                        zIndex: 999,
+                        position: 'sticky'
                     }}
                 >
 
@@ -56,8 +75,8 @@ function DBWatchLayout({ children }) {
 
                 <Content
                     style={{
-                        margin: '0 16px',
-                        // overflow: 'auto',
+                        overflow: 'auto',
+                        padding: '10px'
                     }}
                 >
 
@@ -65,15 +84,10 @@ function DBWatchLayout({ children }) {
                         style={{
                             color: colorText,
                             minHeight: "100vh",
-                            padding: 24,
                             background: colorBgContainer,
                         }}
                     >
-                        {user.map((u, i) => (
-                            <Store.Provider key={i} value={{ user, store }}>
-                                {children}
-                            </Store.Provider>
-                        ))}
+                        {children}
                     </div>
                 </Content>
 
@@ -83,4 +97,4 @@ function DBWatchLayout({ children }) {
     )
 }
 
-export default DBWatchLayout;
+export default AdminLayout;

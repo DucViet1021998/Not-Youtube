@@ -17,7 +17,7 @@ module.exports = {
             // Find User exist in Database
             const username = req.body.username;
             const user = await UserModel.findOne({ username: username });
-            if (!!user) return res.sendStatus(500);
+            if (!!user) return res.sendStatus(400);
 
             // Find Email exist in Database
             const emailClient = req.body.email;
@@ -29,9 +29,9 @@ module.exports = {
                 await UserModel.create({
                     username: req.body.username,
                     email: req.body.email,
-                    gender: req.body.gender,
                     password: hashedPass,
                     avatar: avatarUrl,
+                    role: 'user',
                     songs: [],
                 });
                 return res.sendStatus(200);
@@ -47,12 +47,10 @@ module.exports = {
     // user login
     async login(req, res) {
         try {
-
             const username = req.body.username.trim()
 
             // // Find User exist in Database
             const user = await UserModel.findOne({ username: username });
-
 
             if (!!user) {
                 const passwordLogin = req.body.password;
@@ -70,7 +68,7 @@ module.exports = {
                         { id: user.id, username: user.username },
                         process.env.ACCESS_TOKEN_SECRET,
                         {
-                            expiresIn: '10s', // Hết hạn sau 10s Login
+                            expiresIn: '1s', // Expires after 30s of login
                         },
                     );
 
@@ -85,15 +83,23 @@ module.exports = {
                     user.refreshToken = refreshToken;
                     user.save();
 
+
                     // Response Tokens to FrontEnd
-                    return res.status(200).send({
-                        accessToken: accessToken,
-                        refreshToken: refreshToken,
-                    });
+                    if (user.role === 'user') {
+                        return res.status(200).send({
+                            accessToken: accessToken,
+                            refreshToken: refreshToken,
+                        });
+                    } else if (user.role === 'admin') {
+                        return res.status(202).send({
+                            accessToken: accessToken,
+                            refreshToken: refreshToken,
+                        });
+                    }
                 }
 
                 if (equalCompare === false) {
-                    return res.status(500).send('Your Password not compare!');
+                    return res.status(400).send('Your Password not compare!');
                 }
             } else {
                 res.sendStatus(404);
@@ -104,39 +110,58 @@ module.exports = {
     },
 
 
+    async hehe(req, res) {
+        try {
+            res.send('ok')
+        } catch (error) {
+            res.send('Error!');
+        }
+    },
+
 
     // [GET METHOD] 
     // Get User khi vào router cần login
     async getUser(req, res) {
-        const users = await UserModel.findOne({ username: req.user.username }).lean();
-        res.status(200).send([users]);
+        try {
+            const users = await UserModel.findOne({ username: req.user.username }).lean();
+            return res.status(200).send([users]);
+
+        } catch (error) {
+
+            res.sendStatus(400)
+        }
     },
 
 
     // [POST METHOD] 
     // Refresh Token
     async refreshToken(req, res) {
-        const refreshToken = req.body.refreshToken;
+        try {
+            const refreshToken = req.body.refreshToken;
 
-        const user = await UserModel.findOne({ refreshToken: refreshToken });
-        if (!refreshToken) return res.sendStatus(401);
+            const user = await UserModel.findOne({ refreshToken: refreshToken });
+            if (!refreshToken) return res.sendStatus(400);
 
-        if (!user) return res.sendStatus(401);
+            if (!user) return res.sendStatus(400);
 
-        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
-            if (err) res.sendStatus(403);
-            // console.log(err, data);
+            jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
+                if (err) res.sendStatus(403);
 
-            const accessToken = jwt.sign(
-                { username: data.username, id: data.id },
-                process.env.ACCESS_TOKEN_SECRET,
-                {
-                    expiresIn: '2s',
-                },
-            );
+                const accessToken = jwt.sign(
+                    { username: data.username, id: data.id },
+                    process.env.ACCESS_TOKEN_SECRET,
+                    {
+                        expiresIn: '30s', // Expires after 30s of login
+                    },
+                );
 
-            res.status(200).send({ accessToken: accessToken });
-        });
+                res.status(200).send({ accessToken: accessToken });
+            });
+
+        } catch (error) {
+            console.log(error);
+            res.sendStatus(402);
+        }
     },
 
 
@@ -149,7 +174,7 @@ module.exports = {
 
             // Tìm User từ freshToken
             const userDB = await UserModel.findOne({ refreshToken: refreshToken });
-            if (!userDB) res.sendStatus(500);
+            if (!userDB) res.sendStatus(400);
 
             //Xoa user.accessToken va user.refreshToken
             userDB.accessToken = null;
@@ -162,13 +187,10 @@ module.exports = {
         }
     },
 
+
     async userSongs(req, res) {
         try {
-            // Client UserId
-            const userId = req.headers.userid;
-
-            // check UserId in DB
-            const user = await UserModel.findById(userId).lean().populate('songs');
+            const user = await UserModel.findById(req.user._id).lean().populate('songs');
             user.songs.sort(() => (Math.random() > 0.5 ? 1 : -1));
             res.status(200).send(user.songs);
 
@@ -180,14 +202,18 @@ module.exports = {
 
     async userSongsNotify(req, res) {
         try {
-            // Client UserId
-            const userId = req.headers.userid;
-
-            // check UserId in DB
-            const user = await UserModel.findById(userId).lean().populate('songs');
-            // const songs = user.songs.splice(0, 5)
+            const user = await UserModel.findById(req.user._id).lean().populate('songs');
             res.status(200).send(user.songs);
+        } catch (error) {
+            console.log(error);
+            res.send('Error!');
+        }
+    },
 
+    async users(req, res) {
+        try {
+            const user = await UserModel.find({}).lean()
+            res.status(200).send(user);
         } catch (error) {
             console.log(error);
             res.send('Error!');

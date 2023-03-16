@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Button, theme, Tooltip, Menu, Row, Col, AutoComplete, Input, Form } from 'antd';
 import { MoreOutlined, FormOutlined, UserOutlined, CloseCircleFilled, VideoCameraAddOutlined } from '@ant-design/icons';
@@ -53,7 +53,6 @@ function Header() {
     const [valueInput, setValueInput] = useState('')
     const [options, setOptions] = useState([]);
 
-    const routeParams = useParams();
     const navigate = useNavigate()
     const store = useContext(Store)
 
@@ -70,8 +69,12 @@ function Header() {
                     setOptions(handleResult(response.data))
                 }
             } catch (error) {
+                if (error.response.status === 400) {
+                    setOptions([])
+                }
                 console.log(error);
             }
+
         }
         getSong()
     }, [valueInput])
@@ -102,11 +105,7 @@ function Header() {
 
 
     const handleSearch = (value) => {
-        if (!routeParams.searchtext) {
-            navigate(`/search/${value}`);
-        } else {
-            navigate(`/search/${value}`)
-        }
+        navigate(`/search/${value}`)
     }
 
     const handleKeyUp = (e) => {
@@ -181,7 +180,7 @@ function Header() {
                                         bordered={false}
                                         // onSearch={onSearch}
                                         placeholder="Search videos"
-                                        enterButton
+
                                     />
 
                                     <Button className={cx('search-btn')} htmlType="submit" >

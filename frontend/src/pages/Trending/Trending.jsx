@@ -62,8 +62,8 @@ function Trending() {
                     </div>
                     <div>
                         {video.map((vid) => (
-                            <Row onClick={() => setLoading(true)} key={id()}>
-                                <Col key={id()}
+                            <Row key={id()}>
+                                <Col onClick={() => setLoading(true)} key={id()}
                                     lg={16}
                                     sm={12}
                                     xs={24}

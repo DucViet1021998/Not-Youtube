@@ -6,53 +6,50 @@ module.exports = {
         const search = req.body.search.toLowerCase();
 
         try {
-            // // Find all song results from Database
-            // const song = await SongModel.aggregate([
-            //     [
-            //         {
-            //             '$match': {
-            //                 'keywords': {
-            //                     '$regex': 'thi'
-            //                 }
-            //             }
-            //         }, {
-            //             '$addFields': {
-            //                 'name': 'group'
-            //             }
-            //         }, {
-            //             '$group': {
-            //                 '_id': null,
-            //                 'group': {
-            //                     '$push': '$keywords'
-            //                 }
-            //             }
-            //         }, {
-            //             '$project': {
-            //                 'keywords': {
-            //                     '$reduce': {
-            //                         'input': '$group',
-            //                         'initialValue': [],
-            //                         'in': {
-            //                             '$setUnion': [
-            //                                 '$$value', '$$this'
-            //                             ]
-            //                         }
-            //                     }
-            //                 }
-            //             }
-            //         }
-            //     ]
-            // ])
-            // console.log(song);
-            // res.send(song.keywords)
-            const song = await SongModel.find({
-                keywords: { $regex: `${search}` },
-            });
+            // Find all song results from Database
+            const song = await SongModel.aggregate([
+                [
+                    {
+                        '$match': {
+                            'keywords': {
+                                '$regex': search
+                            }
+                        }
+                    }, {
+                        '$addFields': {
+                            'name': 'group'
+                        }
+                    }, {
+                        '$group': {
+                            '_id': null,
+                            'group': {
+                                '$push': '$keywords'
+                            }
+                        }
+                    }, {
+                        '$project': {
+                            'keywords': {
+                                '$reduce': {
+                                    'input': '$group',
+                                    'initialValue': [],
+                                    'in': {
+                                        '$setUnion': [
+                                            '$$value', '$$this'
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            ])
 
-            // Loop to get all song keywords from song results
-            const songKeywords = song.map((e) => {
-                return e.keywords;
-            });
+            // Check empty keywords
+            if (!song.length) return res.sendStatus(400)
+
+            // Get all song keywords from database     
+            const keywords = song[0].keywords
+
 
             // loop to get search value in song keywords
             function filterItems(arr, query) {
@@ -60,14 +57,24 @@ module.exports = {
                     el.toLowerCase().includes(query.toLowerCase()),
                 );
             }
-            const result = filterItems(songKeywords.flat(), search);
+
+            // Check double property song keywords
+            function unique(arr) {
+                var newArr = []
+                newArr = arr.filter(function (item) {
+                    return newArr.includes(item) ? '' : newArr.push(item)
+                })
+                return newArr
+            }
+            const result = filterItems(keywords, search);
 
             if (result.length > 10) {
                 result.sort(() => (Math.random() > 0.5 ? 1 : -1));
                 const tenResult = result.splice(0, 10);
-                res.send(tenResult);
-            } else res.send(result);
+                return res.send(unique(tenResult));
+            }
 
+            res.send(unique(result))
 
         } catch (error) {
             console.log(error);
@@ -78,65 +85,16 @@ module.exports = {
 
     async searchText(req, res) {
         const search = req.params.searchText;
-
-        try {
-            const song = await SongModel.find({ keywords: { $regex: `${search}` } })
-
-            res.send(song);
-        } catch (error) {
-            console.log(error);
-            res.send('Error!');
-        }
-
-    },
-
-
-
-    async DBsearch(req, res) {
-        const search = req.body.search.toLowerCase();
-        try {
-            const song = await SongModel.find({
-                keywords: { $regex: `${search}` },
-            });
-
-            // Loop to get all song keywords from song results
-            const songKeywords = song.map((e) => {
-                return e.keywords;
-            });
-
-            // loop to get search value in song keywords
-            function filterItems(arr, query) {
-                return arr.filter((el) =>
-                    el.toLowerCase().includes(query.toLowerCase()),
-                );
-            }
-            const result = filterItems(songKeywords.flat(), search);
-
-            if (result.length > 10) {
-                result.sort(() => (Math.random() > 0.5 ? 1 : -1));
-                const tenResult = result.splice(0, 10);
-                res.send(tenResult);
-            } else res.send(result);
-
-
-        } catch (error) {
-            console.log(error);
-            res.send('Error!');
-        }
-    },
-
-
-
-    async BDSearchText(req, res) {
-        const search = req.params.searchText;
-
         try {
             const song = await SongModel.find({ keywords: { $regex: `${search}` } })
             res.send(song);
+
         } catch (error) {
             console.log(error);
             res.send('Error!');
         }
 
     },
+
+
 }

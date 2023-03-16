@@ -30,9 +30,7 @@ const Register = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-
-            navigate('/login')
-            console.log(res);
+            if (res.status === 200) return navigate('/login')
         } catch (error) {
             if (error.response.status === 402) {
                 messageApi.open({
@@ -40,7 +38,7 @@ const Register = () => {
                     content: 'Email đã đăng kí',
                 });
             }
-            else if (error.response.status === 500) {
+            else if (error.response.status === 400) {
                 messageApi.open({
                     type: 'error',
                     content: 'Username đã tồn tại',

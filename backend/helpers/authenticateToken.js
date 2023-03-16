@@ -14,16 +14,16 @@ const authenticateToken = async (req, res, next) => {
 
         //Tim user co token
         const user = await UserModel.findById(data.id).lean();
-        if (!user) {
-            res.sendStatus(401);
-        }
+
+        if (!user) res.sendStatus(403);
+        // console.log(user);
 
         //Return User
         req.user = user;
         next();
     } catch (error) {
         console.log(error);
-        res.sendStatus(500);
+        res.status(401).send('Error JWT');
     }
 };
 

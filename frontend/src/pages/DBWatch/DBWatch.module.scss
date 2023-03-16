@@ -1,6 +1,5 @@
-.container-left {
+.container {
     width: 100%;
-    // max-height: 100vh;
     min-height: 100vh;
 }
 
@@ -56,4 +55,11 @@
 .description {
     white-space: pre-line;
     font-size: 0.9rem;
+}
+
+.type-cmt {
+    position: relative;
+    // border: 1px solid red;
+    margin-bottom: 50px;
+    margin-top: 20px;
 }

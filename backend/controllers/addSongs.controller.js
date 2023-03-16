@@ -64,18 +64,20 @@ module.exports = {
         try {
             // lấy data từ client
             const video_url = req.body.video_url;
-            const userId = req.headers.userid;
+            const userId = req.user._id;
+
+            console.log(req.body.video_url);
 
             // Check List-Video URL
             if (video_url.length !== 28) return res.sendStatus(500)
 
-            // Check User trong DB
+            // Check User in DB
             const user = await UserModel.findById(userId);
 
             // throw error if not found user
             if (!user) return res.status(404);
 
-            // Check URL Video trong data
+            // Check URL Video in data
             const video = await SongModel.findOne({ video_url: video_url }).lean();
 
             // Get data by Youtube URL
@@ -114,7 +116,7 @@ module.exports = {
                 });
             } else if (user && video) {
                 if (user.songs.includes(video._id))
-                    return res.sendStatus(401);
+                    return res.sendStatus(402);
                 else {
                     user.songs.unshift(video._id);
                     user.save();

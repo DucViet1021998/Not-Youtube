@@ -1,0 +1,44 @@
+// Table left
+.user-container {
+    width: 250px;
+    height: 120px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(104, 255, 205);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0px;
+    color: #fffdfd;
+}
+
+
+
+// END OF Table left
+
+
+// Table Right
+.channel-name {
+    color: 'red';
+}
+
+
+.songs-container {
+    width: 250px;
+    height: 120px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(110, 221, 255);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0px;
+    color: #fffdfd;
+
+}
+
+// END OF Table Right

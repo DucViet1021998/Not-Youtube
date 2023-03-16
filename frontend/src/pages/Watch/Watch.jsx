@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
-import { Col, Row, theme, Avatar, Tooltip } from 'antd';
 import dayjs from "dayjs";
+
+import { Col, Row, theme, Avatar, Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { v4 as id } from 'uuid';
-import classNames from 'classnames/bind';
 
+import { v4 as id } from 'uuid';
+
+import styles from './Watch.module.scss';
+import classNames from 'classnames/bind';
 
 import request from "~/utils/request";
 import MiniVideo from "~/components/MiniVideos";
-import styles from './Watch.module.scss';
 import Description from './Description'
+import Comments from './Comments'
+
 
 const cx = classNames.bind(styles);
 
@@ -62,15 +66,15 @@ function Watch() {
 
     return (<>
         {/* LEFT SIDE */}
-        <Row gutter={[24, 16]}>
-            <Col className={cx("container-left")}
+        <Row gutter={[16, 16]}>
+            <Col className={cx("container")}
                 lg={18} sm={24} xs={24} >
 
                 {/* Main Video */}
                 <ReactPlayer
                     playing
                     className={cx("video")}
-                    width={"100%"}
+                    // width={"100%"}
                     controls url={video.video_url} />
                 {/* END OF Main Video */}
 
@@ -127,6 +131,11 @@ function Watch() {
                     </div>
                     {/* END OF Descriptions Container */}
                 </Row>
+
+
+                <Comments />
+
+
             </Col>
             {/*END OF LEFT SIDE */}
 

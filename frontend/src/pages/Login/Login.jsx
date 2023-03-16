@@ -22,12 +22,17 @@ const Login = () => {
 
     const onFinish = async (values) => {
         try {
-
             const response = await request.post("login", values);
             if (response.status === 200) {
                 localStorage.setItem("accessToken", response.data.accessToken);
                 localStorage.setItem("refreshToken", response.data.refreshToken);
                 navigate("/dashboard");
+                store.setLogin(localStorage.getItem('refreshToken'));
+            }
+            else if (response.status === 202) {
+                localStorage.setItem("accessToken", response.data.accessToken);
+                localStorage.setItem("refreshToken", response.data.refreshToken);
+                navigate("/admin");
                 store.setLogin(localStorage.getItem('refreshToken'));
             }
 

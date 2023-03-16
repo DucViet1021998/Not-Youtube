@@ -31,9 +31,6 @@ module.exports = {
     // get all songs in trending page youtube
     async trending(req, res) {
         try {
-
-            console.log(req.params.type);
-
             const parameters = {
                 geoLocation: 'VN',
                 parseCreatorOnRise: false,
@@ -90,6 +87,26 @@ module.exports = {
         }
     },
 
+    // [DELETE METHOD]  
+    // Update information all Video in database
+    async delete(req, res) {
+        try {
+            // Check admin request
+            if (!req.user.role === 'admin') res.sendStatus(400)
+
+            await SongModel.findOneAndDelete({ _id: req.headers.songid })
+
+            res.sendStatus(200)
+        } catch (error) {
+            console.log(error);
+            res.send('Error!');
+        }
+    },
+
+
+
+
+
     // [PATCH METHOD]  
     // Update information all Video in database
     async update(req, res) {
@@ -101,14 +118,8 @@ module.exports = {
                         (e.view_count = numberFormat.format(info.videoDetails.viewCount)),
                             (e.subscriber_count = numberFormat.format(info.videoDetails.author.subscriber_count)),
                             (e.publish_date_compare = dayjs(info.videoDetails.publishDate).fromNow()),
-
-                            // -----------------------------------------------------------------------------------
                             (e.view_count_text = getNumberText(info.videoDetails.viewCount)),
-                            // console.log(typeof (info.videoDetails.viewCount));
                             (e.subscriber_count_text = getNumberText(info.videoDetails.author.subscriber_count))
-                        // console.log(typeof (info.videoDetails.author.subscriber_count));
-
-                        // -----------------------------------------------------------------------------------
                     })
                     .then(() => e.save());
             });
@@ -123,7 +134,7 @@ module.exports = {
 
 // Cron Job 
 var job = new CronJob(
-    '0 */10 * * * *',
+    '0 */15 * * * *',
     async function () {
         try {
             await axios.patch('http://localhost:3023/update');

@@ -17,7 +17,10 @@ const SongSchema = new Schema({
     description: mongoose.Schema.Types.String,
     publish_date_compare: mongoose.Schema.Types.String,
     keywords: [mongoose.Schema.Types.String],
-});
+},
+    {
+        timestamps: true,
+    });
 
 const SongModel = mongoose.model('songs', SongSchema);
 

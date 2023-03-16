@@ -54,13 +54,11 @@ function Sidebar() {
             breakpoint='md'
             collapsible
             theme={theme}
-
         >
             <Menu
                 onClick={handleClick}
                 defaultSelectedKeys={['1']}
                 items={items}
-                // theme={theme}
                 mode='inline'
             />
 

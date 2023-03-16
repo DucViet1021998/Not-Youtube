@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -14,6 +13,7 @@ const cx = classNames.bind(styles);
 
 function TrendingVideo({ data }) {
     const navigate = useNavigate()
+
 
     const handleClick = async () => {
         try {

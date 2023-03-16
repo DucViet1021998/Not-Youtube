@@ -15,12 +15,13 @@
 }
 
 .title {
-    font-size: 0.85rem;
+    margin-top: 5px;
+    font-size: 0.6rem;
     text-overflow: ellipsis;
+    width: 124px !important;
     overflow: hidden;
     line-height: 1.3em;
     height: 2.6em;
-    width: 100%;
     // margin-left: 5px;
 }
 
@@ -33,7 +34,7 @@
 }
 
 .author-channel {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     margin-top: 3px;
     max-width: 75%;
     // border: 1px solid red;
@@ -50,8 +51,8 @@
 
 .views-days {
     display: flex;
-    font-size: 0.7rem;
-    bottom: -10px;
+    font-size: 0.6rem;
+    bottom: -7px;
     left: 4.5rem;
 }
 

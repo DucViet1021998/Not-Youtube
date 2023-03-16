@@ -16,18 +16,21 @@ const cx = classNames.bind(styles);
 
 
 function Album() {
+    const [valueInput, setValueInput] = useState('')
+
     const [miniVideo, setMiniVideo] = useState([])
     const [songUser, setSongUser] = useState(0)
     const [messageApi, contextHolder] = message.useMessage();
     const store = useContext(Store)
+
     const userId = store.user[0]._id;
+
+
     useEffect(() => {
 
         async function getSongs() {
             try {
-                const response = await request.get('user-songs', {
-                    headers: { userId: userId }
-                })
+                const response = await request.get('/user-songs/notify')
                 setMiniVideo(response.data)
             } catch (error) {
                 console.log("error Data!");
@@ -40,9 +43,9 @@ function Album() {
 
     const onFinish = async (values) => {
         try {
-            const response = await request.post("add-album", values, {
-                headers: { userId: userId }
-            });
+
+            // console.log(values);
+            const response = await request.post("add-album", values);
 
             if (response.status === 200) {
                 setSongUser(songUser + 1)
@@ -54,6 +57,8 @@ function Album() {
                     content: 'The song be added your playlist successfully!',
                     duration: 3,
                 });
+                setValueInput('')
+
                 return
             } else if (response.status === 201) {
                 setSongUser(songUser + 1)
@@ -65,22 +70,27 @@ function Album() {
                     content: 'The song be added your playlist successfully!',
                     duration: 3,
                 });
+                setValueInput('')
                 return
             }
 
         } catch (error) {
-            if (error.response.status === 401) {
+            if (error.response.status === 402) {
                 messageApi.open({
                     type: 'warning',
                     content: 'Already in the Your List',
                 });
+                setValueInput('')
+                return
             } else if (error.response.status === 500) {
                 messageApi.open({
                     type: 'error',
                     content: 'INCORRECT URL!',
                 });
+                setValueInput('')
+                return
             }
-
+            console.log(error);
         }
     };
 
@@ -92,9 +102,18 @@ function Album() {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+    const handleOnchangeInput = (e) => {
+        const inputValue = e.target.value
+        if (!inputValue.startsWith(' ', 0)) {
+            setValueInput(inputValue);
+        }
 
+    }
 
+    const handleClick = () => {
+        setValueInput('');
 
+    }
 
     return (
 
@@ -134,6 +153,8 @@ function Album() {
                             >
 
                                 <Input
+                                    value={valueInput}
+                                    onChange={handleOnchangeInput}
                                     style={{
                                         backgroundColor: colorBgLoginForm,
                                     }}
@@ -149,7 +170,7 @@ function Album() {
                                     wrapperCol={{
                                         span: 24,
                                     }}
-
+                                    onClick={handleClick}
                                     style={{
                                         backgroundColor: "#4285F4",
                                         color: "white",

@@ -18,7 +18,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scroll-behavior: smooth;
+    // scroll-behavior: smooth;
 }
 
 body {
@@ -28,7 +28,9 @@ body {
     text-rendering: optimizespeed;
     overflow-y: overlay;
     user-select: none;
+    // overflow-x: hidden !important;
     overflow-x: hidden;
+
 }
 
 // Scrollbar CSS
@@ -73,6 +75,15 @@ a[href] {
 
 //  CUSTOM CSS ANT DESIGN
 
+:where(.css-dev-only-do-not-override-1bpmopj).ant-input {
+    border-radius: 0px !important;
+
+}
+
+:where(.css-dev-only-do-not-override-87567i).ant-layout {
+    height: fit-content !important;
+
+}
 
 :where(.css-dev-only-do-not-override-mc8oq).ant-select-dropdown {
     overflow-x: hidden !important;
@@ -87,7 +98,7 @@ a[href] {
 }
 
 .ant-layout-sider-dark {
-    background-color: transparent !important;
+    background-color: #121212 !important;
 }
 
 .ant-layout-sider-trigger {

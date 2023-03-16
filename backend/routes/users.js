@@ -16,7 +16,9 @@ router.post('/login', usersController.login)
 router.get('/current-user', authenticateToken, usersController.getUser)
 router.post('/refresh-token', usersController.refreshToken)
 router.post('/logout', usersController.logout)
-router.get('/user-songs', usersController.userSongs)
-router.get('/user-songs/notify', usersController.userSongsNotify)
+router.get('/users', authenticateToken, usersController.users)
+router.get('/user-songs', authenticateToken, usersController.userSongs)
+router.get('/user-songs/notify', authenticateToken, usersController.userSongsNotify)
+
 
 module.exports = router

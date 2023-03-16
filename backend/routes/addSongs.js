@@ -3,8 +3,11 @@ const router = express.Router()
 const addSongsController = require('../controllers/addSongs.controller')
 
 
+const authenticateToken = require('../helpers/authenticateToken')
+
+
 router.post('/add-song', addSongsController.addSongs)
-router.post('/add-album', addSongsController.addAlbumUser)
+router.post('/add-album', authenticateToken, addSongsController.addAlbumUser)
 
 
 module.exports = router

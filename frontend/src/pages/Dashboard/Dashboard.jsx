@@ -37,17 +37,13 @@ function Dashboard() {
         async function getSongs() {
             try {
                 setLoading(true);
-
-                const response = await request.get('user-songs', {
-                    headers: { userId: userId }
-                })
+                const response = await request.get('user-songs')
                 setVideo(response.data)
                 setLoading(false)
 
             } catch (error) {
                 setLoading(false)
-
-                console.log("error Data!");
+                console.log(error);
             }
         }
         getSongs()

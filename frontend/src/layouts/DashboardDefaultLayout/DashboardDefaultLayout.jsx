@@ -6,6 +6,7 @@ import HeaderDashboard from './HeaderDashboard';
 import SideBarDashboard from './SideBarDashboard';
 import request from "~/utils/request";
 const { Content } = Layout;
+
 function DashboardDefaultLayout({ children }) {
     const store = useContext(Store)
     const [user, setUser] = useState([])
@@ -17,28 +18,15 @@ function DashboardDefaultLayout({ children }) {
 
         // GỌI USER LẦN ĐẦU KHI LOGIN THÀNH CÔNG
         async function getUsers() {
-            const accessToken = localStorage.getItem('accessToken')
-            const refreshToken = localStorage.getItem('refreshToken')
-            try {
-                const users = await request.get('current-user', {
-                    headers: { Authorization: `Bearer ${accessToken}` }
-                })
 
+            try {
+                const users = await request.get('current-user')
                 return setUser(users.data)
             }
 
             // KHI ACCESS TOKEN HẾT HẠN THÌ CALL API REFRESH TOKEN
             catch (error) {
-
-                // Refresh Token 
-                const response = await request.post('refresh-token',
-                    {
-                        refreshToken: refreshToken
-                    })
-                localStorage.setItem("accessToken", response.data.accessToken);
-
-                // Return Function
-                return getUsers()
+                console.log(error);
             }
         }
         getUsers()
