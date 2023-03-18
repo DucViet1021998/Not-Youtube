@@ -15,25 +15,17 @@ function DashboardDefaultLayout({ children }) {
     } = theme.useToken();
 
     useEffect(() => {
-
-        // GỌI USER LẦN ĐẦU KHI LOGIN THÀNH CÔNG
         async function getUsers() {
-
             try {
                 const users = await request.get('current-user')
                 return setUser(users.data)
             }
-
-            // KHI ACCESS TOKEN HẾT HẠN THÌ CALL API REFRESH TOKEN
             catch (error) {
                 console.log(error);
             }
         }
         getUsers()
     }, []);
-
-
-
 
     return (
         <Layout hasSider style={{ height: '100vh' }}   >

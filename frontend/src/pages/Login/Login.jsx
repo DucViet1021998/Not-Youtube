@@ -9,7 +9,6 @@ import { Store } from '~/store/store';
 import styles from './login.module.scss';
 const cx = classNames.bind(styles);
 
-
 const Login = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const store = useContext(Store)
@@ -27,13 +26,15 @@ const Login = () => {
                 localStorage.setItem("accessToken", response.data.accessToken);
                 localStorage.setItem("refreshToken", response.data.refreshToken);
                 navigate("/dashboard");
-                store.setLogin(localStorage.getItem('refreshToken'));
+                store.setLogin(true);
             }
             else if (response.status === 202) {
                 localStorage.setItem("accessToken", response.data.accessToken);
                 localStorage.setItem("refreshToken", response.data.refreshToken);
                 navigate("/admin");
-                store.setLogin(localStorage.getItem('refreshToken'));
+                // store.setLogin(localStorage.getItem('refreshToken'));
+                store.setLogin(true);
+
             }
 
         } catch (error) {

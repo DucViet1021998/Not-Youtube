@@ -30,22 +30,12 @@ function Admin() {
     useEffect(() => {
         async function getUsers() {
             try {
-                const response = await request.get('users', {
-                    headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
-                })
+                const response = await request.get('users')
                 if (response.status === 200) {
                     setDataUsers(response.data)
                 }
             } catch (error) {
-                const refreshToken = localStorage.getItem('refreshToken')
-                if (error.response.status === 401) {
-                    const response = await request.post('refresh-token',
-                        {
-                            refreshToken: refreshToken
-                        })
-                    localStorage.setItem("accessToken", response.data.accessToken);
-                }
-                getUsers()
+                console.log(error);
             }
         }
         getUsers()
@@ -189,24 +179,13 @@ function Admin() {
                                                 try {
                                                     const res = await request.delete('delete-song', {
                                                         headers: {
-                                                            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                                                             songId: record._id
                                                         }
                                                     })
                                                     if (res.status === 200) {
-
                                                         setCount(count + 1)
                                                     }
                                                 } catch (error) {
-                                                    const refreshToken = localStorage.getItem('refreshToken')
-                                                    if (error.response.status === 401) {
-                                                        const response = await request.post('refresh-token',
-                                                            {
-                                                                refreshToken: refreshToken
-                                                            })
-                                                        localStorage.setItem("accessToken", response.data.accessToken);
-                                                    }
-                                                    getSongs()
                                                     console.log(error);
                                                 }
                                             }

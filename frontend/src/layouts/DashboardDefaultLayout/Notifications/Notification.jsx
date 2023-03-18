@@ -20,28 +20,14 @@ function Notification({ data }) {
     useEffect(() => {
         async function getSongs() {
             try {
-                const accessToken = localStorage.getItem('accessToken')
-                const res = await request.get('user-songs/notify', {
-                    headers: { Authorization: `Bearer ${accessToken}` }
-                })
-                // console.log(res);
+                const res = await request.get('user-songs/notify')
                 if (res.status === 200) return setNotify(res.data)
-
             } catch (error) {
-                const refreshToken = localStorage.getItem('refreshToken')
-                if (error.response.status === 401) {
-                    const response = await request.post('refresh-token',
-                        {
-                            refreshToken: refreshToken
-                        })
-                    localStorage.setItem("accessToken", response.data.accessToken);
-                    // Return Function
-                    return getSongs()
-                }
+                console.log(error);
             }
         }
         getSongs()
-    }, [data, count])
+    }, [count])
 
 
     return (

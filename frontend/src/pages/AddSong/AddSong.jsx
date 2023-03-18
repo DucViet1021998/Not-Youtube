@@ -28,24 +28,23 @@ function AddSong() {
 
 
         } catch (error) {
+
             if (error.response.status === 400) {
                 messageApi.open({
                     type: 'warning',
-                    content: 'Already in the Database',
-                });
-            } else if (error.response.status === 500) {
-                messageApi.open({
-                    type: 'error',
-                    content: 'INCORRECT URL!',
+                    content: 'Already in the Database!',
                 });
             } else if (error.response.status === 403) {
                 messageApi.open({
                     type: 'error',
-                    content: 'Your Link Error Data',
+                    content: 'INCORRECT URL!',
                 });
-                console.log(error);
-            }
-
+            } else if (error.response.status === 406) {
+                messageApi.open({
+                    type: 'warning',
+                    content: 'Not add song list!',
+                });
+            } else console.log(error);
         }
     };
 
@@ -57,9 +56,6 @@ function AddSong() {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-
-
-
 
     return (
 

@@ -7,6 +7,9 @@ import { Store } from '~/store/store';
 import styles from './Comments.module.scss';
 import dayjs from 'dayjs'
 
+import { v4 as id } from 'uuid';
+
+const uuid = id()
 
 const cx = classNames.bind(styles);
 
@@ -33,16 +36,16 @@ function Comments() {
 
     return (
         <div className={cx("container")}>
-            {comments.map((cmt) => (
+            {comments.map((cmt, i) => (
                 <Row key={cmt.users[0]._id}>
 
-                    <div className={cx("container-cmt")}>
-                        <Avatar src={cmt.users[0].avatar} />
-                        <p className={cx("cmt")}>
-                            <span className={cx("username")}>@{cmt.users[0].username}</span>
-                            <span className={cx("time")}>{dayjs(cmt.createdAt).format('D MMMM, YYYY')}</span>
-                            <p key={cmt._id} >{cmt.comment}</p>
-                        </p>
+                    <div key={cmt._id} className={cx("container-cmt")}>
+                        <Avatar key={i} src={cmt.users[0].avatar} />
+                        <div key={i} className={cx("cmt")}>
+                            <span key={i} className={cx("username")}>@{cmt.users[0].username}</span>
+                            <span key={uuid} className={cx("time")}>{dayjs(cmt.createdAt).format('D MMMM, YYYY')}</span>
+                            <div key={i} >{cmt.comment}</div>
+                        </div>
 
                     </div>
 

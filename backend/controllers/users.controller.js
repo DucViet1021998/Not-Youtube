@@ -68,7 +68,7 @@ module.exports = {
                         { id: user.id, username: user.username },
                         process.env.ACCESS_TOKEN_SECRET,
                         {
-                            expiresIn: '1s', // Expires after 30s of login
+                            expiresIn: '30s', // Expires after 30s of login
                         },
                     );
 
@@ -85,13 +85,13 @@ module.exports = {
 
 
                     // Response Tokens to FrontEnd
-                    if (user.role === 'user') {
-                        return res.status(200).send({
+                    if (user.role === 'admin') {
+                        return res.status(202).send({
                             accessToken: accessToken,
                             refreshToken: refreshToken,
                         });
-                    } else if (user.role === 'admin') {
-                        return res.status(202).send({
+                    } else {
+                        return res.status(200).send({
                             accessToken: accessToken,
                             refreshToken: refreshToken,
                         });
@@ -123,11 +123,8 @@ module.exports = {
     // Get User khi vào router cần login
     async getUser(req, res) {
         try {
-            const users = await UserModel.findOne({ username: req.user.username }).lean();
-            return res.status(200).send([users]);
-
+            return res.status(200).send([req.user]);
         } catch (error) {
-
             res.sendStatus(400)
         }
     },
@@ -140,9 +137,7 @@ module.exports = {
             const refreshToken = req.body.refreshToken;
 
             const user = await UserModel.findOne({ refreshToken: refreshToken });
-            if (!refreshToken) return res.sendStatus(400);
-
-            if (!user) return res.sendStatus(400);
+            if (!user) return res.sendStatus(404);
 
             jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
                 if (err) res.sendStatus(403);
@@ -169,14 +164,11 @@ module.exports = {
     // User Logout
     async logout(req, res) {
         try {
-            // Lấy refreshToken từ FE
-            const refreshToken = req.body.refreshToken;
-
-            // Tìm User từ freshToken
-            const userDB = await UserModel.findOne({ refreshToken: refreshToken });
+            const user = req.user
+            const userDB = await UserModel.findById({ _id: user._id });
             if (!userDB) res.sendStatus(400);
 
-            //Xoa user.accessToken va user.refreshToken
+            //Delete accessToken and refreshToken
             userDB.accessToken = null;
             userDB.refreshToken = null;
             userDB.save();
@@ -191,7 +183,7 @@ module.exports = {
     async userSongs(req, res) {
         try {
             const user = await UserModel.findById(req.user._id).lean().populate('songs');
-            user.songs.sort(() => (Math.random() > 0.5 ? 1 : -1));
+            req.user.songs.sort(() => (Math.random() > 0.5 ? 1 : -1));
             res.status(200).send(user.songs);
 
         } catch (error) {

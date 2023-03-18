@@ -116,11 +116,11 @@ function DBWatch() {
                             <h3 className={cx("tittle-descriptions")}>
                                 {video.view_count} views Premiered on {dayjs(video.publish_date).format('D MMMM, YYYY')}
                             </h3>
-                            <p className={cx("description")}>
+                            <div className={cx("description")}>
 
                                 <Description data={video.description} />
 
-                            </p>
+                            </div>
                         </div>
                         {/* END OF Descriptions Container */}
                     </Row>

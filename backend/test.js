@@ -56,3 +56,26 @@
 
 
 // reverseString(['h', 'e', 'l', 'l', 'o'])
+
+// const ytdl = require('ytdl-core');
+
+// ytdl.getInfo('https://youtu.be/e8YR_6xpGDc').then((info) => {
+//     console.log(info.videoDetails);
+// })
+
+
+const checkAccessToken = () => {
+    // let token = true
+    const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpZXQiLCJpZCI6IjY0MGVmM2I0YTdkMzJiN2IyMGExYTlmYyIsImlhdCI6MTY3OTExNTMxMiwiZXhwIjoxNjc5MTE1MzQyfQ.Uix6a0GqRL8JO5TBWlPi6agCBu30ooO1LqZby5xi77A'
+    const payload = JSON.parse(atob(accessToken.split('.')[1]))
+
+    const expTime = payload.exp * 1000
+    if (expTime < Date.now()) {
+        return token = false
+    }
+    // console.log(expTime);
+    return token
+}
+
+
+console.log(checkAccessToken());

@@ -46,7 +46,16 @@ function DBTrending() {
         <>
             {loading
                 ?
-                <><Spin size="large" indicator={antIcon} /></>
+                <div
+                    style={{
+                        height: "100vh",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}
+                >
+                    <Spin size="large" indicator={antIcon} />
+                </div>
                 :
                 <div>
                     <div className={cx("header")}>

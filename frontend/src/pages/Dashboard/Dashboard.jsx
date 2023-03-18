@@ -57,8 +57,20 @@ function Dashboard() {
 
     return (
         <>
-            {loading ? <><Spin size="large" indicator={antIcon} /></>
-                : (video.length === 0 && <div
+            {loading
+                ?
+                <div
+                    style={{
+                        height: "100vh",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}
+                >
+                    <Spin size="large" indicator={antIcon} />
+                </div>
+                :
+                (video.length === 0 && <div
                     style={{
                         minHeight: "80vh",
                         backgroundColor: colorBgDBEmpty,

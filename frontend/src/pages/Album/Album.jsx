@@ -16,8 +16,6 @@ const cx = classNames.bind(styles);
 
 
 function Album() {
-    const [valueInput, setValueInput] = useState('')
-
     const [miniVideo, setMiniVideo] = useState([])
     const [songUser, setSongUser] = useState(0)
     const [messageApi, contextHolder] = message.useMessage();
@@ -45,9 +43,12 @@ function Album() {
         try {
 
             // console.log(values);
-            const response = await request.post("add-album", values);
+            const response = await request.get("add-album",
+                { headers: { ...values } });
 
-            if (response.status === 200) {
+
+            console.log(response);
+            if (response.status === 200 || response.status === 201) {
                 setSongUser(songUser + 1)
                 store.store.setBadge(store.store.badge + 1)
                 localStorage.setItem('notify', JSON.stringify(store.store.badge + 1))
@@ -57,40 +58,26 @@ function Album() {
                     content: 'The song be added your playlist successfully!',
                     duration: 3,
                 });
-                setValueInput('')
-
-                return
-            } else if (response.status === 201) {
-                setSongUser(songUser + 1)
-                store.store.setBadge(store.store.badge + 1)
-                localStorage.setItem('notify', JSON.stringify(store.store.badge + 1))
-
-                messageApi.open({
-                    type: 'success',
-                    content: 'The song be added your playlist successfully!',
-                    duration: 3,
-                });
-                setValueInput('')
-                return
             }
-
         } catch (error) {
             if (error.response.status === 402) {
                 messageApi.open({
                     type: 'warning',
                     content: 'Already in the Your List',
                 });
-                setValueInput('')
-                return
-            } else if (error.response.status === 500) {
+            } else if (error.response.status === 403) {
                 messageApi.open({
                     type: 'error',
                     content: 'INCORRECT URL!',
                 });
-                setValueInput('')
-                return
+            } else if (error.response.status === 406) {
+                messageApi.open({
+                    type: 'error',
+                    content: 'Not add song list!',
+                });
             }
-            console.log(error);
+
+            else console.log(error);
         }
     };
 
@@ -102,18 +89,7 @@ function Album() {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-    const handleOnchangeInput = (e) => {
-        const inputValue = e.target.value
-        if (!inputValue.startsWith(' ', 0)) {
-            setValueInput(inputValue);
-        }
 
-    }
-
-    const handleClick = () => {
-        setValueInput('');
-
-    }
 
     return (
 
@@ -153,8 +129,6 @@ function Album() {
                             >
 
                                 <Input
-                                    value={valueInput}
-                                    onChange={handleOnchangeInput}
                                     style={{
                                         backgroundColor: colorBgLoginForm,
                                     }}
@@ -167,10 +141,7 @@ function Album() {
                             >
                                 {contextHolder}
                                 <Button
-                                    wrapperCol={{
-                                        span: 24,
-                                    }}
-                                    onClick={handleClick}
+
                                     style={{
                                         backgroundColor: "#4285F4",
                                         color: "white",

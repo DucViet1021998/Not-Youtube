@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
 import { Routes, Route } from "react-router-dom";
 import { ConfigProvider } from 'antd';
@@ -11,10 +11,50 @@ import { DefaultLayout } from '~/layouts/DefaultLayout';
 import { DashboardDefaultLayout } from "./layouts/DashboardDefaultLayout";
 
 
+
+
+
 const App = () => {
   const [badge, setBadge] = useState(Number(localStorage.getItem('notify')) || 0)
-  const [login, setLogin] = useState(localStorage.getItem('accessToken'))
+  const [login, setLogin] = useState(false)
   const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('mode') || "light")
+
+
+
+  useEffect(() => {
+    const checkAccessToken = () => {
+      const accessToken = localStorage.getItem('accessToken')
+      if (accessToken === null) {
+        return false
+      }
+      else {
+        try {
+          const payload = JSON.parse(atob(accessToken.split('.')[1]))
+
+          const expTime = payload.exp * 1000
+          if (expTime < Date.now()) {
+            return false
+          } else if (expTime > Date.now()) {
+            return true
+          } else return true
+        } catch (error) {
+          return false
+        }
+      }
+    }
+    checkAccessToken()
+  }, [])
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <ConfigProvider

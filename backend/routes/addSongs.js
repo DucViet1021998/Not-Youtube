@@ -7,7 +7,7 @@ const authenticateToken = require('../helpers/authenticateToken')
 
 
 router.post('/add-song', addSongsController.addSongs)
-router.post('/add-album', authenticateToken, addSongsController.addAlbumUser)
+router.get('/add-album', authenticateToken, addSongsController.addAlbumUser)
 
 
 module.exports = router

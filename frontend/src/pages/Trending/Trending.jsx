@@ -46,12 +46,14 @@ function Trending() {
         <>
             {loading
                 ?
-                <div style={{
-                    height: "100vh",
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
+                <div
+                    style={{
+                        height: "100vh",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}
+                >
                     <Spin size="large" indicator={antIcon} />
                 </div>
 

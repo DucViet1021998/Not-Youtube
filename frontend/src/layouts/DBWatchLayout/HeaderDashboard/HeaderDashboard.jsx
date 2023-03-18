@@ -78,21 +78,15 @@ function HeaderDashboard({ data }) {
 
     const handleClickLogout = async () => {
         try {
-            const refreshToken = localStorage.getItem('refreshToken')
-            const response = await request.post('logout',
-                { refreshToken: refreshToken },
-            )
+            const response = await request.post('logout')
             if (response.status === 200) {
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");
                 store.login = null
                 navigate('/')
             }
-            else {
-                console.log("Error!");
-            }
         } catch (error) {
-            console.log('error2');
+            console.log(error);
         }
     }
 
