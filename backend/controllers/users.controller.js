@@ -76,6 +76,9 @@ module.exports = {
                     const refreshToken = jwt.sign(
                         { id: user.id, username: user.username },
                         process.env.REFRESH_TOKEN_SECRET,
+                        {
+                            expiresIn: '40s', // Expires after 40s of login
+                        },
                     );
 
                     //Save Tokens to Database
@@ -109,16 +112,6 @@ module.exports = {
         }
     },
 
-
-    async hehe(req, res) {
-        try {
-            res.send('ok')
-        } catch (error) {
-            res.send('Error!');
-        }
-    },
-
-
     // [GET METHOD] 
     // Get User khi vào router cần login
     async getUser(req, res) {
@@ -134,28 +127,39 @@ module.exports = {
     // Refresh Token
     async refreshToken(req, res) {
         try {
-            const refreshToken = req.body.refreshToken;
+            let refreshToken = req.body.refreshToken;
 
             const user = await UserModel.findOne({ refreshToken: refreshToken });
             if (!user) return res.sendStatus(404);
 
             jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
-                if (err) res.sendStatus(403);
+                console.log(data);
+                if (err) return res.sendStatus(403);
 
                 const accessToken = jwt.sign(
                     { username: data.username, id: data.id },
                     process.env.ACCESS_TOKEN_SECRET,
                     {
-                        expiresIn: '30s', // Expires after 30s of login
+                        expiresIn: '30s',
                     },
                 );
+                refreshToken = jwt.sign(
+                    { username: data.username, id: data.id },
+                    process.env.REFRESH_TOKEN_SECRET,
+                    {
+                        expiresIn: '40s',
+                    },
+                );
+                user.accessToken = accessToken;
+                user.refreshToken = refreshToken;
+                user.save()
 
-                res.status(200).send({ accessToken: accessToken });
+                res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken });
             });
 
         } catch (error) {
             console.log(error);
-            res.sendStatus(402);
+            res.sendStatus(406);
         }
     },
 

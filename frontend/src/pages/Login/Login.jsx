@@ -25,16 +25,14 @@ const Login = () => {
             if (response.status === 200) {
                 localStorage.setItem("accessToken", response.data.accessToken);
                 localStorage.setItem("refreshToken", response.data.refreshToken);
-                navigate("/dashboard");
-                store.setLogin(true);
+                // navigate("/dashboard");
+                store.setLogin(localStorage.getItem('refreshToken'));
             }
             else if (response.status === 202) {
                 localStorage.setItem("accessToken", response.data.accessToken);
                 localStorage.setItem("refreshToken", response.data.refreshToken);
-                navigate("/admin");
-                // store.setLogin(localStorage.getItem('refreshToken'));
-                store.setLogin(true);
-
+                // navigate("/admin");
+                store.setLogin(localStorage.getItem('refreshToken'));
             }
 
         } catch (error) {
@@ -123,10 +121,6 @@ const Login = () => {
                     <Form.Item
                         name="remember"
                         valuePropName="checked"
-                    // wrapperCol={{
-                    //     offset: 8,
-                    //     span: 16,
-                    // }}
                     >
                         <Checkbox>Remember me</Checkbox>
                     </Form.Item>

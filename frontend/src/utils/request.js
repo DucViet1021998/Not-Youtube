@@ -28,8 +28,8 @@ request.interceptors.response.use((res) => {
                     refreshToken: refreshToken
                 })
 
-            console.log(response.data.accessToken);
             localStorage.setItem("accessToken", response.data.accessToken);
+            localStorage.setItem("refreshToken", response.data.refreshToken);
             return request.request({ method: error.config.method, url: error.config.url, data: error.config.data, status: error.config.status })
         }
         else {
