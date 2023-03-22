@@ -34,29 +34,7 @@
 </p>
 
     
-  <h1>Pages<h1/>
-    <li>Home page
-      <hr/>
-      <img src='https://i.imgur.com/CWWuDhD.png' alt="Homepage"/>
-      <li>Watch page
-      <hr/>
-      <img src='https://i.imgur.com/mwhFLXi.png' alt="Watch page"/>
-      <li>Login page
-      <hr/>
-      <img src='https://i.imgur.com/5kEyjKW.png' alt="Login page"/>
-      <li>Register page
-      <hr/>
-      <img src='https://i.imgur.com/VA4pC4A.png' alt="Register page"/>
-      <li>Trending page
-      <hr/>
-      <img src='https://i.imgur.com/5rgcka1.png' alt="Trending page"/>
-      <li>Dashboard page
-      <hr/>
-      <img src='https://i.imgur.com/CYk1UGp.png' alt="Dashboard page"/>
-        <li>Admin page
-      <hr/>
-      <img src='https://i.imgur.com/pHCX6Zc.png' alt="Admin page"/>
-        
+
             
             
          
