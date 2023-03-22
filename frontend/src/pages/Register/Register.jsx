@@ -25,12 +25,12 @@ const Register = () => {
             for (const name in values) {
                 formData.append(name, values[name]);
             }
-            const res = await request.post('register', formData, {
+            await request.post('register', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            if (res.status === 200) return navigate('/login')
+            navigate('/login')
         } catch (error) {
             if (error.response.status === 402) {
                 messageApi.open({
@@ -67,7 +67,6 @@ const Register = () => {
                     style={{
                         maxWidth: "100%",
                     }}
-                // scrollToFirstError
                 >
 
                     {/* Input Email */}
@@ -130,10 +129,10 @@ const Register = () => {
                                 required: true,
                                 message: 'Please input your password!',
                             },
-                            // {
-                            //     min: 6,
-                            //     message: 'Please input minimum of 8 characters',
-                            // },
+                            {
+                                min: 8,
+                                message: 'Please input minimum of 8 characters',
+                            },
 
                         ]}
                         hasFeedback
@@ -156,7 +155,6 @@ const Register = () => {
                         name="confirm"
                         label="Confirm Password"
                         dependencies={['password']}
-                        // hasFeedback
                         rules={[
                             {
                                 required: true,
@@ -189,8 +187,6 @@ const Register = () => {
                     <Form.Item
                         label="Avatar"
                         name={'avatar'}
-                        // valuePropName="fileList"
-                        // getValueFromEvent={normFile}
                         getValueFromEvent={(event) => {
                             return event?.file;
                         }}

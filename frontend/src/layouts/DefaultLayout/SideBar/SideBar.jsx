@@ -14,8 +14,6 @@ import {
 import { Menu, Layout } from 'antd';
 import { Store } from '~/store/store';
 
-
-
 const { Sider } = Layout;
 function getItem(label, key, icon, children) {
     return {
@@ -25,7 +23,6 @@ function getItem(label, key, icon, children) {
         label,
     };
 }
-
 
 const items = [
     getItem("Home", '/', <HomeOutlined />),

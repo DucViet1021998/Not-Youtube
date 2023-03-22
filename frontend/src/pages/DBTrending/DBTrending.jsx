@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-
 import { useParams } from "react-router-dom";
-import { v4 as id } from 'uuid';
+
 import { Avatar, Col, Row, Spin } from "antd";
 import DBTrendingVideo from "./DBTrendingVideo";
 import { LoadingOutlined } from '@ant-design/icons';
@@ -64,14 +63,12 @@ function DBTrending() {
                     </div>
                     <div onClick={() => setLoading(true)}>
 
-                        {video.map((vid) => (
-                            <Row key={id()}>
-                                <Col key={id()}
-                                    lg={16}
-                                    sm={12}
-                                    xs={24}
+                        {video.map((vid, i) => (
+                            <Row key={i}>
+                                <Col
+                                    xs={22}
                                 >
-                                    <DBTrendingVideo key={id()} data={vid} />
+                                    <DBTrendingVideo data={vid} />
                                 </Col>
                             </Row>
                         ))}

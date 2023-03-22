@@ -1,42 +1,45 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
 import { Routes, Route } from "react-router-dom";
 import { ConfigProvider } from 'antd';
 import { darkTheme, lightTheme } from "./components/Modes";
 import { Store } from "./store/store";
-import PrivateLayout from "./layouts/PrivateLayout";
-import PublicLayout from "./layouts/PublicLayout";
+import PrivateLayout from "./routes/PrivateRoute";
+import PublicLayout from "./routes/PublicRoute";
 import { publicRoutes, privateRoutes } from '~/routes';
 import { DefaultLayout } from '~/layouts/DefaultLayout';
 import { DashboardDefaultLayout } from "./layouts/DashboardDefaultLayout";
 
 
-
-
-
 const App = () => {
   const checkAccessToken = () => {
-    const accessToken = localStorage.getItem('accessToken')
-    if (accessToken === null) {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (!accessToken) {
+        return false;
+      } else {
+        const payload = JSON.parse(atob(accessToken.split('.')[1]));
+        const expTime = payload.exp * 1000;
+        if (expTime < Date.now() && !refreshToken) {
+          return false;
+        }
+        return true;
+      }
+    } catch (error) {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       return false
     }
-    else {
-      try {
-        const payload = JSON.parse(atob(accessToken.split('.')[1]))
-        const expTime = payload.exp * 1000
-        if (expTime < Date.now()) {
-          return false
-        } else if (expTime > Date.now()) {
-          return true
-        } else return true
-      } catch (error) {
-        return false
-      }
-    }
-  }
+  };
+
   const [badge, setBadge] = useState(Number(localStorage.getItem('notify')) || 0)
   const [login, setLogin] = useState(checkAccessToken())
   const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('mode') || "light")
+
+  useEffect(() => {
+    setLogin(checkAccessToken());
+  }, []);
 
 
 

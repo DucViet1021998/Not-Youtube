@@ -10,23 +10,15 @@
 .img {
     max-width: 246px;
     max-height: 138px;
-    // width: 168px !important;
-    // height: 94px !important;
     border-radius: 10px;
-    // border: 1px solid green;
-
 }
 
 .title {
-    // border: 1px solid yellow;
-
     font-size: 1rem;
     font-weight: 600;
-    // width: 100%;
     text-overflow: ellipsis !important;
     overflow: hidden !important;
     line-height: 1.3em;
-    // height: 3em;
     margin-bottom: 8px;
 }
 
@@ -46,7 +38,6 @@
 .view {
     padding-left: 10px;
     position: relative;
-    // border: 1px solid red;
 
     &::after {
         content: '•';
@@ -58,7 +49,6 @@
 
 .publish-day {
     padding-left: 14px;
-    // border: 1px solid red;
 }
 
 .description {

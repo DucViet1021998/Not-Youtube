@@ -85,7 +85,7 @@ function HeaderDashboard({ data }) {
             if (response.status === 200) {
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");
-                store.login = null
+                store.setLogin(false)
                 navigate('/')
             }
             else {
@@ -160,8 +160,6 @@ function HeaderDashboard({ data }) {
             style={{ color: 'red' }}
             justify={"space-between"}
         >
-
-
             <Col span={3}>
 
                 {/* Logo Youtube */}
@@ -170,9 +168,8 @@ function HeaderDashboard({ data }) {
                     <span className={cx('label-logo')}  >Not Youtube</span>
                 </Link>
                 {/* END OF Logo Youtube */}
+
             </Col>
-
-
 
             {/* Search Video Youtube in Database */}
             <Col span={8}>
@@ -181,9 +178,7 @@ function HeaderDashboard({ data }) {
                     onFinishFailed={onFinishFailed}
                     autoComplete="on"
                 >
-                    <Form.Item
-                        name="search"
-                    >
+                    <Form.Item name="search">
                         <AutoComplete
                             style={{
                                 width: "100%",
@@ -220,7 +215,7 @@ function HeaderDashboard({ data }) {
             <Col xs={3} sm={5}  >
                 <div className={cx('actions')}>
 
-                    {/*  Icon Create*/}
+                    {/* Album Create Icon */}
                     <Tooltip
                         color='#616161'
                         arrow="false"
@@ -234,7 +229,7 @@ function HeaderDashboard({ data }) {
                             }}
                         />
                     </Tooltip>
-                    {/* END OF  Icon Create*/}
+                    {/* END OF Album Create Icon */}
 
                     <div style={{ position: 'relative' }}>
                         <Tooltip

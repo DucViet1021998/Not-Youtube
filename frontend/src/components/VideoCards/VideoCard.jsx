@@ -19,7 +19,7 @@ function VideoCard({ data }) {
     const store = useContext(Store)
     const navigate = useNavigate()
 
-    const handleClick = () => store.login === null ? navigate(`/watch/${data._id}`) : navigate(`/dashboard/watch/${data._id}`)
+    const handleClick = () => store.login === false ? navigate(`/watch/${data._id}`) : navigate(`/dashboard/watch/${data._id}`)
     return (
         <Card
             onClick={handleClick}

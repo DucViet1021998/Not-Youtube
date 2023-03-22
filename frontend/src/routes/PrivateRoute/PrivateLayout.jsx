@@ -8,7 +8,7 @@ export default function PrivateLayout() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!store.login) {
+        if (store.login === false) {
             return navigate('/')
         }
 

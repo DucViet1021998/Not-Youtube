@@ -4,7 +4,6 @@ import { Col, Row, Spin, theme, Image, Button } from "antd";
 
 import { LoadingOutlined, DownloadOutlined } from '@ant-design/icons';
 
-import { v4 as id } from 'uuid';
 import classNames from 'classnames/bind';
 
 import images from "~/assets/images";
@@ -89,15 +88,14 @@ function DBSearch() {
                 <>
                     {
                         video.map((vid) => (
-                            <Row key={id()}>
+                            <Row key={vid._id}>
                                 <Col
                                     onClick={handleClick}
-                                    key={id()}
                                     lg={20}
                                     sm={12}
                                     xs={24}
                                 >
-                                    <DBSearchVideo key={id()} data={vid} />
+                                    <DBSearchVideo data={vid} />
                                 </Col>
                             </Row>
                         ))

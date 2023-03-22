@@ -1,7 +1,7 @@
+import { useEffect, useState, useContext } from 'react';
 import { Layout, theme } from 'antd';
 
 import { Store } from '~/store/store';
-import { useEffect, useState, useContext } from 'react';
 import HeaderDashboard from './HeaderDashboard';
 import SideBarDashboard from './SideBarDashboard';
 import request from "~/utils/request";
@@ -34,7 +34,7 @@ function DashboardDefaultLayout({ children }) {
             <SideBarDashboard
                 style={{
                     overflow: 'auto',
-                    height: '100vh',
+                    minHeight: '100vh',
                 }}
             />
 
@@ -44,7 +44,8 @@ function DashboardDefaultLayout({ children }) {
                     style={{
                         paddingRight: "10px",
                         top: 0,
-                        position: 'sticky'
+                        position: 'sticky',
+                        zIndex: 999
                     }}
                 >
                     {user.map((u, i) => (
@@ -53,12 +54,10 @@ function DashboardDefaultLayout({ children }) {
 
                 </div>
 
-                <Content
-                    style={{
-                        margin: '0 16px',
-                        overflow: 'auto',
-                    }}
-                >
+                <Content style={{
+                    margin: '0 16px',
+                    overflow: 'auto',
+                }}>
 
                     <div
                         style={{
@@ -77,8 +76,6 @@ function DashboardDefaultLayout({ children }) {
                 </Content>
 
             </Layout>
-
-
         </Layout >
     )
 }

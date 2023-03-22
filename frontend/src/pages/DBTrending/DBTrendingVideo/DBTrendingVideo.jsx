@@ -3,7 +3,6 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Tooltip } from 'antd';
-// import { useEffect } from "react";
 
 import request from '~/utils/request'
 import classNames from 'classnames/bind';

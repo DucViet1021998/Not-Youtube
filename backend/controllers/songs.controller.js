@@ -15,7 +15,7 @@ const numberFormat = new Intl.NumberFormat("en-US");
 module.exports = {
 
     // [GET METHOD]  
-    // get all songs in database
+    // Read all songs in database
     async getAllSongs(req, res) {
         try {
             const songs = await SongModel.find({}).lean();
@@ -28,7 +28,7 @@ module.exports = {
     },
 
     // [GET METHOD]  
-    // get all songs in trending page youtube
+    // Read all songs in youtube trending page 
     async trending(req, res) {
         try {
             const parameters = {
@@ -64,7 +64,7 @@ module.exports = {
     },
 
     // [GET METHOD]  
-    // Get single song by ID in database send to Watch Page
+    // Get single song in database send to Watch Page
     async watchPage(req, res) {
         try {
             const songs = await SongModel.findById(req.params.songId);
@@ -75,27 +75,13 @@ module.exports = {
         }
     },
 
-    // [GET METHOD]  
-    // Get single song by ID in database send to Dashboard Watch Page
-    async watchDashboardPage(req, res) {
-        try {
-            const songs = await SongModel.findById(req.params.songId);
-            res.status(200).send(songs);
-        } catch (error) {
-            console.log(error);
-            res.send('Error!');
-        }
-    },
-
     // [DELETE METHOD]  
-    // Update information all Video in database
+    // Delete youtube video in database
     async delete(req, res) {
         try {
             // Check admin request
             if (!req.user.role === 'admin') res.sendStatus(400)
-
             await SongModel.findOneAndDelete({ _id: req.headers.songid })
-
             res.sendStatus(200)
         } catch (error) {
             console.log(error);
@@ -105,10 +91,8 @@ module.exports = {
 
 
 
-
-
     // [PATCH METHOD]  
-    // Update information all Video in database
+    // Update information all Video in database by Cron job
     async update(req, res) {
         try {
             const data = await SongModel.find();

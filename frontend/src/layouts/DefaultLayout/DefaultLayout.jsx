@@ -2,18 +2,13 @@ import { Layout, theme } from 'antd';
 import Header from './Header';
 import SideBar from './SideBar';
 
-
 const { Content } = Layout;
 
 const DefaultLayout = ({ children }) => {
 
-
-
     const {
         token: { colorBgContainer, colorText },
     } = theme.useToken();
-
-
 
     return (
 
@@ -37,7 +32,6 @@ const DefaultLayout = ({ children }) => {
                     <Header />
                 </div>
 
-
                 <Content
                     style={{
                         margin: '0 16px',
@@ -56,8 +50,6 @@ const DefaultLayout = ({ children }) => {
                         {children}
                     </div>
                 </Content>
-
-
 
             </Layout>
 

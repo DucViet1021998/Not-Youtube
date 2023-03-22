@@ -13,7 +13,6 @@ request.interceptors.request.use((config) => {
     return Promise.reject(error);
 })
 
-
 request.interceptors.response.use((res) => {
     retry = 0
     return res
@@ -27,19 +26,15 @@ request.interceptors.response.use((res) => {
                 {
                     refreshToken: refreshToken
                 })
-
             localStorage.setItem("accessToken", response.data.accessToken);
-            localStorage.setItem("refreshToken", response.data.refreshToken);
             return request.request({ method: error.config.method, url: error.config.url, data: error.config.data, status: error.config.status })
+
         }
         else {
-            // localStorage.removeItem('accessToken')
             return Promise.reject(error);
         }
     }
 
 })
-
-
 
 export default request;

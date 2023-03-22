@@ -8,7 +8,7 @@ export default function PublicLayout() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (store.login) {
+        if (store.login === true) {
             return navigate('/dashboard')
         }
 

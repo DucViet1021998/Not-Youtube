@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { v4 as id } from 'uuid';
 
 import { Avatar, Col, Row, Spin } from "antd";
 import TrendingVideo from "./TrendingVideo";
@@ -63,14 +62,12 @@ function Trending() {
                         <h1 className={cx("text")}>Thịnh hành</h1>
                     </div>
                     <div>
-                        {video.map((vid) => (
-                            <Row key={id()}>
-                                <Col onClick={() => setLoading(true)} key={id()}
-                                    lg={16}
-                                    sm={12}
-                                    xs={24}
+                        {video.map((vid, i) => (
+                            <Row key={i}>
+                                <Col onClick={() => setLoading(true)}
+                                    xs={22}
                                 >
-                                    <TrendingVideo key={id()} data={vid} />
+                                    <TrendingVideo data={vid} />
                                 </Col>
                             </Row>
                         ))}

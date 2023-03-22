@@ -13,7 +13,8 @@ const cx = classNames.bind(styles);
 function Admin() {
     const [dataSongs, setDataSongs] = useState([])
     const [dataUsers, setDataUsers] = useState([])
-    const [count, setCount] = useState(0)
+    const [countSong, setCountSong] = useState(0)
+    const [countUser, setCountUser] = useState(0)
 
     useEffect(() => {
         async function getSongs() {
@@ -25,7 +26,7 @@ function Admin() {
             }
         }
         getSongs()
-    }, [count])
+    }, [countSong])
 
     useEffect(() => {
         async function getUsers() {
@@ -39,8 +40,7 @@ function Admin() {
             }
         }
         getUsers()
-    }, [])
-
+    }, [countUser])
 
 
     return (
@@ -104,9 +104,25 @@ function Admin() {
                             align='center'
                             key="action"
                             render={(_, record) => (
-                                <Space key={_} size="middle">
-                                    <Confirm key={_} title="Sure to delete?" onConfirm={() => console.log(record._id)}>
-                                        <Button key={_} disabled={record.role === 'admin' && true}>{record.role === 'admin' ? 'Cannot' : 'Delete'}</Button>
+                                <Space key={record._id} size="middle">
+                                    <Confirm placement="left" title="Sure to delete?"
+                                        onConfirm={() => {
+                                            async function deleteUser() {
+                                                try {
+                                                    const res = await request.delete('delete-user', {
+                                                        headers: {
+                                                            userId: record._id
+                                                        }
+                                                    })
+                                                    if (res.status === 200) setCountUser(countUser + 1)
+                                                } catch (error) {
+                                                    console.log(error);
+                                                }
+                                            }
+                                            deleteUser()
+                                        }}
+                                    >
+                                        <Button disabled={record.role === 'admin' && true}>{record.role === 'admin' ? 'Cannot' : 'Delete'}</Button>
                                     </Confirm>
                                 </Space>
                             )}
@@ -121,9 +137,7 @@ function Admin() {
                     >
                         <Column align='center' title="Avatar" dataIndex="channel_avatar" key="channel_avatar"
                             render={(ava) => (
-                                <>
-                                    <Avatar key={ava} src={ava} />
-                                </>
+                                <Avatar key={ava} src={ava} />
                             )}
                         />
                         <Column align='center' title="Channel" dataIndex="channel" key="channel"
@@ -138,11 +152,6 @@ function Admin() {
                                 >{title}</h5>
                             )} />
 
-                        {/* <Column title="Video Url" dataIndex="video_url" key="video_url"
-                            render={(video_url) => (
-                                <h5>{video_url}</h5>
-                            )}
-                        /> */}
                         <Column align='center' title="Title" dataIndex="title" key="title"
                             render={(title) => (
                                 <h5 key={title}
@@ -167,15 +176,14 @@ function Admin() {
                             )}
                         />
                         <Column
-                            // fixed='right'
                             align='center'
                             title="Action"
                             key="_id"
                             render={(_, record) => (
-                                <Space key={_} size="middle">
-                                    <Confirm key={_} placement="left" title="Sure to delete?"
+                                <Space key={record._id} size="middle">
+                                    <Confirm placement="left" title="Sure to delete?"
                                         onConfirm={() => {
-                                            async function getSongs() {
+                                            async function deleteSongs() {
                                                 try {
                                                     const res = await request.delete('delete-song', {
                                                         headers: {
@@ -183,13 +191,13 @@ function Admin() {
                                                         }
                                                     })
                                                     if (res.status === 200) {
-                                                        setCount(count + 1)
+                                                        setCountSong(countSong + 1)
                                                     }
                                                 } catch (error) {
                                                     console.log(error);
                                                 }
                                             }
-                                            getSongs()
+                                            deleteSongs()
                                         }}
                                     >
                                         <Button >Delete</Button>

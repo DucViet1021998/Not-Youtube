@@ -34,45 +34,29 @@ function HeaderDashboard({ data }) {
 
     const handleClickLogout = async () => {
         try {
-            const refreshToken = localStorage.getItem('refreshToken')
-            const response = await request.post('logout',
-                { refreshToken: refreshToken },
-            )
-            if (response.status === 200) {
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("refreshToken");
-                store.login = null
-                navigate('/')
-            }
+            await request.post('logout')
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            store.setLogin(false)
+            navigate('/')
 
         } catch (error) {
             console.log('error2');
         }
     }
-
-
     const onClick = (e) => {
-        if (e.key === 'logout') {
-            handleClickLogout()
-        }
+        if (e.key === 'logout') handleClickLogout()
     };
 
     const {
         token: { colorHeader, colorBgBase },
     } = theme.useToken();
 
-
-
-
-
     return (<header style={{ backgroundColor: colorHeader }} className={cx('wrapper')}>
-
         <Row
             wrap={false}
             justify={"space-between"}
         >
-
-
             <Col span={3}>
 
                 {/* Logo Youtube */}
@@ -82,19 +66,9 @@ function HeaderDashboard({ data }) {
                 </Link>
                 {/* END OF Logo Youtube */}
             </Col>
-
-
-            <Col span={8}>
-            </Col>
-
-
-
-
+            <Col span={8}></Col>
             <Col xs={3} sm={5}  >
-
                 <div className={cx('actions')}>
-
-
                     <Tooltip
                         overlayStyle={{
                             marginTop: "-5px",
@@ -114,7 +88,6 @@ function HeaderDashboard({ data }) {
                             items={items} />}
 
                     >
-
                         <Avatar size={35}
                             style={{ cursor: 'pointer' }}
                             src={data.avatar}

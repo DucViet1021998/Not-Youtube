@@ -12,9 +12,9 @@ root.render(
   <Router>
     <GlobalStyles>
 
-      {/* <React.StrictMode> */}
-      <App />
-      {/* </React.StrictMode> */}
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
 
     </GlobalStyles>
   </Router>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Col, Row, Form, Input, Button, message, theme } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
-import { v4 as id } from 'uuid';
 
 import MiniVideo from "~/components/MiniVideos/MiniVideo";
 
@@ -53,13 +52,9 @@ function DBAddSong() {
         token: { colorText, colorBgLoginForm, boxShadowForm },
     } = theme.useToken();
 
-
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-
-
-
 
     return (
 
@@ -78,7 +73,6 @@ function DBAddSong() {
                     >
 
                         <Form
-                            // labelCol={{ span: 24, offset: 0 }}
                             onFinish={onFinish}
                             onFinishFailed={onFinishFailed}
                             autoComplete="off"
@@ -89,33 +83,23 @@ function DBAddSong() {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Gắn link đi pạnn hiền!!!',
+                                        message: `Don't leave it blank`,
                                     },
                                 ]}
                                 name="video_url"
                                 label="URL Video"
-                            // validateStatus="warning"
                             >
 
                                 <Input
                                     style={{
                                         backgroundColor: colorBgLoginForm,
                                     }}
-                                    allowClear={true} placeholder="Dán Link Youtube của pạnn!" prefix={<SmileOutlined />} />
+                                    allowClear={true} placeholder="Paste your video URL!" prefix={<SmileOutlined />} />
 
                             </Form.Item>
-                            <Form.Item
-                            // labelCol={{ span: 2, offset: 0 }}
-
-                            >
+                            <Form.Item>
                                 {contextHolder}
                                 <Button
-
-                                    wrapperCol={{
-                                        // offset: 8,
-                                        span: 24,
-                                    }}
-
                                     style={{
                                         backgroundColor: "#4285F4",
                                         color: "white",
@@ -142,8 +126,8 @@ function DBAddSong() {
                         className={cx("container-right")}>
                         <h2 className={cx("title-right")}>Your Video You Add!</h2>
                         {miniVideo.map((vid) => (
-                            <Row key={id()}>
-                                <MiniVideo key={id()} data={vid} />
+                            <Row key={vid._id}>
+                                <MiniVideo data={vid} />
                             </Row>
 
                         ))}

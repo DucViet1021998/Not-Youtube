@@ -45,17 +45,11 @@ function Sidebar() {
     const theme = store.currentTheme
 
     return (
-        <Sider style={
-            {
-                overflow: 'auto',
-                height: '100vh'
-            }}
+        <Sider style={{ overflow: 'auto' }}
             theme={theme}
             breakpoint='md'
             collapsible
         >
-
-
             <Menu
                 onClick={handleClick}
                 mode='inline'

@@ -8,9 +8,6 @@
     --white: #fff;
     --dark-blue: #0164e6;
     --light-blue: #a9d7ff;
-
-    --default-layout-header-height: 60px;
-    --default-layout-horizontal-spacer: 24px;
 }
 
 
@@ -18,7 +15,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    // scroll-behavior: smooth;
 }
 
 body {
@@ -28,7 +24,6 @@ body {
     text-rendering: optimizespeed;
     overflow-y: overlay;
     user-select: none;
-    // overflow-x: hidden !important;
     overflow-x: hidden;
 
 }
@@ -44,17 +39,9 @@ html *::-webkit-scrollbar-thumb {
     background-color: #616161;
 }
 
-
-
 html *::-webkit-scrollbar-track {
     border-radius: 0;
     background-color: rgba(0, 0, 0, 0);
-}
-
-
-
-::-webkit-input-placeholder {
-    background: 0px transparent !important;
 }
 
 
@@ -68,16 +55,12 @@ input,
 
 a[href] {
     text-decoration: none;
-    // color: transparent;
 }
-
-
 
 //  CUSTOM CSS ANT DESIGN
 
 :where(.css-dev-only-do-not-override-1bpmopj).ant-input {
     border-radius: 0px !important;
-
 }
 
 :where(.css-dev-only-do-not-override-87567i).ant-layout {
@@ -92,9 +75,7 @@ a[href] {
 }
 
 :where(.css-dev-only-do-not-override-3fwlr8).ant-menu-inline-collapsed>.ant-menu-submenu>.ant-menu-submenu-title {
-
     padding-inline: calc(50% - 17px) !important;
-
 }
 
 .ant-layout-sider-dark {
@@ -129,7 +110,3 @@ a[href] {
 :where(.css-dev-only-do-not-override-10iaro9).ant-btn.ant-btn-round.ant-btn-lg:hover {
     background-color: #8ac8ff67 !important;
 }
-
-// :where(.css-dev-only-do-not-override-x67mzg).ant-input-affix-wrapper>input.ant-input {
-//     background-color: transparent !important;
-// }

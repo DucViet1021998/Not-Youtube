@@ -6,9 +6,6 @@
 
     height: 60px;
     width: 100%;
-    // display: flex;
-    // justify-content: space-between;
-    // align-items: center;
     margin-left: 1rem;
     padding-right: 20px;
     padding-top: 7px;
@@ -26,7 +23,6 @@
 
 
 .logo {
-    // width: 145px;
     height: 45px;
     margin-left: 1rem;
     margin-right: 0.6rem;
@@ -34,13 +30,10 @@
 
 .label-logo {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    // color: var(--text-color);
     font-weight: 600;
     line-height: 1;
     font-size: 1rem;
 }
-
-
 
 //  END OF LOGO CSS
 
@@ -54,8 +47,6 @@
     border-radius: var(--search-border-radius);
     border: 1.5px solid rgb(172 167 167 / 88%);
     padding-left: 16px;
-    // background-color: rgba(22, 24, 35, 0.06);
-    ;
 
     input {
         flex: 1;
@@ -112,10 +103,6 @@
     }
 }
 
-.hahahaha {
-    color: red !important;
-}
-
 // END OF SEARCH CSS
 
 
@@ -128,14 +115,5 @@
     align-items: center;
     gap: 20px;
 }
-
-// .login-btn {
-//     color: var(--dark-blue);
-
-//     &:hover {
-//         background-color: var(--light-blue);
-//     }
-// }
-
 
 // END OF ACTIONS CSS

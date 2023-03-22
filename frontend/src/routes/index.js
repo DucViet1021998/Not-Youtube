@@ -14,7 +14,6 @@ import DBAddSong from '~/pages/DBAddSong'
 import Album from '~/pages/Album';
 import Admin from '~/pages/Admin'
 
-// import See from '~/pages/See/See';
 //Layout
 import WatchLayout from '~/layouts/WatchLayout/WatchLayout';
 import DBWatchLayout from '~/layouts/DBWatchLayout/DBWatchLayout';

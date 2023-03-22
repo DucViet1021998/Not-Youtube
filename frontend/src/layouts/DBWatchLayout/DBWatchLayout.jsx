@@ -15,9 +15,9 @@ function DBWatchLayout({ children }) {
     } = theme.useToken();
     const store = useContext(Store)
 
-    useEffect(() => {
 
-        // GỌI USER LẦN ĐẦU KHI LOGIN THÀNH CÔNG
+
+    useEffect(() => {
         async function getUsers() {
             try {
                 const users = await request.get('current-user')

@@ -25,14 +25,14 @@ const Login = () => {
             if (response.status === 200) {
                 localStorage.setItem("accessToken", response.data.accessToken);
                 localStorage.setItem("refreshToken", response.data.refreshToken);
-                // navigate("/dashboard");
-                store.setLogin(localStorage.getItem('refreshToken'));
+                navigate("/dashboard");
+                store.setLogin(true);
             }
             else if (response.status === 202) {
                 localStorage.setItem("accessToken", response.data.accessToken);
                 localStorage.setItem("refreshToken", response.data.refreshToken);
-                // navigate("/admin");
-                store.setLogin(localStorage.getItem('refreshToken'));
+                navigate("/admin");
+                store.setLogin(true);
             }
 
         } catch (error) {

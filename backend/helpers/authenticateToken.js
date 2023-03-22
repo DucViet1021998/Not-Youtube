@@ -9,6 +9,7 @@ const authenticateToken = async (req, res, next) => {
         //Lay token tu header
         const accessToken = req.headers.authorization?.split(' ')[1];
 
+
         //Validate token -> parse payload
         const data = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
 

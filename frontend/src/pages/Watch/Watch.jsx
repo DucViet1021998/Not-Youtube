@@ -7,8 +7,6 @@ import { Col, Row, theme, Avatar, Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
-import { v4 as id } from 'uuid';
-
 import styles from './Watch.module.scss';
 import classNames from 'classnames/bind';
 
@@ -57,8 +55,8 @@ function Watch() {
             }
         }
         getSongs()
-        document.title = video.title;
-    }, [routeParams.songId, video.title])
+        document.title = video.title || 'Not Youtube';
+    }, [video.title])
     // END OF Get Song for Mini videos
 
 
@@ -74,7 +72,6 @@ function Watch() {
                 <ReactPlayer
                     playing
                     className={cx("video")}
-                    // width={"100%"}
                     controls url={video.video_url} />
                 {/* END OF Main Video */}
 
@@ -123,11 +120,11 @@ function Watch() {
                         <h3 className={cx("tittle-descriptions")}>
                             {video.view_count} views Premiered on {dayjs(video.publish_date).format('D MMMM, YYYY')}
                         </h3>
-                        <p className={cx("description")}>
+                        <div className={cx("description")}>
 
                             <Description data={video.description} />
 
-                        </p>
+                        </div>
                     </div>
                     {/* END OF Descriptions Container */}
                 </Row>
@@ -139,12 +136,14 @@ function Watch() {
             </Col>
             {/*END OF LEFT SIDE */}
 
+
+
             {/* RIGHT SIDE */}
             <Col style={{ minHeight: '100vh' }} lg={6} sm={0} xs={0}>
                 {/* Loop Mini Videos */}
                 {miniVideo.map((vid) => (
-                    <Row key={id()}>
-                        <MiniVideo key={id()} data={vid} />
+                    <Row key={vid._id}>
+                        <MiniVideo data={vid} />
                     </Row>
                 ))}
                 {/* END OF Loop Mini Videos */}

@@ -14,8 +14,6 @@ import styles from './Header.module.scss';
 
 import request from "~/utils/request";
 
-
-
 const cx = classNames.bind(styles);
 
 function getItem(label, key, icon, children, type) {
@@ -27,6 +25,7 @@ function getItem(label, key, icon, children, type) {
         type,
     };
 }
+
 const items = [
     getItem('Appearance', 'sub1', <FontAwesomeIcon icon={faCircleHalfStroke} />, [
         getItem(null, null, null, [getItem('Dark theme', 'dark', <FontAwesomeIcon icon={faMoon} />),
@@ -56,9 +55,6 @@ function Header() {
     const navigate = useNavigate()
     const store = useContext(Store)
 
-
-
-
     useEffect(() => {
         const getSong = async () => {
             try {
@@ -87,9 +83,10 @@ function Header() {
     const onClick = (e) => {
         if (e.key === 'light') {
             store.setCurrentTheme('light');
-        } else if (e.key === 'dark') {
+        }
+        if (e.key === 'dark') {
             store.setCurrentTheme('dark');
-        } else return
+        }
     };
 
     const onFinish = async (values) => {
@@ -178,7 +175,6 @@ function Header() {
                                         allowClear={{ clearIcon: <CloseCircleFilled onClick={handleClearInput} /> }}
                                         spellCheck={false}
                                         bordered={false}
-                                        // onSearch={onSearch}
                                         placeholder="Search videos"
 
                                     />
@@ -194,7 +190,7 @@ function Header() {
                 {/* END OF Search Video Youtube in Database */}
 
 
-
+                {/* Actions */}
                 <Col xs={3} sm={5}  >
                     <div className={cx('actions')}>
 
@@ -236,6 +232,8 @@ function Header() {
                     </div>
 
                 </Col>
+                {/* END OF Actions */}
+
             </Row >
 
         </header >

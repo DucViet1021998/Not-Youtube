@@ -7,7 +7,6 @@ import { Col, Row, theme, Avatar, Tooltip, Input, Form, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
-import { v4 as id } from 'uuid';
 import request from "~/utils/request";
 import { Store } from '~/store/store';
 
@@ -29,17 +28,15 @@ function DBWatch() {
     const [miniVideo, setMiniVideo] = useState([])
     const routeParams = useParams();
     const store = useContext(Store)
-
-
     const {
         token: { colorBgDescriptions },
     } = theme.useToken();
 
-    useEffect(() => {
 
+    useEffect(() => {
         async function getSongs() {
             try {
-                const response = await request.get(`dashboard/watch/${routeParams.songId}`)
+                const response = await request.get(`watch/${routeParams.songId}`)
                 setVideo(response.data)
             } catch (error) {
                 console.log(error);
@@ -59,8 +56,8 @@ function DBWatch() {
             }
         }
         getSongs()
-        document.title = video.title || 'Not youtube';
-    }, [video.title, routeParams.songId])
+        document.title = video.title || 'Not Youtube';
+    }, [video.title])
 
 
 
@@ -68,11 +65,14 @@ function DBWatch() {
         try {
             const response = await request.post('comment', { ...values, songId: routeParams.songId })
             if (response.status === 200) {
-                store.store.setBadge(store.badge + 1)
-                localStorage.setItem('notify', JSON.stringify(store.badge + 1))
+                store.store.setBadge(store.store.badge + 1)
+                localStorage.setItem('notify', JSON.stringify(store.store.badge + 1))
             }
         } catch (error) {
-            console.log(error);
+            if (error.response.status === 400) {
+                console.log('loi 400');
+            }
+
         }
     }
 
@@ -88,6 +88,7 @@ function DBWatch() {
 
                     {/* Main Video */}
                     <ReactPlayer
+                        playing
                         className={cx("video")}
                         width={"100%"}
                         controls url={video.video_url} />
@@ -140,9 +141,7 @@ function DBWatch() {
                                         }}
                                         src={store.user[0].avatar} />
 
-                                    <Form.Item name="comment"
-                                    // style={{ width: "100%" }}
-                                    >
+                                    <Form.Item name="comment">
                                         <Input
 
                                             style={{
@@ -187,8 +186,8 @@ function DBWatch() {
                     }}
                     lg={6} sm={0} xs={0}>
                     {miniVideo.map((vid) => (
-                        <Row key={id()}>
-                            <MiniVideo key={id()} data={vid} />
+                        <Row key={vid._id}>
+                            <MiniVideo data={vid} />
                         </Row>
 
                     ))}

@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Button, Input, theme, Tooltip, Menu, Row, Col, Form, AutoComplete } from 'antd';
-import { MoreOutlined, FormOutlined, UserOutlined, CloseCircleFilled } from '@ant-design/icons';
+import { MoreOutlined, FormOutlined, UserOutlined, CloseCircleFilled, VideoCameraAddOutlined } from '@ant-design/icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleHalfStroke, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -33,6 +33,7 @@ const items = [
     ]),
 
     getItem(<Link to={'/register'}>Sign up</Link>, 'sub2', <FormOutlined />),
+    getItem(<Link to={'/add-song'}>Create</Link>, 'create', <VideoCameraAddOutlined />),
 ];
 
 
@@ -42,7 +43,6 @@ function Header() {
 
     const navigate = useNavigate()
     const store = useContext(Store)
-
 
     const handleResult = (value) => !value ? [] : value.map((val, i) => (
         {
@@ -68,6 +68,9 @@ function Header() {
                     setOptions(handleResult(response.data))
                 }
             } catch (error) {
+                if (error.response.status === 400) {
+                    setOptions([])
+                }
                 console.log(error);
             }
         }
@@ -93,9 +96,11 @@ function Header() {
     const onClick = (e) => {
         if (e.key === 'light') {
             store.setCurrentTheme('light');
-        } else if (e.key === 'dark') {
+        }
+        if (e.key === 'dark') {
             store.setCurrentTheme('dark');
-        } else return
+        }
+
     };
 
     const handleSearch = (value) => {
@@ -187,7 +192,7 @@ function Header() {
                 {/* END OF Search Video Youtube in Database */}
 
 
-
+                {/* Actions */}
                 <Col xs={3} sm={5}  >
                     <div className={cx('actions')}>
 
@@ -231,6 +236,7 @@ function Header() {
                     </div>
 
                 </Col>
+                {/* END OF Actions */}
             </Row >
 
         </header >

@@ -1,19 +1,9 @@
-.container {
-    width: 95%;
-    display: flex;
-    align-items: left;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 20px;
-
-}
-
-
 .container-cmt {
     padding-left: 10px;
     display: flex;
     flex-direction: row;
     gap: 20px;
+    margin-top: 20px;
 }
 
 .username {
@@ -24,5 +14,4 @@
 
 .time {
     font-size: 0.7rem;
-    margin-left: 8px;
 }

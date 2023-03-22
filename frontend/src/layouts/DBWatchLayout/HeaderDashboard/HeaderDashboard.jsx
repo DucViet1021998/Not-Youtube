@@ -48,8 +48,6 @@ const handleResult = (value) => !value ? [] : value.map((val, i) => (
     }
 ))
 
-
-
 function HeaderDashboard({ data }) {
     const [valueInput, setValueInput] = useState('')
     const [options, setOptions] = useState([]);
@@ -78,13 +76,11 @@ function HeaderDashboard({ data }) {
 
     const handleClickLogout = async () => {
         try {
-            const response = await request.post('logout')
-            if (response.status === 200) {
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("refreshToken");
-                store.login = null
-                navigate('/')
-            }
+            await request.post('logout')
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            store.setLogin(false)
+            navigate('/')
         } catch (error) {
             console.log(error);
         }
@@ -93,7 +89,6 @@ function HeaderDashboard({ data }) {
     useEffect(() => {
         localStorage.setItem('mode', store.currentTheme);
     }, [store.currentTheme])
-
 
 
     const onFinish = async (values) => {
@@ -106,18 +101,20 @@ function HeaderDashboard({ data }) {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
     const handleSearch = (value) => {
         navigate(`/dashboard/search/${value}`)
         setOptions([])
-        // setValueInput('')
     }
 
     const onClick = (e) => {
         if (e.key === 'light') {
             store.setCurrentTheme('light');
-        } else if (e.key === 'dark') {
+        }
+        if (e.key === 'dark') {
             store.setCurrentTheme('dark');
-        } else if (e.key === 'logout') {
+        }
+        if (e.key === 'logout') {
             handleClickLogout()
         }
     };
@@ -136,23 +133,17 @@ function HeaderDashboard({ data }) {
         setOptions([])
     }
 
-
     const handleOnchangeInput = (e) => {
         const inputValue = e.target.value
         if (!inputValue.startsWith(' ', 0)) {
             setValueInput(inputValue);
         }
-
     }
-
 
     const handleClickNotify = () => {
         localStorage.removeItem('notify')
         store.setBadge(store.badge = 0)
     }
-
-
-
 
     return (<header style={{ backgroundColor: colorHeader }} className={cx('wrapper')}>
 
@@ -171,6 +162,7 @@ function HeaderDashboard({ data }) {
                     <span className={cx('label-logo')}  >Not Youtube</span>
                 </Link>
                 {/* END OF Logo Youtube */}
+
             </Col>
 
 
@@ -216,12 +208,12 @@ function HeaderDashboard({ data }) {
 
 
 
-
+            {/* Actions  */}
             <Col xs={3} sm={5}  >
 
                 <div className={cx('actions')}>
 
-
+                    {/* Album Create Icon */}
                     <Tooltip
                         color='#616161'
                         arrow="false"
@@ -234,6 +226,7 @@ function HeaderDashboard({ data }) {
                             }}
                         />
                     </Tooltip>
+                    {/* END OF Album Create Icon */}
 
 
                     <div style={{ position: 'relative' }}>
@@ -281,7 +274,7 @@ function HeaderDashboard({ data }) {
 
 
 
-
+                    {/* Avatar user and actions inside */}
                     <Tooltip
                         overlayStyle={{
                             marginTop: "-5px",
@@ -308,9 +301,12 @@ function HeaderDashboard({ data }) {
                             alt='avatar'
                         />
                     </Tooltip>
+                    {/* END OF Avatar user and actions inside */}
 
                 </div>
             </Col>
+            {/*END OF Actions  */}
+
         </Row >
 
     </header >

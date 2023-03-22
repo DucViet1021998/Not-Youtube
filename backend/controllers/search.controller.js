@@ -2,11 +2,14 @@ const SongModel = require('../Models/song.model')
 
 
 module.exports = {
+
+    // [Post METHOD]  
+    // Search keywords from DB
     async search(req, res) {
         const search = req.body.search.toLowerCase();
 
         try {
-            // Find all song results from Database
+            // Find all keyword song results from DB
             const song = await SongModel.aggregate([
                 [
                     {
@@ -67,13 +70,6 @@ module.exports = {
                 return newArr
             }
             const result = filterItems(keywords, search);
-
-            if (result.length > 10) {
-                result.sort(() => (Math.random() > 0.5 ? 1 : -1));
-                const tenResult = result.splice(0, 10);
-                return res.send(unique(tenResult));
-            }
-
             res.send(unique(result))
 
         } catch (error) {
@@ -82,7 +78,8 @@ module.exports = {
         }
     },
 
-
+    // [GET METHOD]  
+    // Read keywords from DB
     async searchText(req, res) {
         const search = req.params.searchText;
         try {

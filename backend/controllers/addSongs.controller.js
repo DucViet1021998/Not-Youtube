@@ -9,6 +9,9 @@ const numberFormat = new Intl.NumberFormat("en-US");
 const getNumberText = require('../helpers/getNumberText')
 
 module.exports = {
+
+    // [Post METHOD]  
+    // Add new video in database
     async addSongs(req, res) {
         try {
             const video_url = req.body.video_url;
@@ -22,6 +25,7 @@ module.exports = {
                 await ytdl.getInfo(video_url).then(async (info) => {
 
                     const findUrl = await SongModel.findOne({ video_url: video_url });
+
                     // Check URL exists in Database
                     if (!findUrl) {
                         // Add Song and Save to Database
@@ -60,10 +64,14 @@ module.exports = {
         }
     },
 
+
+    // [Post METHOD]  
+    // Add new video in user playlist
     async addAlbumUser(req, res) {
         try {
-            // lấy data từ client
-            const video_url = req.headers.video_url;
+
+            // Get request from client
+            const video_url = req.body.video_url;
             const userId = req.user._id;
 
             // Check User in DB
@@ -74,7 +82,6 @@ module.exports = {
                 res.sendStatus(406)
 
             } else {
-
                 // Check URL Video in data
                 const video = await SongModel.findOne({ video_url: video_url }).lean();
 
@@ -114,11 +121,11 @@ module.exports = {
                 }
                 else {
                     if (user.songs.includes(video._id))
-                        return res.sendStatus(402);
+                        return res.sendStatus(400);
                     else {
                         user.songs.unshift(video._id);
                         user.save();
-                        return res.sendStatus(201)
+                        return res.sendStatus(200)
                     }
                 }
             }

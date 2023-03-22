@@ -25,7 +25,7 @@ const WatchLayout = ({ children }) => {
 
                 <Content
                     style={{
-                        margin: '0 16px',
+                        margin: '0 10px',
                         overflow: 'auto',
                     }}
                 >
@@ -34,7 +34,7 @@ const WatchLayout = ({ children }) => {
                         style={{
                             color: colorText,
                             minHeight: "100vh",
-                            padding: 24,
+                            padding: 10,
                             background: colorBgContainer,
                         }}
                     >

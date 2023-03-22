@@ -3,9 +3,7 @@ const lightTheme = {
     colorBgBase: "#ffff",
     colorHeader: '#f5f5f5',
     boxShadowForm: "0 0 30px rgba(#000000, .1)",
-
     colorTextLightSolid: 'white',
-
     colorPrimary: '#00000',
     colorInfo: '#333',
     colorPrimaryBg: '#f5f5f5',
@@ -18,8 +16,6 @@ const lightTheme = {
     colorBgDBBtnEmpty: '#fe2c55',
     colorTextSearch: '#3333',
     colorBgNotifications: 'white',
-
-
 }
 
 const darkTheme = {
@@ -29,8 +25,6 @@ const darkTheme = {
     boxShadowForm: "#000",
     colorBgLoginForm: '#272626',
     colorPrimaryBg: '#272626',
-
-
     colorInfo: '#ffff',
     colorBorder: '#ffff',
     colorPrimary: '#ffff',

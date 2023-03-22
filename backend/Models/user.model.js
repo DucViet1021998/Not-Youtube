@@ -9,6 +9,7 @@ const UserSchema = new Schema({
     refreshToken: mongoose.Schema.Types.String,
     avatar: mongoose.Schema.Types.String,
     role: mongoose.Schema.Types.String,
+    check: mongoose.Schema.Types.Boolean,
     songs: [{ type: mongoose.ObjectId, ref: 'songs' }],
 },
     {

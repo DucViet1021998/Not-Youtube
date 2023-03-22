@@ -1,23 +1,18 @@
-import { useState, useEffect, useContext } from "react";
-import { Row, Avatar } from 'antd';
+import { useState, useEffect } from "react";
+import { Row } from 'antd';
+
 import { useParams } from "react-router-dom";
 import classNames from 'classnames/bind';
 import request from "~/utils/request";
-import { Store } from '~/store/store';
+
 import styles from './Comments.module.scss';
-import dayjs from 'dayjs'
-
-import { v4 as id } from 'uuid';
-
-const uuid = id()
+import CommentUser from "./CommentUser";
 
 const cx = classNames.bind(styles);
-
 
 function Comments() {
     const [comments, setComments] = useState([])
     const routeParams = useParams();
-    const store = useContext(Store)
 
 
     useEffect(() => {
@@ -32,30 +27,18 @@ function Comments() {
             }
         }
         Cmt()
-    }, [routeParams.songId, store.badge])
+    }, [routeParams.songId])
 
     return (
         <div className={cx("container")}>
             {comments.map((cmt, i) => (
-                <Row key={cmt.users[0]._id}>
-
-                    <div key={cmt._id} className={cx("container-cmt")}>
-                        <Avatar key={i} src={cmt.users[0].avatar} />
-                        <div key={i} className={cx("cmt")}>
-                            <span key={i} className={cx("username")}>@{cmt.users[0].username}</span>
-                            <span key={uuid} className={cx("time")}>{dayjs(cmt.createdAt).format('D MMMM, YYYY')}</span>
-                            <div key={i} >{cmt.comment}</div>
-                        </div>
-
-                    </div>
-
+                <Row key={i}>
+                    <CommentUser data={cmt} />
                 </Row>
 
             ))}
         </div>
     )
-
-
 
 }
 
