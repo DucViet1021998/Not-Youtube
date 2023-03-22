@@ -1,3 +1,4 @@
+
 <h1>Introduction<h1/>
 <h3 align="left">This is Youtube Clone project with: <h3/>
     
@@ -18,7 +19,7 @@
 <h2>Features<h2/>
  
 <p>
- <li> $\textcolor{red}{No\ ads\ when\ watching\ videos}$
+<li> No ads when watching video
   <li>Responsive
   <li>Dark mode
   <li>Register, sign in, sign out
@@ -32,3 +33,26 @@
   <li>(Admin page) delete user and songs
   <li>...
 </p>
+
+<h1>Pages<h1/>
+    <li>Home page
+      <hr/>
+      <img src='https://i.imgur.com/CWWuDhD.png' alt="Homepage"/>
+      <li>Watch page
+      <hr/>
+      <img src='https://i.imgur.com/mwhFLXi.png' alt="Watch page"/>
+      <li>Login page
+      <hr/>
+      <img src='https://i.imgur.com/5kEyjKW.png' alt="Login page"/>
+      <li>Register page
+      <hr/>
+      <img src='https://i.imgur.com/VA4pC4A.png' alt="Register page"/>
+      <li>Trending page
+      <hr/>
+      <img src='https://i.imgur.com/5rgcka1.png' alt="Trending page"/>
+      <li>Dashboard page
+      <hr/>
+      <img src='https://i.imgur.com/CYk1UGp.png' alt="Dashboard page"/>
+        <li>Admin page
+      <hr/>
+      <img src='https://i.imgur.com/pHCX6Zc.png' alt="Admin page"/>
