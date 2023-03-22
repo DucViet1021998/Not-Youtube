@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const request = axios.create({
-    baseURL: 'http://localhost:3023/'
+    baseURL: 'https://not-youtube-server.vercel.app/'
 })
 
 let retry = 0
