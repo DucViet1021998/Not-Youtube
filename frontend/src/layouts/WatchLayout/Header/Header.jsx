@@ -153,7 +153,7 @@ function Header() {
 
 
                 {/* Search Video Youtube in Database */}
-                <Col span={8}>
+                <Col xs={0} sm={8}>
                     <Form
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}

@@ -24,7 +24,7 @@ function VideoCard({ data }) {
         <Card
             onClick={handleClick}
             className={cx('card')}
-            cover={<LazyLoadImage style={{ borderRadius: '10px' }} src={data.thumbnail_url} alt={data.title} />}
+            cover={<LazyLoadImage style={{ minWidth: '210px', borderRadius: '10px' }} src={data.thumbnail_url} alt={data.title} />}
         >
 
             <Meta

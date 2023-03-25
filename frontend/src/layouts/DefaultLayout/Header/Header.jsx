@@ -151,7 +151,7 @@ function Header() {
 
 
                 {/* Search Video Youtube in Database */}
-                <Col span={8}>
+                <Col xs={0} sm={8}>
                     <Form
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
@@ -176,7 +176,6 @@ function Header() {
                                         spellCheck={false}
                                         bordered={false}
                                         placeholder="Search videos"
-
                                     />
 
                                     <Button className={cx('search-btn')} htmlType="submit" >
@@ -191,7 +190,7 @@ function Header() {
 
 
                 {/* Actions */}
-                <Col xs={3} sm={5}  >
+                <Col xs={2} sm={5}  >
                     <div className={cx('actions')}>
 
                         <Tooltip

@@ -64,7 +64,9 @@ function Admin() {
             </Row>
             <Row gutter={[16, 16]}>
                 <Col span={12}>
-                    <Table size="small" dataSource={dataUsers} >
+                    <Table size="small"
+                        pagination={{ defaultPageSize: '5' }}
+                        dataSource={dataUsers} >
                         <Column
                             width='57px'
                             align='center' title="Avatar" dataIndex="avatar" key="avatar"
@@ -74,10 +76,7 @@ function Admin() {
                                 </>
                             )}
                         />
-                        <Column
-                            width='55px'
-
-                            align='center' title="User" dataIndex="username" key="username" />
+                        <Column align='center' title="User" dataIndex="username" key="username" />
                         <Column align='center' title="Total Songs" dataIndex="songs" key="songs"
                             render={(song) => (
                                 <h2 key={song}>{song.length}</h2>
