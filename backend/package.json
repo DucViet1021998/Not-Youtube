@@ -27,6 +27,6 @@
     "multer-storage-imgur": "^1.0.4",
     "nodemon": "^2.0.20",
     "youtube-metadata-from-url": "^1.0.3",
-    "ytdl-core": "^4.11.2"
+    "ytdl-core": "^4.11.3"
   }
 }

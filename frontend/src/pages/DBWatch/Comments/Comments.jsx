@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Row } from 'antd';
 
 import { useParams } from "react-router-dom";
@@ -7,13 +7,14 @@ import request from "~/utils/request";
 
 import styles from './Comments.module.scss';
 import CommentUser from "./CommentUser";
+import { Store } from '~/store/store';
 
 const cx = classNames.bind(styles);
 
 function Comments() {
     const [comments, setComments] = useState([])
     const routeParams = useParams();
-
+    const store = useContext(Store)
 
     useEffect(() => {
         async function Cmt() {
@@ -27,7 +28,7 @@ function Comments() {
             }
         }
         Cmt()
-    }, [routeParams.songId])
+    }, [routeParams.songId, store.store.badge])
 
     return (
         <div className={cx("container")}>

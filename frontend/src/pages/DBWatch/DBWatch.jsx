@@ -179,11 +179,7 @@ function DBWatch() {
 
                 </Col>
 
-                <Col
-                    style={{
-                        // overflow: 'auto',
-                        minHeight: '100vh',
-                    }}
+                <Col style={{ minHeight: '100vh' }}
                     lg={6} sm={0} xs={0}>
                     {miniVideo.map((vid) => (
                         <Row key={vid._id}>
